@@ -52,6 +52,12 @@ h2 { margin: 5px 0 0; font-weight: normal; color: #ddd; }
     padding: 10px 18px;
 }
 
+.search-container {
+    display: flex;
+    justify-content: center;
+    padding: 10px 18px;
+}
+
 .search-container input {
     width: 60%;
     padding: 10px;
@@ -148,6 +154,26 @@ button {
     cursor: pointer;
     background: linear-gradient(90deg, #ff2d2d, #7a5cff);
 }
+    @keyframes popIn {
+    from {
+        transform: translateY(6px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.card {
+    animation: popIn 0.25s ease;
+}
+
+.card.active {
+    border-color: rgba(122, 92, 255, 0.8);
+    box-shadow: 0 0 12px rgba(122, 92, 255, 0.35);
+    background: #1b1b1b;
+}
 </style>
 </head>
 
@@ -160,7 +186,8 @@ button {
 <div class="search-container">
     <input id="search" placeholder="Search levels..." onkeyup="render()">
 </div>
-    <div class="stats">
+
+<div class="stats">
 
     <div class="stat">
         <span>Levels</span>
@@ -184,6 +211,19 @@ button {
 
 </div>
 
+    </div>
+
+<div class="sort-container">
+    <select id="sort" onchange="render()">
+        <option value="rank">Sort: Rank</option>
+        <option value="high">Highest Score</option>
+        <option value="low">Lowest Score</option>
+        <option value="name">Name (A-Z)</option>
+    </select>
+</div>
+
+<div class="container">
+
 <div class="container">
 
 
@@ -202,7 +242,7 @@ button {
 /* =========================
    DATA (CLEAN + ISOLATED)
    ========================= */
-
+let selectedCard = null;
 const levels = [
 
 {
@@ -452,10 +492,42 @@ function getVideo(l){
 /* =========================
    RENDER
    ========================= */
-
+function updateStats(filtered){
 const list = document.getElementById("list");
 const panel = document.getElementById("panel");
 function getFilteredLevels(){
+    const count = filtered.length;
+
+    const highest = Math.max(...filtered.map(l => l.s));
+    const lowest = Math.min(...filtered.map(l => l.s));
+    const avg = Math.round(
+        filtered.reduce((a, b) => a + b.s, 0) / filtered.length
+    );
+
+    const stats = document.querySelector(".stats");
+
+    stats.innerHTML = `
+        <div class="stat">
+            <span>Levels</span>
+            <strong>${count}</strong>
+        </div>
+
+        <div class="stat">
+            <span>Highest</span>
+            <strong>${highest}</strong>
+        </div>
+
+        <div class="stat">
+            <span>Lowest</span>
+            <strong>${lowest}</strong>
+        </div>
+
+        <div class="stat">
+            <span>Average</span>
+            <strong>${avg}</strong>
+        </div>
+    `;
+}
     const q = document.getElementById("search")?.value?.toLowerCase() || "";
     return levels.filter(l =>
         l.n.toLowerCase().includes(q) ||
@@ -465,7 +537,22 @@ function getFilteredLevels(){
 function render(){
     list.innerHTML = "";
 
-    getFilteredLevels().forEach(l=>{
+  let filtered = getFilteredLevels();
+
+const sortType = document.getElementById("sort")?.value;
+
+if (sortType === "low") {
+    filtered.sort((a, b) => a.s - b.s);
+} 
+else if (sortType === "name") {
+    filtered.sort((a, b) => a.n.localeCompare(b.n));
+}
+else {
+    filtered.sort((a, b) => a.r - b.r);
+}
+updateStats(filtered);
+
+filtered.forEach(l=>{
         const card = document.createElement("div");
         card.className = "card";
 
@@ -480,14 +567,9 @@ function render(){
         card.onclick = () => {
             panel.innerHTML = `
                 <h3>#${l.r} ${l.n}</h3>
-
                 <div class="desc">${l.d}</div>
 
-                ${
-                    l.videoId
-                    ? `<img src="${getThumb(l)}">`
-                    : `<iframe height="200" src="https://www.youtube.com/embed?listType=search&list=${encodeURIComponent(l.videoSearch)}" frameborder="0"></iframe>`
-                }
+                <img src="${getThumb(l)}">
 
                 <button onclick="window.open('${getVideo(l)}','_blank')">
                     ▶ Watch Video
