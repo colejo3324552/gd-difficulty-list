@@ -1,127 +1,238 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>The Extreme Demon Index</title>
+<meta charset="UTF-8">
+<title>The Extreme Demon Index</title>
 
-    <style>
-        body {
-            background-color: #0f0f0f;
-            color: white;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 40px;
-        }
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: radial-gradient(circle at top, #1a1a1a, #0a0a0a 70%);
+        color: white;
+    }
 
-        h1 {
-            text-align: center;
-            color: #ff4d4d;
-            font-size: 52px;
-            margin-bottom: 5px;
-        }
+    header {
+        text-align: center;
+        padding: 30px 20px 10px;
+    }
 
-        h2 {
-            text-align: center;
-            color: #9e9e9e;
-            font-weight: normal;
-            margin-top: 0;
-            margin-bottom: 40px;
-        }
+    h1 {
+        font-size: 54px;
+        margin: 0;
+        color: #ff4d4d;
+        text-shadow: 0 0 20px rgba(255,77,77,0.4);
+    }
 
-        table {
-            width: 100%;
-            max-width: 1200px;
-            margin: auto;
-            border-collapse: collapse;
-            background-color: #1a1a1a;
-            overflow: hidden;
-            border-radius: 10px;
-        }
+    h2 {
+        margin-top: 10px;
+        font-weight: normal;
+        color: #aaa;
+    }
 
-        th {
-            background-color: #ff4d4d;
-            color: white;
-            padding: 15px;
-            font-size: 18px;
-        }
+    #search {
+        margin: 20px auto;
+        display: block;
+        padding: 10px 15px;
+        width: 60%;
+        max-width: 500px;
+        border-radius: 10px;
+        border: none;
+        outline: none;
+        background: #1e1e1e;
+        color: white;
+    }
 
-        td {
-            padding: 14px;
-            border-bottom: 1px solid #333;
-        }
+    .container {
+        display: flex;
+        gap: 20px;
+        padding: 20px 40px 40px;
+        max-width: 1400px;
+        margin: auto;
+    }
 
-        tr:hover {
-            background-color: #252525;
-        }
+    table {
+        width: 70%;
+        border-collapse: collapse;
+        background: rgba(25,25,25,0.9);
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 0 25px rgba(0,0,0,0.5);
+    }
 
-        .rank {
-            text-align: center;
-            font-weight: bold;
-            width: 90px;
-        }
+    th {
+        background: #ff4d4d;
+        padding: 14px;
+        text-align: left;
+        font-size: 16px;
+    }
 
-        .creator {
-            color: #bfbfbf;
-        }
+    td {
+        padding: 12px;
+        border-bottom: 1px solid #333;
+        transition: 0.2s;
+    }
 
-        .score {
-            text-align: center;
-            color: #ffb84d;
-            font-weight: bold;
-            width: 100px;
-        }
+    tr:hover {
+        background: #2a2a2a;
+        cursor: pointer;
+    }
 
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            color: #666;
-        }
-    </style>
+    .rank {
+        width: 70px;
+        text-align: center;
+        font-weight: bold;
+        color: #ffb84d;
+    }
+
+    .creator {
+        color: #bbb;
+    }
+
+    .score {
+        color: #ffdf6b;
+        font-weight: bold;
+        text-align: center;
+        width: 90px;
+    }
+
+    .sidebar {
+        width: 30%;
+        background: rgba(20,20,20,0.95);
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 0 25px rgba(255,77,77,0.1);
+        position: sticky;
+        top: 20px;
+        height: fit-content;
+    }
+
+    .sidebar h3 {
+        color: #ff4d4d;
+        margin-top: 0;
+    }
+
+    .tag {
+        display: inline-block;
+        padding: 4px 8px;
+        margin-top: 5px;
+        background: #2a2a2a;
+        border-radius: 6px;
+        font-size: 12px;
+        color: #aaa;
+    }
+
+    footer {
+        text-align: center;
+        color: #666;
+        padding: 30px;
+    }
+</style>
 </head>
 
 <body>
 
-<h1>The Extreme Demon Index</h1>
-<h2>Top 25 Hardest Geometry Dash Levels</h2>
+<header>
+    <h1>The Extreme Demon Index</h1>
+    <h2>Top 25 Hardest Geometry Dash Levels</h2>
+</header>
 
-<table>
-    <tr>
-        <th>Rank</th>
-        <th>Level</th>
-        <th>Creator</th>
-        <th>Score</th>
-    </tr>
+<input id="search" placeholder="Search levels..." oninput="filterTable()">
 
-    <tr><td class="rank">#1</td><td>Flamewall</td><td class="creator">Narwall</td><td class="score">983</td></tr>
-    <tr><td class="rank">#2</td><td>Amethyst</td><td class="creator">iMist</td><td class="score">980</td></tr>
-    <tr><td class="rank">#3</td><td>ORBIT</td><td class="creator">MindCap</td><td class="score">967</td></tr>
-    <tr><td class="rank">#4</td><td>Thinking Space II</td><td class="creator">CairoX</td><td class="score">962</td></tr>
-    <tr><td class="rank">#5</td><td>Tidal Wave</td><td class="creator">OniLink</td><td class="score">959</td></tr>
-    <tr><td class="rank">#6</td><td>Boobawamba</td><td class="creator">Akunakunn</td><td class="score">950</td></tr>
-    <tr><td class="rank">#7</td><td>Anathema</td><td class="creator">nikroplays</td><td class="score">946</td></tr>
-    <tr><td class="rank">#8</td><td>Spectre</td><td class="creator">xander</td><td class="score">940</td></tr>
-    <tr><td class="rank">#9</td><td>Quanteuse Processing</td><td class="creator">Renn241</td><td class="score">940</td></tr>
-    <tr><td class="rank">#10</td><td>Subsuming Vortex</td><td class="creator">[TCD] Cursed</td><td class="score">939</td></tr>
-    <tr><td class="rank">#11</td><td>Penumbral</td><td class="creator">cherryteam</td><td class="score">937</td></tr>
-    <tr><td class="rank">#12</td><td>Ashley Wave Trials</td><td class="creator">oddmod</td><td class="score">936</td></tr>
-    <tr><td class="rank">#13</td><td>andromeda</td><td class="creator">Insxne97</td><td class="score">935</td></tr>
-    <tr><td class="rank">#14</td><td>Menace</td><td class="creator">Arraegen</td><td class="score">934</td></tr>
-    <tr><td class="rank">#15</td><td>Silent Clubstep</td><td class="creator">TheRealSailent</td><td class="score">934</td></tr>
-    <tr><td class="rank">#16</td><td>Kyouki</td><td class="creator">｛出見塩｝</td><td class="score">932</td></tr>
-    <tr><td class="rank">#17</td><td>Avernus</td><td class="creator">PockeWindfish</td><td class="score">932</td></tr>
-    <tr><td class="rank">#18</td><td>Nullscapes</td><td class="creator">Exen</td><td class="score">931</td></tr>
-    <tr><td class="rank">#19</td><td>Every End</td><td class="creator">MindCap</td><td class="score">929</td></tr>
-    <tr><td class="rank">#20</td><td>Abyss of Darkness</td><td class="creator">Kiba</td><td class="score">927</td></tr>
-    <tr><td class="rank">#21</td><td>Defeated Circles</td><td class="creator">GXQ</td><td class="score">925</td></tr>
-    <tr><td class="rank">#22</td><td>Tunnel of Despair</td><td class="creator">Exen</td><td class="score">922</td></tr>
-    <tr><td class="rank">#23</td><td>Acheron</td><td class="creator">ryamu</td><td class="score">922</td></tr>
-    <tr><td class="rank">#24</td><td>Subterminal Point</td><td class="creator">SyQual</td><td class="score">920</td></tr>
-    <tr><td class="rank">#25</td><td>Based After Based</td><td class="creator">Akunakunn</td><td class="score">916</td></tr>
+<div class="container">
+
+<table id="table">
+<thead>
+<tr>
+    <th>Rank</th>
+    <th>Level</th>
+    <th>Creator</th>
+    <th>Score</th>
+</tr>
+</thead>
+<tbody></tbody>
 </table>
 
+<div class="sidebar" id="sidebar">
+    <h3>Hover a level</h3>
+    <p>Descriptions and difficulty breakdown will appear here.</p>
+</div>
+
+</div>
+
 <footer>
-    The Extreme Demon Index • Community Difficulty Rankings
+    The Extreme Demon Index • Community Difficulty Interpretation
 </footer>
+
+<script>
+const levels = [
+{r:1,n:"Flamewall",c:"Narwall",s:983,d:"Ultra-tight wave control with rapid transitions and near-constant input pressure. Known for punishing consistency."},
+{r:2,n:"Amethyst",c:"iMist",s:980,d:"Precision-heavy dual-style gameplay with sync-based timings and deceptive rhythm shifts."},
+{r:3,n:"ORBIT",c:"MindCap",s:967,d:"Orb-centric gameplay requiring frame-perfect clicks and structured memory flow."},
+{r:4,n:"Thinking Space II",c:"CairoX",s:962,d:"High-speed mixed gamemode gauntlet with dense transitions and nerve control."},
+{r:5,n:"Tidal Wave",c:"OniLink",s:959,d:"Fast wave spam with extreme consistency demands and tight corridors."},
+{r:6,n:"Boobawamba",c:"Akunakunn",s:950,d:"Chaotic rhythm shifts and unconventional timings create unpredictable runs."},
+{r:7,n:"Anathema",c:"nikroplays",s:946,d:"Memory-heavy sections blended with precision platforming and sudden transitions."},
+{r:8,n:"Spectre",c:"xander",s:940,d:"Smooth but deceptive pacing with tight ship control sequences."},
+{r:9,n:"Quanteuse Processing",c:"Renn241",s:940,d:"Abstract timing structures and layered wave mechanics with heavy sync reliance."},
+{r:10,n:"Subsuming Vortex",c:"Cursed",s:939,d:"Fast vortex-style wave corridors with minimal reaction time."},
+{r:11,n:"Penumbral",c:"cherryteam",s:937,d:"Dark aesthetic level focusing on visibility control and precise input rhythm."},
+{r:12,n:"Ashley Wave Trials",c:"oddmod",s:936,d:"Wave endurance challenge emphasizing long consistency chains."},
+{r:13,n:"andromeda",c:"Insxne97",s:935,d:"Space-themed pacing with alternating speed sections and tight ship control."},
+{r:14,n:"Menace",c:"Arraegen",s:934,d:"Aggressive timing windows and fast click bursts with minimal forgiveness."},
+{r:15,n:"Silent Clubstep",c:"TheRealSailent",s:934,d:"Extreme memory and precision hybrid with infamous tight hitboxes."},
+{r:16,n:"Kyouki",c:"｛出見塩｝",s:932,d:"High-speed wave sequences requiring near-perfect consistency and stamina."},
+{r:17,n:"Avernus",c:"PockeWindfish",s:932,d:"Complex dual gameplay with rapid transitions and layered timing."},
+{r:18,n:"Nullscapes",c:"Exen",s:931,d:"Minimalist visuals hiding dense timing traps and deceptive pacing."},
+{r:19,n:"Every End",c:"MindCap",s:929,d:"Endurance-based structure with long precision sections and mental fatigue factor."},
+{r:20,n:"Abyss of Darkness",c:"Kiba",s:927,d:"Heavy wave focus with deep visual pressure and tight corridors."},
+{r:21,n:"Defeated Circles",c:"GXQ",s:925,d:"Circular motion patterns requiring rhythmic consistency and memory flow."},
+{r:22,n:"Tunnel of Despair",c:"Exen",s:922,d:"Claustrophobic wave tunnels with extreme reaction timing requirements."},
+{r:23,n:"Acheron",c:"ryamu",s:922,d:"High intensity mixed gameplay with brutal consistency checks."},
+{r:24,n:"Subterminal Point",c:"SyQual",s:920,d:"Precision endpoint routing with sudden difficulty spikes."},
+{r:25,n:"Based After Based",c:"Akunakunn",s:916,d:"Chaotic meme-styled level with surprisingly strict execution demands."}
+];
+
+const tbody = document.querySelector("#table tbody");
+const sidebar = document.getElementById("sidebar");
+
+function renderTable(data){
+    tbody.innerHTML = "";
+    data.forEach(l=>{
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td class="rank">#${l.r}</td>
+            <td>${l.n}</td>
+            <td class="creator">${l.c}</td>
+            <td class="score">${l.s}</td>
+        `;
+
+        row.onmouseenter = () => {
+            sidebar.innerHTML = `
+                <h3>#${l.r} ${l.n}</h3>
+                <span class="tag">Creator: ${l.c}</span>
+                <span class="tag">Score: ${l.s}</span>
+                <p style="margin-top:15px; color:#ccc; line-height:1.5;">
+                    ${l.d}
+                </p>
+            `;
+        };
+
+        tbody.appendChild(row);
+    });
+}
+
+function filterTable(){
+    const q = document.getElementById("search").value.toLowerCase();
+    const filtered = levels.filter(l =>
+        l.n.toLowerCase().includes(q) ||
+        l.c.toLowerCase().includes(q)
+    );
+    renderTable(filtered);
+}
+
+renderTable(levels);
+</script>
 
 </body>
 </html>
