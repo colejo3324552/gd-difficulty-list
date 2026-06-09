@@ -30,11 +30,81 @@ header {
 h1 { margin: 0; font-size: 40px; }
 h2 { margin: 5px 0 0; font-weight: normal; color: #ddd; }
 
+/* UTILITY BAR (Search & Sort Side-by-Side) */
+.utility-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 18px 5px 18px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.search-container {
+    flex: 2;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.search-container input {
+    width: 100%;
+    max-width: 400px;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    background: #1b1b1b;
+    color: white;
+    font-size: 14px;
+}
+
+.sort-container {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.sort-container select {
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: #1b1b1b;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    outline: none;
+}
+
+/* STATS */
+.stats {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    padding: 15px 18px;
+}
+
+.stat {
+    background: #151515;
+    padding: 10px 14px;
+    border-radius: 10px;
+    text-align: center;
+    min-width: 80px;
+}
+
+.stat span {
+    display: block;
+    font-size: 12px;
+    color: #aaa;
+    margin-bottom: 4px;
+}
+    
 /* LAYOUT */
 .container {
     display: flex;
     gap: 18px;
     padding: 18px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 /* LIST */
@@ -45,34 +115,6 @@ h2 { margin: 5px 0 0; font-weight: normal; color: #ddd; }
     gap: 10px;
 }
 
-.search-container {
-    display: flex;
-    justify-content: center;
-    padding: 10px 18px;
-}
-
-.search-container input {
-    width: 60%;
-    padding: 10px;
-    border-radius: 10px;
-    border: none;
-    background: #1b1b1b;
-    color: white;
-}
-
-.stats {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    padding: 10px 18px;
-}
-
-.stat {
-    background: #151515;
-    padding: 10px 14px;
-    border-radius: 10px;
-}
-    
 /* CARD */
 .card {
     display: flex;
@@ -122,6 +164,7 @@ h2 { margin: 5px 0 0; font-weight: normal; color: #ddd; }
     border-radius: 14px;
     padding: 14px;
     border: 1px solid rgba(255,255,255,0.05);
+    height: fit-content;
 }
 
 .panel img, iframe {
@@ -178,8 +221,18 @@ button {
     <h2>The Geometry Dash Difficulty List</h2>
 </header>
 
-<div class="search-container">
-    <input id="search" placeholder="Search levels..." onkeyup="render()">
+<div class="utility-bar">
+    <div class="search-container">
+        <input id="search" placeholder="Search levels..." onkeyup="render()">
+    </div>
+    <div class="sort-container">
+        <select id="sort" onchange="render()">
+            <option value="default">Sort: List Order (#1 - #25)</option>
+            <option value="low-score">Lowest Score</option>
+            <option value="top1-time">Most Time at Top 1</option>
+            <option value="alphabetical">Name (A-Z)</option>
+        </select>
+    </div>
 </div>
 
 <div class="stats" id="stats-container">
@@ -212,35 +265,35 @@ button {
 
 <script>
 /* =========================
-   DATA (CLEAN + ISOLATED)
+   DATA WITH HISTORICAL METRICS
    ========================= */
 let selectedCard = null;
 const levels = [
-    { r:1, n:"Flamewall", c:"Narwall", s:983, videoId:"gwNYGFmo_WY", d:"Long endurance extreme with nonstop transitions and tight control." },
-    { r:2, n:"Amethyst", c:"iMist", s:980, videoId:"OqGuNBi3_SU", d:"Precision-heavy gameplay with strict timing windows." },
-    { r:3, n:"ORBIT", c:"MindCap", s:967, videoId:"9oHv_cK84WI", d:"Orb chains where one mistake collapses the run instantly." },
-    { r:4, n:"Thinking Space II", c:"CairoX", s:962, videoId:"F05aMR0F6YM", d:"Fast transitions between gameplay modes." },
-    { r:5, n:"Tidal Wave", c:"OniLink", s:959, videoId:"frjtBcNI6dI", d:"Extreme wave control over long punishing sections." },
-    { r:6, n:"Boobawamba", c:"Akunakun", s:950, videoId:"TAPij318cjE", d:"A memory-focused extreme where learning routes and hidden interactions is just as important as execution." },
-    { r:7, n:"Anathema", c:"nikroplays", s:946, videoId:"4iOtRLKKbvU", d:"A difficult extreme built around relentless transitions, difficult timings, and constant gameplay changes." },
-    { r:8, n:"Spectre", c:"xander", s:940, videoId:"T7FfTiH1G8k", d:"Precision-heavy gameplay with demanding control and difficult late-attempt consistency." },
-    { r:9, n:"Quanteuse Processing", c:"Renn241", s:940, videoId:"sRUO72zI2GQ", d:"Technical gameplay with awkward timings, unconventional patterns, and difficult transitions." },
-    { r:10, n:"Subsuming Vortex", c:"[TCD] Cursed", s:939, videoId:"3dKj12cQSII", d:"Fast-paced precision gameplay centered around difficult wave control and consistency." },
-    { r:11, n:"Penumbral", c:"cherryteam", s:937, videoId:"wcnA-6zp_94", d:"A modern extreme focused on raw skill, difficult cube and wave sections, and a huge amount of precise timings." },
-    { r:12, n:"Ashley Wave Trials", c:"oddmod", s:936, videoId:"aTxt76U3e2Q", d:"A wave-focused extreme that demands consistency and control through long, difficult sections." },
-    { r:13, n:"andromeda", c:"Insxne97", s:935, videoId:"fFtQxxepyDo", d:"Fast-paced gameplay with difficult transitions and constant pressure throughout the level." },
-    { r:14, n:"Menace", c:"Arraegen", s:934, videoId:"yvfq83hhwgI", d:"A demanding extreme with difficult timings, fast gameplay, and punishing late sections." },
-    { r:15, n:"Silent Clubstep", c:"TheRealSailent", s:934, videoId:"GR4OMkS3SN8", d:"The legendary impossible-level remake, now beaten, known for its brutally precise gameplay." },
-    { r:16, n:"Kyouki", c:"｛出見塩｝", s:932, videoId:"O_abYBtVgGU", d:"A high-speed extreme that demands exceptional consistency, especially through its difficult wave and ship sections." },
-    { r:17, n:"Avernus", c:"PockeWindfish", s:932, videoId:"16Zh8jssanc", d:"Known for its infamous fixed-hitbox gameplay and brutally precise wave sections." },
-    { r:18, n:"Nullscapes", c:"Exen", s:931, videoId:"C-KDhWkXlvI", d:"A dark-themed extreme featuring tight timings, difficult transitions, and relentless pressure." },
-    { r:19, n:"Every End", c:"MindCap", s:929, videoId:"f-O_TnxIZBA", d:"A long endurance test requiring consistency across a wide variety of difficult gameplay styles." },
-    { r:20, n:"Abyss of Darkness", c:"Kiba", s:927, videoId:"zjJCqqV2410", d:"One of Geometry Dash's most notorious extremes, packed with difficult timings and unforgiving precision." },
-    { r:21, n:"Defeated Circles", c:"GXQ", s:925, videoId:"R8BMscOkTrA", d:"A modern Circles level built around difficult wave gameplay, tight corridors, and high precision." },
-    { r:22, n:"Tunnel of Despair", c:"Exen", s:922, videoId:"0GC5og7gVS0", d:"A claustrophobic extreme featuring narrow spaces, difficult transitions, and sustained precision." },
-    { r:23, n:"Acheron", c:"ryamu", s:922, videoId:"oh0FyZHZST8", d:"A former #1 extreme demon known for its brutal timings, demanding wave control, and punishing difficulty throughout." },
-    { r:24, n:"Subterminal Point", c:"SyQual", s:920, videoId:"Syh4W449IS4", d:"A technical extreme with difficult transitions and gameplay that heavily rewards consistency." },
-    { r:25, n:"Based After Based", c:"Akunakun", s:916, videoId:"_T1xofG2zqo", d:"A difficult modern extreme featuring unconventional gameplay and demanding execution." }
+    { r:1, n:"Flamewall", c:"Narwall", s:983, videoId:"gwNYGFmo_WY", d:"Long endurance extreme with nonstop transitions and tight control.", timeAtTop1: 0 },
+    { r:2, n:"Amethyst", c:"iMist", s:980, videoId:"OqGuNBi3_SU", d:"Precision-heavy gameplay with strict timing windows.", timeAtTop1: 0 },
+    { r:3, n:"ORBIT", c:"MindCap", s:967, videoId:"9oHv_cK84WI", d:"Orb chains where one mistake collapses the run instantly.", timeAtTop1: 0 },
+    { r:4, n:"Thinking Space II", c:"CairoX", s:962, videoId:"F05aMR0F6YM", d:"Fast transitions between gameplay modes.", timeAtTop1: 0 },
+    { r:5, n:"Tidal Wave", c:"OniLink", s:959, videoId:"frjtBcNI6dI", d:"Extreme wave control over long punishing sections.", timeAtTop1: 240 }, // Days at #1
+    { r:6, n:"Boobawamba", c:"Akunakun", s:950, videoId:"TAPij318cjE", d:"A memory-focused extreme where learning routes and hidden interactions is just as important as execution.", timeAtTop1: 0 },
+    { r:7, n:"Anathema", c:"nikroplays", s:946, videoId:"4iOtRLKKbvU", d:"A difficult extreme built around relentless transitions, difficult timings, and constant gameplay changes.", timeAtTop1: 0 },
+    { r:8, n:"Spectre", c:"xander", s:940, videoId:"T7FfTiH1G8k", d:"Precision-heavy gameplay with demanding control and difficult late-attempt consistency.", timeAtTop1: 0 },
+    { r:9, n:"Quanteuse Processing", c:"Renn241", s:940, videoId:"sRUO72zI2GQ", d:"Technical gameplay with awkward timings, unconventional patterns, and difficult transitions.", timeAtTop1: 0 },
+    { r:10, n:"Subsuming Vortex", c:"[TCD] Cursed", s:939, videoId:"3dKj12cQSII", d:"Fast-paced precision gameplay centered around difficult wave control and consistency.", timeAtTop1: 0 },
+    { r:11, n:"Penumbral", c:"cherryteam", s:937, videoId:"wcnA-6zp_94", d:"A modern extreme focused on raw skill, difficult cube and wave sections, and a huge amount of precise timings.", timeAtTop1: 0 },
+    { r:12, n:"Ashley Wave Trials", c:"oddmod", s:936, videoId:"aTxt76U3e2Q", d:"A wave-focused extreme that demands consistency and control through long, difficult sections.", timeAtTop1: 0 },
+    { r:13, n:"andromeda", c:"Insxne97", s:935, videoId:"fFtQxxepyDo", d:"Fast-paced gameplay with difficult transitions and constant pressure throughout the level.", timeAtTop1: 0 },
+    { r:14, n:"Menace", c:"Arraegen", s:934, videoId:"yvfq83hhwgI", d:"A demanding extreme with difficult timings, fast gameplay, and punishing late sections.", timeAtTop1: 0 },
+    { r:15, n:"Silent Clubstep", c:"TheRealSailent", s:934, videoId:"GR4OMkS3SN8", d:"The legendary impossible-level remake, now beaten, known for its brutally precise gameplay.", timeAtTop1: 0 },
+    { r:16, n:"Kyouki", c:"｛出見塩｝", s:932, videoId:"O_abYBtVgGU", d:"A high-speed extreme that demands exceptional consistency, especially through its difficult wave and ship sections.", timeAtTop1: 0 },
+    { r:17, n:"Avernus", c:"PockeWindfish", s:932, videoId:"16Zh8jssanc", d:"Known for its infamous fixed-hitbox gameplay and brutally precise wave sections.", timeAtTop1: 120 },
+    { r:18, n:"Nullscapes", c:"Exen", s:931, videoId:"C-KDhWkXlvI", d:"A dark-themed extreme featuring tight timings, difficult transitions, and relentless pressure.", timeAtTop1: 0 },
+    { r:19, n:"Every End", c:"MindCap", s:929, videoId:"f-O_TnxIZBA", d:"A long endurance test requiring consistency across a wide variety of difficult gameplay styles.", timeAtTop1: 0 },
+    { r:20, n:"Abyss of Darkness", c:"Kiba", s:927, videoId:"zjJCqqV2410", d:"One of Geometry Dash's most notorious extremes, packed with difficult timings and unforgiving precision.", timeAtTop1: 70 },
+    { r:21, n:"Defeated Circles", c:"GXQ", s:925, videoId:"R8BMscOkTrA", d:"A modern Circles level built around difficult wave gameplay, tight corridors, and high precision.", timeAtTop1: 0 },
+    { r:22, n:"Tunnel of Despair", c:"Exen", s:922, videoId:"0GC5og7gVS0", d:"A claustrophobic extreme featuring narrow spaces, difficult transitions, and sustained precision.", timeAtTop1: 0 },
+    { r:23, n:"Acheron", c:"ryamu", s:922, videoId:"oh0FyZHZST8", d:"A former #1 extreme demon known for its brutal timings, demanding wave control, and punishing difficulty throughout.", timeAtTop1: 520 },
+    { r:24, n:"Subterminal Point", c:"SyQual", s:920, videoId:"Syh4W449IS4", d:"A technical extreme with difficult transitions and gameplay that heavily rewards consistency.", timeAtTop1: 0 },
+    { r:25, n:"Based After Based", c:"Akunakun", s:916, videoId:"_T1xofG2zqo", d:"A difficult modern extreme featuring unconventional gameplay and demanding execution.", timeAtTop1: 0 }
 ];
 
 /* =========================
@@ -270,7 +323,12 @@ function getFilteredLevels(){
 
 function updateStats(filtered){
     const statsContainer = document.getElementById("stats-container");
-    if (!statsContainer || filtered.length === 0) return;
+    if (!statsContainer) return;
+
+    if (filtered.length === 0) {
+        statsContainer.innerHTML = `<div class="stat" style="width:100%">No levels match criteria</div>`;
+        return;
+    }
 
     const count = filtered.length;
     const highest = Math.max(...filtered.map(l => l.s));
@@ -307,23 +365,44 @@ function render(){
     list.innerHTML = "";
     let filtered = getFilteredLevels();
     
+    // Process Sorting Choice
+    const sortType = document.getElementById("sort")?.value;
+    if (sortType === "low-score") {
+        filtered.sort((a, b) => a.s - b.s);
+    } else if (sortType === "top1-time") {
+        // Primary sort: Most days at Top 1. Secondary sort: standard rank order.
+        filtered.sort((a, b) => (b.timeAtTop1 - a.timeAtTop1) || (a.r - b.r));
+    } else if (sortType === "alphabetical") {
+        filtered.sort((a, b) => a.n.localeCompare(b.n));
+    } else {
+        // Default ranking order (#1, #2, #3...)
+        filtered.sort((a, b) => a.r - b.r);
+    }
+
     updateStats(filtered);
 
     filtered.forEach(l => {
         const card = document.createElement("div");
         card.className = "card";
 
+        // If sorting by Top 1 status, let's append a cool custom sub-tag to show it off
+        const top1Tag = (sortType === "top1-time" && l.timeAtTop1 > 0) 
+            ? `<span style="color: #ff4d4d; font-size:11px; font-weight:bold; background:rgba(255,77,77,0.1); padding:2px 6px; border-radius:4px; margin-left:8px;">🔥 ${l.timeAtTop1} Days at #1</span>` 
+            : '';
+
         card.innerHTML = `
             <img class="thumb" src="${getThumb(l)}">
             <div class="info">
-                <div class="name">#${l.r} ${l.n}</div>
+                <div class="name">#${l.r} ${l.n} ${top1Tag}</div>
                 <div class="meta">${l.c} • Score ${l.s}</div>
             </div>
         `;
 
         card.onclick = () => {
+            let recordText = l.timeAtTop1 > 0 ? `<p style="color:#ff4d4d; font-size:13px; font-weight:bold;">Held the #1 Spot for: ${l.timeAtTop1} Days</p>` : '';
             panel.innerHTML = `
                 <h3>#${l.r} ${l.n}</h3>
+                ${recordText}
                 <div class="desc">${l.d}</div>
                 <img src="${getThumb(l)}">
                 <button onclick="window.open('${getVideo(l)}','_blank')">
