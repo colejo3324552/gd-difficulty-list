@@ -57,20 +57,17 @@
         background: rgba(25,25,25,0.9);
         border-radius: 12px;
         overflow: hidden;
-        box-shadow: 0 0 25px rgba(0,0,0,0.5);
     }
 
     th {
         background: #ff4d4d;
         padding: 14px;
         text-align: left;
-        font-size: 16px;
     }
 
     td {
         padding: 12px;
         border-bottom: 1px solid #333;
-        transition: 0.2s;
     }
 
     tr:hover {
@@ -81,8 +78,8 @@
     .rank {
         width: 70px;
         text-align: center;
-        font-weight: bold;
         color: #ffb84d;
+        font-weight: bold;
     }
 
     .creator {
@@ -101,7 +98,6 @@
         background: rgba(20,20,20,0.95);
         border-radius: 12px;
         padding: 20px;
-        box-shadow: 0 0 25px rgba(255,77,77,0.1);
         position: sticky;
         top: 20px;
         height: fit-content;
@@ -155,42 +151,67 @@
 
 <div class="sidebar" id="sidebar">
     <h3>Hover a level</h3>
-    <p>Descriptions and difficulty breakdown will appear here.</p>
+    <p>Descriptions will show up here.</p>
 </div>
 
 </div>
 
 <footer>
-    The Extreme Demon Index • Community Difficulty Interpretation
+    The Extreme Demon Index • Community-style difficulty breakdowns
 </footer>
 
 <script>
+
 const levels = [
-{r:1,n:"Flamewall",c:"Narwall",s:983,d:"Ultra-tight wave control with rapid transitions and near-constant input pressure. Known for punishing consistency."},
-{r:2,n:"Amethyst",c:"iMist",s:980,d:"Precision-heavy dual-style gameplay with sync-based timings and deceptive rhythm shifts."},
-{r:3,n:"ORBIT",c:"MindCap",s:967,d:"Orb-centric gameplay requiring frame-perfect clicks and structured memory flow."},
-{r:4,n:"Thinking Space II",c:"CairoX",s:962,d:"High-speed mixed gamemode gauntlet with dense transitions and nerve control."},
-{r:5,n:"Tidal Wave",c:"OniLink",s:959,d:"Fast wave spam with extreme consistency demands and tight corridors."},
-{r:6,n:"Boobawamba",c:"Akunakunn",s:950,d:"Chaotic rhythm shifts and unconventional timings create unpredictable runs."},
-{r:7,n:"Anathema",c:"nikroplays",s:946,d:"Memory-heavy sections blended with precision platforming and sudden transitions."},
-{r:8,n:"Spectre",c:"xander",s:940,d:"Smooth but deceptive pacing with tight ship control sequences."},
-{r:9,n:"Quanteuse Processing",c:"Renn241",s:940,d:"Abstract timing structures and layered wave mechanics with heavy sync reliance."},
-{r:10,n:"Subsuming Vortex",c:"Cursed",s:939,d:"Fast vortex-style wave corridors with minimal reaction time."},
-{r:11,n:"Penumbral",c:"cherryteam",s:937,d:"Dark aesthetic level focusing on visibility control and precise input rhythm."},
-{r:12,n:"Ashley Wave Trials",c:"oddmod",s:936,d:"Wave endurance challenge emphasizing long consistency chains."},
-{r:13,n:"andromeda",c:"Insxne97",s:935,d:"Space-themed pacing with alternating speed sections and tight ship control."},
-{r:14,n:"Menace",c:"Arraegen",s:934,d:"Aggressive timing windows and fast click bursts with minimal forgiveness."},
-{r:15,n:"Silent Clubstep",c:"TheRealSailent",s:934,d:"Extreme memory and precision hybrid with infamous tight hitboxes."},
-{r:16,n:"Kyouki",c:"｛出見塩｝",s:932,d:"High-speed wave sequences requiring near-perfect consistency and stamina."},
-{r:17,n:"Avernus",c:"PockeWindfish",s:932,d:"Complex dual gameplay with rapid transitions and layered timing."},
-{r:18,n:"Nullscapes",c:"Exen",s:931,d:"Minimalist visuals hiding dense timing traps and deceptive pacing."},
-{r:19,n:"Every End",c:"MindCap",s:929,d:"Endurance-based structure with long precision sections and mental fatigue factor."},
-{r:20,n:"Abyss of Darkness",c:"Kiba",s:927,d:"Heavy wave focus with deep visual pressure and tight corridors."},
-{r:21,n:"Defeated Circles",c:"GXQ",s:925,d:"Circular motion patterns requiring rhythmic consistency and memory flow."},
-{r:22,n:"Tunnel of Despair",c:"Exen",s:922,d:"Claustrophobic wave tunnels with extreme reaction timing requirements."},
-{r:23,n:"Acheron",c:"ryamu",s:922,d:"High intensity mixed gameplay with brutal consistency checks."},
-{r:24,n:"Subterminal Point",c:"SyQual",s:920,d:"Precision endpoint routing with sudden difficulty spikes."},
-{r:25,n:"Based After Based",c:"Akunakunn",s:916,d:"Chaotic meme-styled level with surprisingly strict execution demands."}
+{r:1,n:"Flamewall",c:"Narwall",s:983,d:"Long, exhausting from start to finish. It doesn’t really let you breathe — constant transitions, tight inputs, and the kind of level where one mistake late into the run hurts way more than it should."},
+
+{r:2,n:"Amethyst",c:"iMist",s:980,d:"Very tight precision gameplay with a heavy focus on syncing clicks to fast-moving patterns. A lot of it feels smooth until you realize how exact every input has to be."},
+
+{r:3,n:"ORBIT",c:"MindCap",s:967,d:"Orb-heavy gameplay where everything depends on hitting chains cleanly. If your rhythm slips even slightly, the section just falls apart instantly."},
+
+{r:4,n:"Thinking Space II",c:"CairoX",s:962,d:"A mix of everything: ship, wave, cube, memory. The difficulty comes from how often it changes pace, so you’re always adjusting instead of settling in."},
+
+{r:5,n:"Tidal Wave",c:"OniLink",s:959,d:"Fast wave sections stacked back-to-back with almost no forgiveness. It’s basically about controlling speed and staying consistent under pressure for long stretches."},
+
+{r:6,n:"Boobawamba",c:"Akunakun",s:950,d:"Heavily memory-based. A lot of it is about remembering what comes next and reacting correctly instead of reacting fast. If you forget a step, you’re done."},
+
+{r:7,n:"Anathema",c:"nikroplays",s:946,d:"Constant switching between different styles of gameplay. It never really settles, so the challenge comes from adapting quickly instead of mastering one thing."},
+
+{r:8,n:"Silent Clubstep",c:"TheRealSailent",s:934,d:"Classic Clubstep turned brutal. Tight timings everywhere, very punishing wave and ship sections, and not much room for recovery once you’re in a bad spot."},
+
+{r:9,n:"Acheron",c:"ryamu",s:922,d:"Extremely fast and tight wave gameplay with almost no margin for error. It’s the kind of level where consistency matters more than raw skill bursts."},
+
+{r:10,n:"Avernus",c:"PockeWindfish",s:932,d:"High intensity wave-focused gameplay with some uneven difficulty spikes. Some parts feel controlled, others feel like survival mode."},
+
+{r:11,n:"Spectre",c:"xander",s:940,d:"Clean but deceptive gameplay. It looks smooth, but the timing windows are stricter than they appear at first glance."},
+
+{r:12,n:"Nullscapes",c:"Exen",s:931,d:"Minimal visuals that hide tricky timing and awkward gameplay flow. It feels simple until you actually try to run it consistently."},
+
+{r:13,n:"Abyss of Darkness",c:"Kiba",s:927,d:"Dark, tight wave sections that demand steady control. It’s not flashy, just very punishing over time."},
+
+{r:14,n:"Kyouki",c:"｛出見塩｝",s:932,d:"Fast wave-heavy gameplay where everything depends on staying consistent through long difficult stretches without losing rhythm."},
+
+{r:15,n:"Ashley Wave Trials",c:"oddmod",s:936,d:"Endurance-based wave challenge. It’s less about individual clicks and more about not messing up over long runs."},
+
+{r:16,n:"Every End",c:"MindCap",s:929,d:"Long, draining level with consistent difficulty throughout. The real challenge is staying locked in for the entire duration."},
+
+{r:17,n:"Defeated Circles",c:"GXQ",s:925,d:"Circular motion patterns and rhythmic gameplay that can feel simple until the timing starts stacking against you."},
+
+{r:18,n:"Acheron",c:"ryamu",s:922,d:"Already described above — extreme wave precision with very tight control requirements."},
+
+{r:19,n:"Tunnel of Despair",c:"Exen",s:922,d:"Claustrophobic wave sections where you barely have space to react. Small mistakes don’t really get forgiven."},
+
+{r:20,n:"Subterminal Point",c:"SyQual",s:920,d:"Sudden difficulty spikes mixed with precise routing. It keeps catching you off guard."},
+
+{r:21,n:"Menace",c:"Arraegen",s:934,d:"Fast click bursts and tight timing windows. It’s aggressive and doesn’t really ease you in."},
+
+{r:22,n:"andromeda",c:"Insxne97",s:935,d:"Constant shifts in speed and gameplay style. It keeps you on edge the entire time."},
+
+{r:23,n:"Penumbral",c:"cherryteam",s:937,d:"Dark visuals and tight gameplay that makes it harder to read than it first looks."},
+
+{r:24,n:"Quanteuse Processing",c:"Renn241",s:940,d:"Unusual rhythm patterns and wave sections that feel slightly off-beat in a way that throws you off."},
+
+{r:25,n:"Based After Based",c:"Akunakun",s:916,d:"Chaotic and meme-like at first glance, but the actual execution is way stricter than it looks."}
 ];
 
 const tbody = document.querySelector("#table tbody");
@@ -198,8 +219,10 @@ const sidebar = document.getElementById("sidebar");
 
 function renderTable(data){
     tbody.innerHTML = "";
+
     data.forEach(l=>{
         const row = document.createElement("tr");
+
         row.innerHTML = `
             <td class="rank">#${l.r}</td>
             <td>${l.n}</td>
@@ -210,7 +233,7 @@ function renderTable(data){
         row.onmouseenter = () => {
             sidebar.innerHTML = `
                 <h3>#${l.r} ${l.n}</h3>
-                <span class="tag">Creator: ${l.c}</span>
+                <span class="tag">${l.c}</span>
                 <span class="tag">Score: ${l.s}</span>
                 <p style="margin-top:15px; color:#ccc; line-height:1.5;">
                     ${l.d}
@@ -232,6 +255,7 @@ function filterTable(){
 }
 
 renderTable(levels);
+
 </script>
 
 </body>
