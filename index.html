@@ -312,7 +312,7 @@ footer {
     </div>
     <div class="sort-container">
         <select id="sort" onchange="render()">
-            <option value="default">Sort: List Order (#1 - #25)</option>
+            <option value="default">Sort: List Order (#1 - #26)</option>
             <option value="low-score">Lowest Score</option>
             <option value="site-top1">Most Time at Top 1 (On This Site)</option>
             <option value="alphabetical">Name (A-Z)</option>
@@ -323,7 +323,7 @@ footer {
 <div class="stats" id="stats-container">
     <div class="stat">
         <span>Levels</span>
-        <strong>25</strong>
+        <strong>26</strong>
     </div>
     <div class="stat">
         <span>Highest</span>
@@ -331,7 +331,7 @@ footer {
     </div>
     <div class="stat">
         <span>Lowest</span>
-        <strong>916</strong>
+        <strong>915</strong>
     </div>
     <div class="stat">
         <span>Average</span>
@@ -375,15 +375,16 @@ const levels = [
     { r:14, n:"Menace", c:"Arraegen", v:"Trick", s:934, videoId:"yvfq83hhwgI", d:"A demanding extreme with difficult timings, fast gameplay, and punishing late sections.", daysAtTop1: 0 },
     { r:15, n:"Silent Clubstep", c:"TheRealSailent", v:"paqoe", s:934, videoId:"GR4OMkS3SN8", d:"The legendary impossible-level remake, now beaten, known for its brutally precise gameplay.", daysAtTop1: 0 },
     { r:16, n:"Kyouki", c:"Demishio", v:"Demishio", s:932, videoId:"O_abYBtVgGU", d:"A high-speed solo extreme that demands exceptional consistency, especially through its difficult wave and ship sections.", daysAtTop1: 0 },
-    { r:17, n:"Avernus", c:"PockeWindfish", v:"Zoink", s:932, videoId:"16Zh8jssanc", d:"Known for its infamous fixed-hitbox gameplay and brutally precise wave sections.", daysAtTop1: 0 },
-    { r:18, n:"Nullscapes", c:"Exen", v:"Zoink", s:931, videoId:"C-KDhWkXlvI", d:"A dark-themed extreme featuring tight timings, difficult transitions, and relentless pressure.", daysAtTop1: 0 },
-    { r:19, n:"Every End", c:"MindCap", v:"Hqmy", s:929, videoId:"f-O_TnxIZBA", d:"A long endurance test requiring consistency across a wide variety of difficult gameplay styles.", daysAtTop1: 0 },
-    { r:20, n:"Abyss of Darkness", c:"Kiba", v:"Cursed", s:927, videoId:"zjJCqqV2410", d:"One of Geometry Dash's most notorious extremes, packed with difficult timings and unforgiving precision.", daysAtTop1: 0 },
-    { r:21, n:"Defeated Circles", c:"GXQ", v:"Zoink", s:925, videoId:"W9BAW2l1e9o", d:"A modern Circles level built around difficult wave gameplay, tight corridors, and high precision.", daysAtTop1: 0 },
-    { r:22, n:"Tunnel of Despair", c:"Exen", v:"Zoink", s:922, videoId:"0GC5og7gVS0", d:"A claustrophobic extreme featuring narrow spaces, difficult transitions, and sustained precision.", daysAtTop1: 0 },
-    { r:23, n:"Acheron", c:"ryamu", v:"Zoink", s:922, videoId:"oh0FyZHZST8", d:"A former #1 extreme demon known for its brutal timings, demanding wave control, and punishing difficulty throughout.", daysAtTop1: 0 },
-    { r:24, n:"Subterminal Point", c:"SyQual", v:"PoCle", s:920, videoId:"Syh4W449IS4", d:"A technical extreme with difficult transitions and gameplay that heavily rewards consistency.", daysAtTop1: 0 },
-    { r:25, n:"Based After Based", c:"Akunakun", v:"DiamondSplash", s:916, videoId:"_T1xofG2zqo", d:"A difficult modern extreme featuring unconventional gameplay and demanding execution.", daysAtTop1: 0 }
+    { r:17, n:"Slaughterhouse", c:"Icedcave", v:"Doggie", s:932, videoId:"ULqLnV5Rfk0", d:"An infamous, atmospheric, and wave-heavy extreme demon. Long considered one of the hardest levels in the game, it was officially conquered by Doggie.", daysAtTop1: 0 },
+    { r:18, n:"Avernus", c:"PockeWindfish", v:"Zoink", s:931, videoId:"16Zh8jssanc", d:"Known for its infamous fixed-hitbox gameplay and brutally precise wave sections.", daysAtTop1: 0 },
+    { r:19, n:"Nullscapes", c:"Exen", v:"Zoink", s:930, videoId:"C-KDhWkXlvI", d:"A dark-themed extreme featuring tight timings, difficult transitions, and relentless pressure.", daysAtTop1: 0 },
+    { r:20, n:"Every End", c:"MindCap", v:"Hqmy", s:928, videoId:"f-O_TnxIZBA", d:"A long endurance test requiring consistency across a wide variety of difficult gameplay styles.", daysAtTop1: 0 },
+    { r:21, n:"Abyss of Darkness", c:"Kiba", v:"Cursed", s:926, videoId:"zjJCqqV2410", d:"One of Geometry Dash's most notorious extremes, packed with difficult timings and unforgiving precision.", daysAtTop1: 0 },
+    { r:22, n:"Defeated Circles", c:"GXQ", v:"Zoink", s:924, videoId:"W9BAW2l1e9o", d:"A modern Circles level built around difficult wave gameplay, tight corridors, and high precision.", daysAtTop1: 0 },
+    { r:23, n:"Tunnel of Despair", c:"Exen", v:"Zoink", s:921, videoId:"0GC5og7gVS0", d:"A claustrophobic extreme featuring narrow spaces, difficult transitions, and sustained precision.", daysAtTop1: 0 },
+    { r:24, n:"Acheron", c:"ryamu", v:"Zoink", s:921, videoId:"oh0FyZHZST8", d:"A former #1 extreme demon known for its brutal timings, demanding wave control, and punishing difficulty throughout.", daysAtTop1: 0 },
+    { r:25, n:"Subterminal Point", c:"SyQual", v:"PoCle", s:919, videoId:"Syh4W449IS4", d:"A technical extreme with difficult transitions and gameplay that heavily rewards consistency.", daysAtTop1: 0 },
+    { r:26, n:"Based After Based", c:"Akunakun", v:"DiamondSplash", s:915, videoId:"_T1xofG2zqo", d:"A difficult modern extreme featuring unconventional gameplay and demanding execution.", daysAtTop1: 0 }
 ];
 
 /* ========================================================
@@ -549,5 +550,4 @@ render();
 </script>
 
 </body>
-</html>
 </html>
