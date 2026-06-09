@@ -25,22 +25,22 @@ body {
 
 /* HEADER */
 header {
-    padding: 22px;
+    padding: 35px 22px;
     text-align: center;
     background: linear-gradient(90deg, #ff2d2d, #7a5cff);
 }
 
-h1 { margin: 0; font-size: 40px; }
-h2 { margin: 5px 0 0; font-weight: normal; color: #ddd; }
+h1 { margin: 0; font-size: 52px; }
+h2 { margin: 8px 0 0; font-weight: normal; color: #ddd; font-size: 20px; }
 
-/* UTILITY BAR */
+/* UTILITY BAR (Larger inputs) */
 .utility-bar {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 15px;
-    padding: 15px 18px 5px 18px;
-    max-width: 1200px;
+    gap: 20px;
+    padding: 25px 18px 10px 18px;
+    max-width: 1400px;
     margin: 0 auto;
     width: calc(100% - 36px);
 }
@@ -53,13 +53,13 @@ h2 { margin: 5px 0 0; font-weight: normal; color: #ddd; }
 
 .search-container input {
     width: 100%;
-    max-width: 400px;
-    padding: 12px;
-    border-radius: 10px;
+    max-width: 500px;
+    padding: 16px;
+    border-radius: 12px;
     border: none;
     background: #1b1b1b;
     color: white;
-    font-size: 14px;
+    font-size: 18px;
 }
 
 .sort-container {
@@ -69,12 +69,12 @@ h2 { margin: 5px 0 0; font-weight: normal; color: #ddd; }
 }
 
 .sort-container select {
-    padding: 12px;
-    border-radius: 10px;
+    padding: 16px;
+    border-radius: 12px;
     border: 1px solid rgba(255,255,255,0.1);
     background: #1b1b1b;
     color: white;
-    font-size: 14px;
+    font-size: 18px;
     cursor: pointer;
     outline: none;
 }
@@ -83,67 +83,71 @@ h2 { margin: 5px 0 0; font-weight: normal; color: #ddd; }
 .stats {
     display: flex;
     justify-content: center;
-    gap: 12px;
-    padding: 15px 18px;
+    gap: 16px;
+    padding: 20px 18px;
 }
 
 .stat {
     background: #151515;
-    padding: 10px 14px;
-    border-radius: 10px;
+    padding: 15px 22px;
+    border-radius: 12px;
     text-align: center;
-    min-width: 80px;
+    min-width: 120px;
 }
 
 .stat span {
     display: block;
-    font-size: 12px;
+    font-size: 14px;
     color: #aaa;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
+}
+
+.stat strong {
+    font-size: 24px;
 }
     
 /* LAYOUT */
 .container {
     display: flex;
-    gap: 18px;
-    padding: 18px;
-    max-width: 1200px;
+    gap: 24px;
+    padding: 24px;
+    max-width: 1400px;
     margin: 0 auto;
     flex: 1;
-    width: calc(100% - 36px);
+    width: calc(100% - 48px);
 }
 
-/* LIST */
+/* LIST (Expanded for longer screen coverage) */
 .list {
-    width: 60%;
+    width: 62%;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 14px;
 }
 
-/* CARD */
+/* CARD (Bigger elements and larger thumbnail sizing) */
 .card {
     display: flex;
-    gap: 12px;
+    gap: 18px;
     align-items: center;
     background: #151515;
-    border-radius: 14px;
-    padding: 12px;
+    border-radius: 16px;
+    padding: 16px;
     cursor: pointer;
     transition: 0.2s;
     border: 1px solid rgba(255,255,255,0.05);
 }
 
 .card:hover {
-    transform: scale(1.01);
+    transform: scale(1.015);
     background: #1d1d1d;
     border-color: rgba(255,77,77,0.4);
 }
 
 .thumb {
-    width: 140px;
-    height: 78px;
-    border-radius: 10px;
+    width: 210px;
+    height: 118px;
+    border-radius: 12px;
     object-fit: cover;
     background: #222;
 }
@@ -151,47 +155,59 @@ h2 { margin: 5px 0 0; font-weight: normal; color: #ddd; }
 .info { flex: 1; }
 
 .name {
-    font-size: 18px;
+    font-size: 24px;
     font-weight: bold;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .meta {
-    font-size: 12px;
+    font-size: 15px;
     color: #aaa;
-    margin-top: 4px;
+    margin-top: 8px;
 }
 
-/* PANEL */
+/* PANEL (Wider detail component) */
 .panel {
-    width: 40%;
+    width: 38%;
     position: sticky;
-    top: 18px;
+    top: 24px;
     background: #121212;
-    border-radius: 14px;
-    padding: 14px;
+    border-radius: 16px;
+    padding: 20px;
     border: 1px solid rgba(255,255,255,0.05);
     height: fit-content;
 }
 
+.panel h3 {
+    font-size: 28px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
 .panel img, iframe {
     width: 100%;
-    border-radius: 10px;
-    margin-top: 10px;
+    border-radius: 12px;
+    margin-top: 15px;
 }
 
 .desc {
-    margin-top: 10px;
+    margin-top: 15px;
     color: #ccc;
-    line-height: 1.4;
+    line-height: 1.6;
+    font-size: 16px;
 }
 
 button {
-    margin-top: 12px;
+    margin-top: 18px;
     width: 100%;
-    padding: 10px;
+    padding: 14px;
     border: none;
-    border-radius: 10px;
+    border-radius: 12px;
     font-weight: bold;
+    font-size: 16px;
     color: white;
     cursor: pointer;
     background: linear-gradient(90deg, #ff2d2d, #7a5cff);
@@ -200,9 +216,9 @@ button {
 /* FOOTER UI */
 footer {
     text-align: center;
-    padding: 20px;
-    font-size: 13px;
-    color: #666;
+    padding: 25px;
+    font-size: 15px;
+    color: #777;
     border-top: 1px solid rgba(255,255,255,0.03);
     background: rgba(0,0,0,0.2);
     margin-top: auto;
@@ -210,7 +226,7 @@ footer {
 
 @keyframes popIn {
     from {
-        transform: translateY(6px);
+        transform: translateY(8px);
         opacity: 0;
     }
     to {
@@ -225,7 +241,7 @@ footer {
 
 .card.active {
     border-color: rgba(122, 92, 255, 0.8);
-    box-shadow: 0 0 12px rgba(122, 92, 255, 0.35);
+    box-shadow: 0 0 14px rgba(122, 92, 255, 0.35);
     background: #1b1b1b;
 }
 </style>
@@ -276,7 +292,7 @@ footer {
 
     <div class="panel" id="panel">
         <h3>Select a level</h3>
-        <p>Click any level to view details.</p>
+        <p style="font-size: 16px; color:#aaa;">Click any level to view details.</p>
     </div>
 </div>
 
@@ -430,7 +446,7 @@ function render(){
 
         const formattedTime = formatTop1Time(l.daysAtTop1);
         const historyTag = (sortType === "site-top1" && formattedTime) 
-            ? `<span style="color: #ff2d2d; font-size:11px; font-weight:bold; background:rgba(255,45,45,0.15); padding:3px 7px; border-radius:6px; margin-left:8px;">🏆 ${formattedTime} at #1</span>` 
+            ? `<span style="color: #ff2d2d; font-size:13px; font-weight:bold; background:rgba(255,45,45,0.15); padding:4px 9px; border-radius:6px; margin-left:4px; border: 1px solid rgba(255,45,45,0.2);">🏆 ${formattedTime} at #1</span>` 
             : '';
 
         card.innerHTML = `
@@ -443,7 +459,7 @@ function render(){
 
         card.onclick = () => {
             let siteHistoryText = formattedTime 
-                ? `<p style="color:#ff2d2d; font-size:13px; font-weight:bold; margin: 4px 0;">Site Record: Held #1 spot for ${formattedTime}</p>` 
+                ? `<p style="color:#ff2d2d; font-size:16px; font-weight:bold; margin: 8px 0;">Site Record: Held #1 spot for ${formattedTime}</p>` 
                 : '';
             panel.innerHTML = `
                 <h3>#${l.r} ${l.n}</h3>
