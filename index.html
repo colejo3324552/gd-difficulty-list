@@ -116,130 +116,156 @@ h2 { margin: 5px 0 0; font-weight: normal; color: #ddd; }
 <script>
 
 const levels = [
-{r:1,n:"Flamewall",c:"Narwall",s:983,
-img:"https://i.ytimg.com/vi/placeholder1/hqdefault.jpg",
+{
+r:1,n:"Flamewall",c:"Narwall",s:983,
 video:"https://www.youtube.com/results?search_query=Flamewall+geometry+dash+showcase",
-d:"Long endurance extreme with nonstop transitions and tight control."},
-
-{r:2,n:"Amethyst",c:"iMist",s:980,
-img:"https://i.ytimg.com/vi/placeholder2/hqdefault.jpg",
+img:"https://img.youtube.com/vi_search/Flamewall/hqdefault.jpg",
+d:"Long endurance extreme with nonstop transitions and tight control."
+},
+{
+r:2,n:"Amethyst",c:"iMist",s:980,
 video:"https://www.youtube.com/results?search_query=Amethyst+geometry+dash+showcase",
-d:"Precision-heavy gameplay with tight syncing and strict timing."},
-
-{r:3,n:"ORBIT",c:"MindCap",s:967,
-img:"https://i.ytimg.com/vi/70DK4hNHO4g/hqdefault.jpg",
+img:"https://img.youtube.com/vi_search/Amethyst/hqdefault.jpg",
+d:"Precision-heavy gameplay with strict timing windows."
+},
+{
+r:3,n:"ORBIT",c:"MindCap",s:967,
 video:"https://www.youtube.com/watch?v=70DK4hNHO4g",
-d:"Orb chains where one mistake collapses the run instantly."},
-
-{r:4,n:"Thinking Space II",c:"CairoX",s:962,
-img:"https://i.ytimg.com/vi/placeholder4/hqdefault.jpg",
+img:"https://i.ytimg.com/vi/70DK4hNHO4g/hqdefault.jpg",
+d:"Orb chains where one mistake collapses the run instantly."
+},
+{
+r:4,n:"Thinking Space II",c:"CairoX",s:962,
 video:"https://www.youtube.com/results?search_query=Thinking+Space+II+showcase",
-d:"Fast transitions between multiple gameplay modes."},
-
-{r:5,n:"Tidal Wave",c:"OniLink",s:959,
-img:"https://i.ytimg.com/vi/hv6-C_2VWI0/hqdefault.jpg",
+img:"https://img.youtube.com/vi_search/Thinking+Space+II/hqdefault.jpg",
+d:"Fast transitions between multiple gameplay modes."
+},
+{
+r:5,n:"Tidal Wave",c:"OniLink",s:959,
 video:"https://www.youtube.com/watch?v=hv6-C_2VWI0",
-d:"Extreme wave control over long punishing stretches."},
-
-{r:6,n:"Boobawamba",c:"Akunakun",s:950,
-img:"https://i.ytimg.com/vi/placeholder6/hqdefault.jpg",
-video:"https://www.youtube.com/results?search_query=Boobawamba+geometry+dash+showcase",
-d:"Heavy memory-based progression requiring full sequence tracking."},
-
-{r:7,n:"Anathema",c:"nikroplays",s:946,
-img:"https://i.ytimg.com/vi/Pau8CWTltDk/hqdefault.jpg",
+img:"https://i.ytimg.com/vi/hv6-C_2VWI0/hqdefault.jpg",
+d:"Extreme wave control over long punishing stretches."
+},
+{
+r:6,n:"Boobawamba",c:"Akunakun",s:950,
+video:"https://www.youtube.com/results?search_query=Boobawamba+geometry+dash",
+img:"https://img.youtube.com/vi_search/Boobawamba/hqdefault.jpg",
+d:"Memory-heavy gameplay requiring full sequence tracking."
+},
+{
+r:7,n:"Anathema",c:"nikroplays",s:946,
 video:"https://www.youtube.com/watch?v=Pau8CWTltDk",
-d:"Constant gameplay shifts with no stable rhythm."},
-
-{r:8,n:"Spectre",c:"xander",s:940,
-img:"https://i.ytimg.com/vi/placeholder8/hqdefault.jpg",
-video:"https://www.youtube.com/results?search_query=Spectre+geometry+dash+showcase",
-d:"Looks smooth but timing is extremely strict."},
-
-{r:9,n:"Quanteuse Processing",c:"Renn241",s:940,
-img:"https://i.ytimg.com/vi/placeholder9/hqdefault.jpg",
-video:"https://www.youtube.com/results?search_query=Quanteuse+Processing+geometry+dash",
-d:"Offbeat rhythm structures that disrupt timing."},
-
-{r:10,n:"Subsuming Vortex",c:"Cursed",s:939,
-img:"https://i.ytimg.com/vi/placeholder10/hqdefault.jpg",
-video:"https://www.youtube.com/results?search_query=Subsuming+Vortex+showcase",
-d:"Fast wave corridors with extreme precision."},
-
-{r:11,n:"Penumbral",c:"cherryteam",s:937,
-img:"https://i.ytimg.com/vi/placeholder11/hqdefault.jpg",
+img:"https://i.ytimg.com/vi/Pau8CWTltDk/hqdefault.jpg",
+d:"Constant gameplay shifts with no stable rhythm."
+},
+{
+r:8,n:"Spectre",c:"xander",s:940,
+video:"https://www.youtube.com/results?search_query=Spectre+geometry+dash",
+img:"https://img.youtube.com/vi_search/Spectre/hqdefault.jpg",
+d:"Looks smooth but timing is extremely strict."
+},
+{
+r:9,n:"Quanteuse Processing",c:"Renn241",s:940,
+video:"https://www.youtube.com/watch?v=mk3TDemdkC0",
+img:"https://i.ytimg.com/vi/mk3TDemdkC0/hqdefault.jpg",
+d:"Offbeat rhythm structures that disrupt timing."
+},
+{
+r:10,n:"Subsuming Vortex",c:"Cursed",s:939,
+video:"https://www.youtube.com/results?search_query=Subsuming+Vortex",
+img:"https://img.youtube.com/vi_search/Subsuming+Vortex/hqdefault.jpg",
+d:"Fast wave corridors with extreme precision."
+},
+{
+r:11,n:"Penumbral",c:"cherryteam",s:937,
 video:"https://www.youtube.com/results?search_query=Penumbral+geometry+dash",
-d:"Dark visuals hiding precise gameplay flow."},
-
-{r:12,n:"Ashley Wave Trials",c:"oddmod",s:936,
-img:"https://i.ytimg.com/vi/placeholder12/hqdefault.jpg",
-video:"https://www.youtube.com/results?search_query=Ashley+Wave+Trials+geometry+dash",
-d:"Long wave endurance challenge focused on consistency."},
-
-{r:13,n:"andromeda",c:"Insxne97",s:935,
-img:"https://i.ytimg.com/vi/placeholder13/hqdefault.jpg",
-video:"https://www.youtube.com/results?search_query=andromeda+geometry+dash+showcase",
-d:"Constant speed and gameplay shifts requiring adaptation."},
-
-{r:14,n:"Menace",c:"Arraegen",s:934,
-img:"https://i.ytimg.com/vi/placeholder14/hqdefault.jpg",
-video:"https://www.youtube.com/results?search_query=Menace+geometry+dash+showcase",
-d:"Fast bursts of tight inputs with little forgiveness."},
-
-{r:15,n:"Silent Clubstep",c:"TheRealSailent",s:934,
-img:"https://i.ytimg.com/vi/placeholder15/hqdefault.jpg",
-video:"https://www.youtube.com/results?search_query=Silent+Clubstep+showcase",
-d:"Extreme remake with brutal timing sections."},
-
-{r:16,n:"Kyouki",c:"｛出見塩｝",s:932,
-img:"https://i.ytimg.com/vi/placeholder16/hqdefault.jpg",
-video:"https://www.youtube.com/results?search_query=Kyouki+geometry+dash+showcase",
-d:"Fast wave-heavy sections requiring long consistency."},
-
-{r:17,n:"Avernus",c:"PockeWindfish",s:932,
-img:"https://i.ytimg.com/vi/placeholder17/hqdefault.jpg",
+img:"https://img.youtube.com/vi_search/Penumbral/hqdefault.jpg",
+d:"Dark visuals hiding precise gameplay flow."
+},
+{
+r:12,n:"Ashley Wave Trials",c:"oddmod",s:936,
+video:"https://www.youtube.com/results?search_query=Ashley+Wave+Trials",
+img:"https://img.youtube.com/vi_search/Ashley+Wave+Trials/hqdefault.jpg",
+d:"Long wave endurance challenge focused on consistency."
+},
+{
+r:13,n:"andromeda",c:"Insxne97",s:935,
+video:"https://www.youtube.com/results?search_query=andromeda+geometry+dash",
+img:"https://img.youtube.com/vi_search/andromeda/hqdefault.jpg",
+d:"Constant speed and gameplay shifts requiring adaptation."
+},
+{
+r:14,n:"Menace",c:"Arraegen",s:934,
+video:"https://www.youtube.com/results?search_query=Menace+geometry+dash",
+img:"https://img.youtube.com/vi_search/Menace/hqdefault.jpg",
+d:"Fast bursts of tight inputs with little forgiveness."
+},
+{
+r:15,n:"Silent Clubstep",c:"TheRealSailent",s:934,
+video:"https://www.youtube.com/results?search_query=Silent+Clubstep",
+img:"https://img.youtube.com/vi_search/Silent+Clubstep/hqdefault.jpg",
+d:"Extreme remake with brutal timing sections."
+},
+{
+r:16,n:"Kyouki",c:"｛出見塩｝",s:932,
+video:"https://www.youtube.com/results?search_query=Kyouki+geometry+dash",
+img:"https://img.youtube.com/vi_search/Kyouki/hqdefault.jpg",
+d:"Fast wave-heavy sections requiring long consistency."
+},
+{
+r:17,n:"Avernus",c:"PockeWindfish",s:932,
 video:"https://www.youtube.com/results?search_query=Avernus+geometry+dash",
-d:"Wave-focused gameplay with uneven difficulty spikes."},
-
-{r:18,n:"Nullscapes",c:"Exen",s:931,
-img:"https://i.ytimg.com/vi/placeholder18/hqdefault.jpg",
+img:"https://img.youtube.com/vi_search/Avernus/hqdefault.jpg",
+d:"Wave-focused gameplay with uneven spikes."
+},
+{
+r:18,n:"Nullscapes",c:"Exen",s:931,
 video:"https://www.youtube.com/results?search_query=Nullscapes+geometry+dash",
-d:"Minimal visuals hiding awkward timing and flow."},
-
-{r:19,n:"Every End",c:"MindCap",s:929,
-img:"https://i.ytimg.com/vi/placeholder19/hqdefault.jpg",
+img:"https://img.youtube.com/vi_search/Nullscapes/hqdefault.jpg",
+d:"Minimal visuals hiding awkward timing."
+},
+{
+r:19,n:"Every End",c:"MindCap",s:929,
 video:"https://www.youtube.com/results?search_query=Every+End+geometry+dash",
-d:"Long endurance level where focus is the real challenge."},
-
-{r:20,n:"Abyss of Darkness",c:"Kiba",s:927,
-img:"https://i.ytimg.com/vi/placeholder20/hqdefault.jpg",
-video:"https://www.youtube.com/results?search_query=Abyss+of+Darkness+geometry+dash",
-d:"Dark, tight wave control with sustained pressure."},
-
-{r:21,n:"Defeated Circles",c:"GXQ",s:925,
-img:"https://i.ytimg.com/vi/placeholder21/hqdefault.jpg",
-video:"https://www.youtube.com/results?search_query=Defeated+Circles+geometry+dash",
-d:"Rhythmic circular movement patterns that tighten over time."},
-
-{r:22,n:"Tunnel of Despair",c:"Exen",s:922,
-img:"https://i.ytimg.com/vi/placeholder22/hqdefault.jpg",
-video:"https://www.youtube.com/results?search_query=Tunnel+of+Despair+geometry+dash",
-d:"Claustrophobic wave sections with almost no reaction space."},
-
-{r:23,n:"Acheron",c:"ryamu",s:922,
-img:"https://i.ytimg.com/vi/placeholder23/hqdefault.jpg",
-video:"https://www.youtube.com/results?search_query=Acheron+geometry+dash+showcase",
-d:"Extreme wave precision with tight control requirements."},
-
-{r:24,n:"Subterminal Point",c:"SyQual",s:920,
-img:"https://i.ytimg.com/vi/placeholder24/hqdefault.jpg",
-video:"https://www.youtube.com/results?search_query=Subterminal+Point+geometry+dash",
-d:"Sudden spikes in difficulty that punish inconsistency."},
-
-{r:25,n:"Based After Based",c:"Akunakun",s:916,
-img:"https://i.ytimg.com/vi/placeholder25/hqdefault.jpg",
-video:"https://www.youtube.com/results?search_query=Based+After+Based+geometry+dash",
-d:"Chaotic-looking level with strict execution."}
+img:"https://img.youtube.com/vi_search/Every+End/hqdefault.jpg",
+d:"Long endurance level where focus is the real challenge."
+},
+{
+r:20,n:"Abyss of Darkness",c:"Kiba",s:927,
+video:"https://www.youtube.com/results?search_query=Abyss+of+Darkness",
+img:"https://img.youtube.com/vi_search/Abyss+of+Darkness/hqdefault.jpg",
+d:"Dark wave control with sustained pressure."
+},
+{
+r:21,n:"Defeated Circles",c:"GXQ",s:925,
+video:"https://www.youtube.com/results?search_query=Defeated+Circles",
+img:"https://img.youtube.com/vi_search/Defeated+Circles/hqdefault.jpg",
+d:"Circular movement patterns that tighten over time."
+},
+{
+r:22,n:"Tunnel of Despair",c:"Exen",s:922,
+video:"https://www.youtube.com/results?search_query=Tunnel+of+Despair",
+img:"https://img.youtube.com/vi_search/Tunnel+of+Despair/hqdefault.jpg",
+d:"Claustrophobic wave sections with no reaction space."
+},
+{
+r:23,n:"Acheron",c:"ryamu",s:922,
+video:"https://www.youtube.com/results?search_query=Acheron+geometry+dash",
+img:"https://img.youtube.com/vi_search/Acheron/hqdefault.jpg",
+d:"Extreme wave precision with tight control."
+},
+{
+r:24,n:"Subterminal Point",c:"SyQual",s:920,
+video:"https://www.youtube.com/results?search_query=Subterminal+Point",
+img:"https://img.youtube.com/vi_search/Subterminal+Point/hqdefault.jpg",
+d:"Sudden spikes that punish inconsistency."
+},
+{
+r:25,n:"Based After Based",c:"Akunakun",s:916,
+video:"https://www.youtube.com/results?search_query=Based+After+Based",
+img:"https://img.youtube.com/vi_search/Based+After+Based/hqdefault.jpg",
+d:"Chaotic-looking level with strict execution."
+}
 ];
 
 const list = document.getElementById("list");
