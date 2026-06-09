@@ -2,144 +2,95 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>The Extreme Demon Index</title>
+<title>Extreme Demon Index</title>
 
 <style>
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: radial-gradient(circle at top, #1a1a1a, #050505 70%);
+    background: #0a0a0a;
     color: white;
-    overflow-x: hidden;
-}
-
-/* animated glow field */
-body::before {
-    content: "";
-    position: fixed;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background:
-        radial-gradient(circle, rgba(255,77,77,0.08), transparent 40%),
-        radial-gradient(circle, rgba(120,80,255,0.06), transparent 45%),
-        radial-gradient(circle, rgba(0,200,255,0.05), transparent 50%);
-    animation: drift 18s linear infinite;
-    z-index: -1;
-}
-
-@keyframes drift {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
 }
 
 header {
+    padding: 25px;
     text-align: center;
-    padding: 30px 20px 10px;
+    background: linear-gradient(90deg, #ff2d2d, #7a5cff);
 }
 
-h1 {
-    font-size: 56px;
-    margin: 0;
-    background: linear-gradient(90deg, #ff4d4d, #ffb84d, #7a5cff, #ff4d4d);
-    background-size: 300%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: shimmer 6s linear infinite;
-}
-
-@keyframes shimmer {
-    0% { background-position: 0% }
-    100% { background-position: 300% }
-}
-
-h2 {
-    color: #aaa;
-    font-weight: normal;
-}
-
-#search {
-    margin: 20px auto;
-    display: block;
-    padding: 12px 16px;
-    width: 60%;
-    max-width: 500px;
-    border-radius: 12px;
-    border: 1px solid rgba(255,255,255,0.1);
-    background: rgba(30,30,30,0.7);
-    color: white;
-}
+h1 { margin: 0; font-size: 40px; }
+h2 { margin: 5px 0 0; font-weight: normal; color: #ddd; }
 
 .container {
     display: flex;
     gap: 20px;
-    padding: 20px 40px 40px;
-    max-width: 1400px;
-    margin: auto;
-}
-
-/* table */
-table {
-    width: 70%;
-    border-collapse: collapse;
-    background: rgba(25,25,25,0.6);
-    border-radius: 14px;
-    overflow: hidden;
-    backdrop-filter: blur(10px);
-}
-
-th {
-    background: linear-gradient(90deg, #ff4d4d, #ff7a7a);
-    padding: 14px;
-}
-
-td {
-    padding: 12px;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-}
-
-tr:hover td {
-    background: rgba(255,77,77,0.08);
-}
-
-.rank {
-    width: 70px;
-    text-align: center;
-    color: #ffb84d;
-    font-weight: bold;
-}
-
-.creator { color: #bbb; }
-.score { color: #ffe37a; text-align: center; font-weight: bold; }
-
-/* sidebar */
-.sidebar {
-    width: 30%;
-    background: rgba(20,20,20,0.6);
-    border-radius: 14px;
     padding: 20px;
-    backdrop-filter: blur(14px);
-    box-shadow: 0 0 30px rgba(255,77,77,0.15);
+}
+
+.list {
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.card {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    background: #151515;
+    border-radius: 14px;
+    padding: 12px;
+    cursor: pointer;
+    transition: 0.2s;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.card:hover {
+    transform: scale(1.01);
+    border-color: rgba(255,77,77,0.4);
+    background: #1d1d1d;
+}
+
+.thumb {
+    width: 130px;
+    height: 72px;
+    border-radius: 8px;
+    object-fit: cover;
+    background: #222;
+}
+
+.info { flex: 1; }
+
+.name { font-size: 18px; font-weight: bold; }
+.meta { font-size: 12px; color: #aaa; margin-top: 4px; }
+
+.panel {
+    width: 35%;
     position: sticky;
     top: 20px;
-    height: fit-content;
+    background: #121212;
+    border-radius: 14px;
+    padding: 16px;
+    border: 1px solid rgba(255,255,255,0.05);
 }
 
-.sidebar h3 {
-    color: #ff4d4d;
-    margin-top: 0;
+.panel img {
+    width: 100%;
+    border-radius: 10px;
+    margin-top: 10px;
 }
 
-.tag {
-    display: inline-block;
-    padding: 5px 9px;
-    margin-top: 6px;
-    margin-right: 5px;
-    background: rgba(255,255,255,0.05);
-    border-radius: 8px;
-    font-size: 12px;
-    color: #ccc;
+.button {
+    display: block;
+    margin-top: 12px;
+    padding: 10px;
+    text-align: center;
+    background: linear-gradient(90deg, #ff2d2d, #7a5cff);
+    border-radius: 10px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
 }
 </style>
 </head>
@@ -147,29 +98,17 @@ tr:hover td {
 <body>
 
 <header>
-<h1>The Extreme Demon Index</h1>
-<h2>Top 25 Hardest Geometry Dash Levels</h2>
+<h1>Extreme Demon Index</h1>
+<h2>Full 25-Level Modern Dashboard</h2>
 </header>
-
-<input id="search" placeholder="Search levels..." oninput="filterTable()">
 
 <div class="container">
 
-<table id="table">
-<thead>
-<tr>
-<th>Rank</th>
-<th>Level</th>
-<th>Creator</th>
-<th>Score</th>
-</tr>
-</thead>
-<tbody></tbody>
-</table>
+<div class="list" id="list"></div>
 
-<div class="sidebar" id="sidebar">
-<h3>Hover a level</h3>
-<p>Descriptions appear here.</p>
+<div class="panel" id="panel">
+<h3>Select a level</h3>
+<p>Click a level to view showcase.</p>
 </div>
 
 </div>
@@ -177,74 +116,166 @@ tr:hover td {
 <script>
 
 const levels = [
-{r:1,n:"Flamewall",c:"Narwall",s:983,d:"Long, exhausting extreme with nonstop transitions and tight control. Consistency matters more than raw skill."},
-{r:2,n:"Amethyst",c:"iMist",s:980,d:"Precision-heavy gameplay with tight syncing and strict timing windows."},
-{r:3,n:"ORBIT",c:"MindCap",s:967,d:"Orb chains and timing sections where one mistake collapses the run instantly."},
-{r:4,n:"Thinking Space II",c:"CairoX",s:962,d:"Fast shifts between modes and speeds, forcing constant adaptation."},
-{r:5,n:"Tidal Wave",c:"OniLink",s:959,d:"Fast wave control stretched over long, punishing sections."},
-{r:6,n:"Boobawamba",c:"Akunakun",s:950,d:"Memory-heavy gameplay where correct sequencing is required at all times."},
-{r:7,n:"Anathema",c:"nikroplays",s:946,d:"Unstable pacing with constant gameplay changes and no steady rhythm."},
-{r:8,n:"Spectre",c:"xander",s:940,d:"Smooth-looking gameplay that hides strict timing requirements."},
-{r:9,n:"Quanteuse Processing",c:"Renn241",s:940,d:"Offbeat rhythm structures and wave sections that disrupt timing."},
-{r:10,n:"Subsuming Vortex",c:"Cursed",s:939,d:"Fast wave corridors with extremely tight consistency demands."},
-{r:11,n:"Penumbral",c:"cherryteam",s:937,d:"Dark visuals paired with precise and deceptive gameplay flow."},
-{r:12,n:"Ashley Wave Trials",c:"oddmod",s:936,d:"Long wave endurance challenge focused on consistency."},
-{r:13,n:"andromeda",c:"Insxne97",s:935,d:"Constant speed and gameplay shifts that force adaptation."},
-{r:14,n:"Menace",c:"Arraegen",s:934,d:"Fast bursts of tight inputs with very little forgiveness."},
-{r:15,n:"Silent Clubstep",c:"TheRealSailent",s:934,d:"Extreme remake with brutal timing and punishing sections."},
-{r:16,n:"Kyouki",c:"｛出見塩｝",s:932,d:"Fast wave-heavy sections requiring long consistency."},
-{r:17,n:"Avernus",c:"PockeWindfish",s:932,d:"Wave-focused gameplay with uneven difficulty spikes."},
-{r:18,n:"Nullscapes",c:"Exen",s:931,d:"Minimal visuals hiding awkward timing and flow."},
-{r:19,n:"Every End",c:"MindCap",s:929,d:"Long endurance level where focus is the real challenge."},
-{r:20,n:"Abyss of Darkness",c:"Kiba",s:927,d:"Dark, tight wave control with sustained pressure."},
-{r:21,n:"Defeated Circles",c:"GXQ",s:925,d:"Rhythmic circular movement patterns that tighten over time."},
-{r:22,n:"Tunnel of Despair",c:"Exen",s:922,d:"Claustrophobic wave sections with almost no reaction space."},
-{r:23,n:"Acheron",c:"ryamu",s:922,d:"Extreme wave precision with extremely tight control requirements."},
-{r:24,n:"Subterminal Point",c:"SyQual",s:920,d:"Sudden difficulty spikes that punish inconsistency."},
-{r:25,n:"Based After Based",c:"Akunakun",s:916,d:"Chaotic-looking level with surprisingly strict execution."}
+{r:1,n:"Flamewall",c:"Narwall",s:983,
+img:"https://i.ytimg.com/vi/placeholder1/hqdefault.jpg",
+video:"https://www.youtube.com/results?search_query=Flamewall+geometry+dash+showcase",
+d:"Long endurance extreme with nonstop transitions and tight control."},
+
+{r:2,n:"Amethyst",c:"iMist",s:980,
+img:"https://i.ytimg.com/vi/placeholder2/hqdefault.jpg",
+video:"https://www.youtube.com/results?search_query=Amethyst+geometry+dash+showcase",
+d:"Precision-heavy gameplay with tight syncing and strict timing."},
+
+{r:3,n:"ORBIT",c:"MindCap",s:967,
+img:"https://i.ytimg.com/vi/70DK4hNHO4g/hqdefault.jpg",
+video:"https://www.youtube.com/watch?v=70DK4hNHO4g",
+d:"Orb chains where one mistake collapses the run instantly."},
+
+{r:4,n:"Thinking Space II",c:"CairoX",s:962,
+img:"https://i.ytimg.com/vi/placeholder4/hqdefault.jpg",
+video:"https://www.youtube.com/results?search_query=Thinking+Space+II+showcase",
+d:"Fast transitions between multiple gameplay modes."},
+
+{r:5,n:"Tidal Wave",c:"OniLink",s:959,
+img:"https://i.ytimg.com/vi/hv6-C_2VWI0/hqdefault.jpg",
+video:"https://www.youtube.com/watch?v=hv6-C_2VWI0",
+d:"Extreme wave control over long punishing stretches."},
+
+{r:6,n:"Boobawamba",c:"Akunakun",s:950,
+img:"https://i.ytimg.com/vi/placeholder6/hqdefault.jpg",
+video:"https://www.youtube.com/results?search_query=Boobawamba+geometry+dash+showcase",
+d:"Heavy memory-based progression requiring full sequence tracking."},
+
+{r:7,n:"Anathema",c:"nikroplays",s:946,
+img:"https://i.ytimg.com/vi/Pau8CWTltDk/hqdefault.jpg",
+video:"https://www.youtube.com/watch?v=Pau8CWTltDk",
+d:"Constant gameplay shifts with no stable rhythm."},
+
+{r:8,n:"Spectre",c:"xander",s:940,
+img:"https://i.ytimg.com/vi/placeholder8/hqdefault.jpg",
+video:"https://www.youtube.com/results?search_query=Spectre+geometry+dash+showcase",
+d:"Looks smooth but timing is extremely strict."},
+
+{r:9,n:"Quanteuse Processing",c:"Renn241",s:940,
+img:"https://i.ytimg.com/vi/placeholder9/hqdefault.jpg",
+video:"https://www.youtube.com/results?search_query=Quanteuse+Processing+geometry+dash",
+d:"Offbeat rhythm structures that disrupt timing."},
+
+{r:10,n:"Subsuming Vortex",c:"Cursed",s:939,
+img:"https://i.ytimg.com/vi/placeholder10/hqdefault.jpg",
+video:"https://www.youtube.com/results?search_query=Subsuming+Vortex+showcase",
+d:"Fast wave corridors with extreme precision."},
+
+{r:11,n:"Penumbral",c:"cherryteam",s:937,
+img:"https://i.ytimg.com/vi/placeholder11/hqdefault.jpg",
+video:"https://www.youtube.com/results?search_query=Penumbral+geometry+dash",
+d:"Dark visuals hiding precise gameplay flow."},
+
+{r:12,n:"Ashley Wave Trials",c:"oddmod",s:936,
+img:"https://i.ytimg.com/vi/placeholder12/hqdefault.jpg",
+video:"https://www.youtube.com/results?search_query=Ashley+Wave+Trials+geometry+dash",
+d:"Long wave endurance challenge focused on consistency."},
+
+{r:13,n:"andromeda",c:"Insxne97",s:935,
+img:"https://i.ytimg.com/vi/placeholder13/hqdefault.jpg",
+video:"https://www.youtube.com/results?search_query=andromeda+geometry+dash+showcase",
+d:"Constant speed and gameplay shifts requiring adaptation."},
+
+{r:14,n:"Menace",c:"Arraegen",s:934,
+img:"https://i.ytimg.com/vi/placeholder14/hqdefault.jpg",
+video:"https://www.youtube.com/results?search_query=Menace+geometry+dash+showcase",
+d:"Fast bursts of tight inputs with little forgiveness."},
+
+{r:15,n:"Silent Clubstep",c:"TheRealSailent",s:934,
+img:"https://i.ytimg.com/vi/placeholder15/hqdefault.jpg",
+video:"https://www.youtube.com/results?search_query=Silent+Clubstep+showcase",
+d:"Extreme remake with brutal timing sections."},
+
+{r:16,n:"Kyouki",c:"｛出見塩｝",s:932,
+img:"https://i.ytimg.com/vi/placeholder16/hqdefault.jpg",
+video:"https://www.youtube.com/results?search_query=Kyouki+geometry+dash+showcase",
+d:"Fast wave-heavy sections requiring long consistency."},
+
+{r:17,n:"Avernus",c:"PockeWindfish",s:932,
+img:"https://i.ytimg.com/vi/placeholder17/hqdefault.jpg",
+video:"https://www.youtube.com/results?search_query=Avernus+geometry+dash",
+d:"Wave-focused gameplay with uneven difficulty spikes."},
+
+{r:18,n:"Nullscapes",c:"Exen",s:931,
+img:"https://i.ytimg.com/vi/placeholder18/hqdefault.jpg",
+video:"https://www.youtube.com/results?search_query=Nullscapes+geometry+dash",
+d:"Minimal visuals hiding awkward timing and flow."},
+
+{r:19,n:"Every End",c:"MindCap",s:929,
+img:"https://i.ytimg.com/vi/placeholder19/hqdefault.jpg",
+video:"https://www.youtube.com/results?search_query=Every+End+geometry+dash",
+d:"Long endurance level where focus is the real challenge."},
+
+{r:20,n:"Abyss of Darkness",c:"Kiba",s:927,
+img:"https://i.ytimg.com/vi/placeholder20/hqdefault.jpg",
+video:"https://www.youtube.com/results?search_query=Abyss+of+Darkness+geometry+dash",
+d:"Dark, tight wave control with sustained pressure."},
+
+{r:21,n:"Defeated Circles",c:"GXQ",s:925,
+img:"https://i.ytimg.com/vi/placeholder21/hqdefault.jpg",
+video:"https://www.youtube.com/results?search_query=Defeated+Circles+geometry+dash",
+d:"Rhythmic circular movement patterns that tighten over time."},
+
+{r:22,n:"Tunnel of Despair",c:"Exen",s:922,
+img:"https://i.ytimg.com/vi/placeholder22/hqdefault.jpg",
+video:"https://www.youtube.com/results?search_query=Tunnel+of+Despair+geometry+dash",
+d:"Claustrophobic wave sections with almost no reaction space."},
+
+{r:23,n:"Acheron",c:"ryamu",s:922,
+img:"https://i.ytimg.com/vi/placeholder23/hqdefault.jpg",
+video:"https://www.youtube.com/results?search_query=Acheron+geometry+dash+showcase",
+d:"Extreme wave precision with tight control requirements."},
+
+{r:24,n:"Subterminal Point",c:"SyQual",s:920,
+img:"https://i.ytimg.com/vi/placeholder24/hqdefault.jpg",
+video:"https://www.youtube.com/results?search_query=Subterminal+Point+geometry+dash",
+d:"Sudden spikes in difficulty that punish inconsistency."},
+
+{r:25,n:"Based After Based",c:"Akunakun",s:916,
+img:"https://i.ytimg.com/vi/placeholder25/hqdefault.jpg",
+video:"https://www.youtube.com/results?search_query=Based+After+Based+geometry+dash",
+d:"Chaotic-looking level with strict execution."}
 ];
 
-const tbody = document.querySelector("#table tbody");
-const sidebar = document.getElementById("sidebar");
+const list = document.getElementById("list");
+const panel = document.getElementById("panel");
 
-function renderTable(data){
-    tbody.innerHTML = "";
+function render(){
+    list.innerHTML = "";
 
-    data.forEach(l=>{
-        const row = document.createElement("tr");
+    levels.forEach(l=>{
+        const card = document.createElement("div");
+        card.className = "card";
 
-        row.innerHTML = `
-            <td class="rank">#${l.r}</td>
-            <td>${l.n}</td>
-            <td class="creator">${l.c}</td>
-            <td class="score">${l.s}</td>
+        card.innerHTML = `
+            <img class="thumb" src="${l.img}">
+            <div class="info">
+                <div class="name">#${l.r} ${l.n}</div>
+                <div class="meta">${l.c} • Score ${l.s}</div>
+            </div>
         `;
 
-        row.onmouseenter = () => {
-            sidebar.innerHTML = `
+        card.onclick = () => {
+            panel.innerHTML = `
                 <h3>#${l.r} ${l.n}</h3>
-                <span class="tag">${l.c}</span>
-                <span class="tag">${l.s}</span>
-                <p style="margin-top:15px; color:#ccc; line-height:1.5;">
-                    ${l.d}
-                </p>
+                <p>${l.d}</p>
+                <img src="${l.img}">
+                <a class="button" target="_blank" href="${l.video}">
+                    Watch Showcase
+                </a>
             `;
         };
 
-        tbody.appendChild(row);
+        list.appendChild(card);
     });
 }
 
-function filterTable(){
-    const q = document.getElementById("search").value.toLowerCase();
-    const filtered = levels.filter(l =>
-        l.n.toLowerCase().includes(q) ||
-        l.c.toLowerCase().includes(q)
-    );
-    renderTable(filtered);
-}
-
-renderTable(levels);
+render();
 
 </script>
 
