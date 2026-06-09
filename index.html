@@ -5,124 +5,161 @@
 <title>The Extreme Demon Index</title>
 
 <style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background: radial-gradient(circle at top, #1a1a1a, #0a0a0a 70%);
-        color: white;
-    }
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: radial-gradient(circle at top, #1a1a1a, #050505 70%);
+    color: white;
+    overflow-x: hidden;
+}
 
-    header {
-        text-align: center;
-        padding: 30px 20px 10px;
-    }
+/* 🌌 animated background glow */
+body::before {
+    content: "";
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,77,77,0.08), transparent 40%),
+                radial-gradient(circle, rgba(120,80,255,0.06), transparent 45%),
+                radial-gradient(circle, rgba(0,200,255,0.05), transparent 50%);
+    animation: drift 18s infinite linear;
+    z-index: -1;
+}
 
-    h1 {
-        font-size: 54px;
-        margin: 0;
-        color: #ff4d4d;
-        text-shadow: 0 0 20px rgba(255,77,77,0.4);
-    }
+@keyframes drift {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
 
-    h2 {
-        margin-top: 10px;
-        font-weight: normal;
-        color: #aaa;
-    }
+header {
+    text-align: center;
+    padding: 30px 20px 10px;
+}
 
-    #search {
-        margin: 20px auto;
-        display: block;
-        padding: 10px 15px;
-        width: 60%;
-        max-width: 500px;
-        border-radius: 10px;
-        border: none;
-        outline: none;
-        background: #1e1e1e;
-        color: white;
-    }
+h1 {
+    font-size: 56px;
+    margin: 0;
+    background: linear-gradient(90deg, #ff4d4d, #ffb84d, #7a5cff, #ff4d4d);
+    background-size: 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 6s infinite linear;
+    text-shadow: 0 0 25px rgba(255,77,77,0.2);
+}
 
-    .container {
-        display: flex;
-        gap: 20px;
-        padding: 20px 40px 40px;
-        max-width: 1400px;
-        margin: auto;
-    }
+@keyframes shimmer {
+    0% { background-position: 0% }
+    100% { background-position: 300% }
+}
 
-    table {
-        width: 70%;
-        border-collapse: collapse;
-        background: rgba(25,25,25,0.9);
-        border-radius: 12px;
-        overflow: hidden;
-    }
+h2 {
+    color: #aaa;
+    font-weight: normal;
+}
 
-    th {
-        background: #ff4d4d;
-        padding: 14px;
-        text-align: left;
-    }
+#search {
+    margin: 20px auto;
+    display: block;
+    padding: 12px 16px;
+    width: 60%;
+    max-width: 500px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(30,30,30,0.7);
+    color: white;
+    backdrop-filter: blur(10px);
+}
 
-    td {
-        padding: 12px;
-        border-bottom: 1px solid #333;
-    }
+.container {
+    display: flex;
+    gap: 20px;
+    padding: 20px 40px 40px;
+    max-width: 1400px;
+    margin: auto;
+}
 
-    tr:hover {
-        background: #2a2a2a;
-        cursor: pointer;
-    }
+/* 🧊 glass table */
+table {
+    width: 70%;
+    border-collapse: collapse;
+    background: rgba(25,25,25,0.6);
+    border-radius: 14px;
+    overflow: hidden;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 0 40px rgba(0,0,0,0.6);
+}
 
-    .rank {
-        width: 70px;
-        text-align: center;
-        color: #ffb84d;
-        font-weight: bold;
-    }
+th {
+    background: linear-gradient(90deg, #ff4d4d, #ff7a7a);
+    padding: 14px;
+}
 
-    .creator {
-        color: #bbb;
-    }
+td {
+    padding: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    transition: all 0.2s ease;
+}
 
-    .score {
-        color: #ffdf6b;
-        font-weight: bold;
-        text-align: center;
-        width: 90px;
-    }
+/* ⚡ hover glow rows */
+tr:hover td {
+    background: rgba(255,77,77,0.08);
+    transform: scale(1.01);
+}
 
-    .sidebar {
-        width: 30%;
-        background: rgba(20,20,20,0.95);
-        border-radius: 12px;
-        padding: 20px;
-        position: sticky;
-        top: 20px;
-        height: fit-content;
-    }
+/* rank color scaling */
+.rank {
+    width: 70px;
+    text-align: center;
+    font-weight: bold;
+    color: #ffb84d;
+}
 
-    .sidebar h3 {
-        color: #ff4d4d;
-        margin-top: 0;
-    }
+/* 🌈 creator + score styling */
+.creator { color: #bdbdbd; }
+.score { color: #ffe37a; text-align: center; font-weight: bold; }
 
-    .tag {
-        display: inline-block;
-        padding: 4px 8px;
-        margin-top: 5px;
-        background: #2a2a2a;
-        border-radius: 6px;
-        font-size: 12px;
-        color: #aaa;
-    }
+/* 🧠 sidebar glow panel */
+.sidebar {
+    width: 30%;
+    background: rgba(20,20,20,0.6);
+    border-radius: 14px;
+    padding: 20px;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 0 30px rgba(255,77,77,0.15);
+    position: sticky;
+    top: 20px;
+    height: fit-content;
+    animation: floatIn 0.4s ease;
+}
 
-    footer {
-        text-align: center;
-        color: #666;
-        padding: 30px;
-    }
+@keyframes floatIn {
+    from { transform: translateY(10px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.sidebar h3 {
+    margin-top: 0;
+    color: #ff4d4d;
+}
+
+.tag {
+    display: inline-block;
+    padding: 5px 9px;
+    margin-top: 6px;
+    margin-right: 5px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 8px;
+    font-size: 12px;
+    color: #ccc;
+}
+
+footer {
+    text-align: center;
+    color: #666;
+    padding: 30px;
+}
 </style>
 </head>
 
@@ -151,67 +188,65 @@
 
 <div class="sidebar" id="sidebar">
     <h3>Hover a level</h3>
-    <p>Descriptions will show up here.</p>
+    <p>Move your cursor over a level to see breakdowns.</p>
 </div>
 
 </div>
 
 <footer>
-    The Extreme Demon Index • Community-style difficulty breakdowns
+    The Extreme Demon Index • Neon Difficulty Archive
 </footer>
 
 <script>
 
 const levels = [
-{r:1,n:"Flamewall",c:"Narwall",s:983,d:"Long, exhausting from start to finish. It doesn’t really let you breathe — constant transitions, tight inputs, and the kind of level where one mistake late into the run hurts way more than it should."},
+{r:1,n:"Flamewall",c:"Narwall",s:983,d:"Endless-feeling level with constant transitions and tight control. It’s less about skill spikes and more about surviving the entire run without breaking focus."},
 
-{r:2,n:"Amethyst",c:"iMist",s:980,d:"Very tight precision gameplay with a heavy focus on syncing clicks to fast-moving patterns. A lot of it feels smooth until you realize how exact every input has to be."},
+{r:2,n:"Amethyst",c:"iMist",s:980,d:"Precision-heavy gameplay where everything depends on tight syncing and clean execution. Very easy to fall apart if your rhythm slips."},
 
-{r:3,n:"ORBIT",c:"MindCap",s:967,d:"Orb-heavy gameplay where everything depends on hitting chains cleanly. If your rhythm slips even slightly, the section just falls apart instantly."},
+{r:3,n:"ORBIT",c:"MindCap",s:967,d:"Orb chains and timing sequences that punish even slight mistiming. Feels smooth until it suddenly isn’t."},
 
-{r:4,n:"Thinking Space II",c:"CairoX",s:962,d:"A mix of everything: ship, wave, cube, memory. The difficulty comes from how often it changes pace, so you’re always adjusting instead of settling in."},
+{r:4,n:"Thinking Space II",c:"CairoX",s:962,d:"Rapid shifts between modes and speeds. You’re constantly adjusting instead of getting comfortable."},
 
-{r:5,n:"Tidal Wave",c:"OniLink",s:959,d:"Fast wave sections stacked back-to-back with almost no forgiveness. It’s basically about controlling speed and staying consistent under pressure for long stretches."},
+{r:5,n:"Tidal Wave",c:"OniLink",s:959,d:"Fast wave control stretched over long, punishing sections. Consistency is everything here."},
 
-{r:6,n:"Boobawamba",c:"Akunakun",s:950,d:"Heavily memory-based. A lot of it is about remembering what comes next and reacting correctly instead of reacting fast. If you forget a step, you’re done."},
+{r:6,n:"Boobawamba",c:"Akunakun",s:950,d:"Memory-heavy gameplay where you’re constantly tracking what comes next. If you forget a sequence, the run collapses instantly."},
 
-{r:7,n:"Anathema",c:"nikroplays",s:946,d:"Constant switching between different styles of gameplay. It never really settles, so the challenge comes from adapting quickly instead of mastering one thing."},
+{r:7,n:"Anathema",c:"nikroplays",s:946,d:"Unstable pacing with constant gameplay changes. It never lets you settle into a rhythm."},
 
-{r:8,n:"Silent Clubstep",c:"TheRealSailent",s:934,d:"Classic Clubstep turned brutal. Tight timings everywhere, very punishing wave and ship sections, and not much room for recovery once you’re in a bad spot."},
+{r:8,n:"Silent Clubstep",c:"TheRealSailent",s:934,d:"Extreme remake with brutally tight timings and unforgiving ship/wave sections."},
 
-{r:9,n:"Acheron",c:"ryamu",s:922,d:"Extremely fast and tight wave gameplay with almost no margin for error. It’s the kind of level where consistency matters more than raw skill bursts."},
+{r:9,n:"Acheron",c:"ryamu",s:922,d:"High-speed wave sections with almost no room for correction. Pure consistency test."},
 
-{r:10,n:"Avernus",c:"PockeWindfish",s:932,d:"High intensity wave-focused gameplay with some uneven difficulty spikes. Some parts feel controlled, others feel like survival mode."},
+{r:10,n:"Avernus",c:"PockeWindfish",s:932,d:"Wave-heavy gameplay with uneven spikes in difficulty that keep you on edge."},
 
-{r:11,n:"Spectre",c:"xander",s:940,d:"Clean but deceptive gameplay. It looks smooth, but the timing windows are stricter than they appear at first glance."},
+{r:11,n:"Spectre",c:"xander",s:940,d:"Looks smooth, plays strict. Timing windows are tighter than they appear."},
 
-{r:12,n:"Nullscapes",c:"Exen",s:931,d:"Minimal visuals that hide tricky timing and awkward gameplay flow. It feels simple until you actually try to run it consistently."},
+{r:12,n:"Nullscapes",c:"Exen",s:931,d:"Minimal visuals hiding awkward timing and deceptive flow."},
 
-{r:13,n:"Abyss of Darkness",c:"Kiba",s:927,d:"Dark, tight wave sections that demand steady control. It’s not flashy, just very punishing over time."},
+{r:13,n:"Abyss of Darkness",c:"Kiba",s:927,d:"Dark, tight wave control with long stretches of sustained pressure."},
 
-{r:14,n:"Kyouki",c:"｛出見塩｝",s:932,d:"Fast wave-heavy gameplay where everything depends on staying consistent through long difficult stretches without losing rhythm."},
+{r:14,n:"Kyouki",c:"｛出見塩｝",s:932,d:"Fast wave sequences demanding long consistency without mistakes."},
 
-{r:15,n:"Ashley Wave Trials",c:"oddmod",s:936,d:"Endurance-based wave challenge. It’s less about individual clicks and more about not messing up over long runs."},
+{r:15,n:"Ashley Wave Trials",c:"oddmod",s:936,d:"Endurance-focused wave challenge with long consistent sections."},
 
-{r:16,n:"Every End",c:"MindCap",s:929,d:"Long, draining level with consistent difficulty throughout. The real challenge is staying locked in for the entire duration."},
+{r:16,n:"Every End",c:"MindCap",s:929,d:"Long, draining level where mental fatigue becomes part of the difficulty."},
 
-{r:17,n:"Defeated Circles",c:"GXQ",s:925,d:"Circular motion patterns and rhythmic gameplay that can feel simple until the timing starts stacking against you."},
+{r:17,n:"Defeated Circles",c:"GXQ",s:925,d:"Rhythmic circular movement patterns that feel simple until timing tightens."},
 
-{r:18,n:"Acheron",c:"ryamu",s:922,d:"Already described above — extreme wave precision with very tight control requirements."},
+{r:18,n:"Tunnel of Despair",c:"Exen",s:922,d:"Claustrophobic wave paths with almost no reaction space."},
 
-{r:19,n:"Tunnel of Despair",c:"Exen",s:922,d:"Claustrophobic wave sections where you barely have space to react. Small mistakes don’t really get forgiven."},
+{r:19,n:"Subterminal Point",c:"SyQual",s:920,d:"Sudden difficulty spikes that punish inconsistency."},
 
-{r:20,n:"Subterminal Point",c:"SyQual",s:920,d:"Sudden difficulty spikes mixed with precise routing. It keeps catching you off guard."},
+{r:20,n:"Menace",c:"Arraegen",s:934,d:"Fast bursts of tight inputs with little forgiveness."},
 
-{r:21,n:"Menace",c:"Arraegen",s:934,d:"Fast click bursts and tight timing windows. It’s aggressive and doesn’t really ease you in."},
+{r:21,n:"andromeda",c:"Insxne97",s:935,d:"Constant speed and style shifts keep you guessing."},
 
-{r:22,n:"andromeda",c:"Insxne97",s:935,d:"Constant shifts in speed and gameplay style. It keeps you on edge the entire time."},
+{r:22,n:"Penumbral",c:"cherryteam",s:937,d:"Dark visuals that subtly hide strict gameplay timing."},
 
-{r:23,n:"Penumbral",c:"cherryteam",s:937,d:"Dark visuals and tight gameplay that makes it harder to read than it first looks."},
+{r:23,n:"Quanteuse Processing",c:"Renn241",s:940,d:"Offbeat rhythm structures that throw off natural timing."},
 
-{r:24,n:"Quanteuse Processing",c:"Renn241",s:940,d:"Unusual rhythm patterns and wave sections that feel slightly off-beat in a way that throws you off."},
-
-{r:25,n:"Based After Based",c:"Akunakun",s:916,d:"Chaotic and meme-like at first glance, but the actual execution is way stricter than it looks."}
+{r:24,n:"Based After Based",c:"Akunakun",s:916,d:"Looks chaotic and meme-like, but execution is surprisingly strict."}
 ];
 
 const tbody = document.querySelector("#table tbody");
@@ -234,7 +269,7 @@ function renderTable(data){
             sidebar.innerHTML = `
                 <h3>#${l.r} ${l.n}</h3>
                 <span class="tag">${l.c}</span>
-                <span class="tag">Score: ${l.s}</span>
+                <span class="tag">${l.s}</span>
                 <p style="margin-top:15px; color:#ccc; line-height:1.5;">
                     ${l.d}
                 </p>
