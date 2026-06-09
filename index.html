@@ -5,16 +5,42 @@
 <title>Extreme Demon Index</title>
 
 <style>
+/* THEME SYSTEM VARIABLES */
+:root {
+    --bg-gradient: linear-gradient(-45deg, #0a0a0a, #111111, #181022, #0a0a0a);
+    --header-bg: linear-gradient(90deg, #ff2d2d, #7a5cff);
+    --text-main: white;
+    --text-sub: #aaa;
+    --input-bg: #1b1b1b;
+    --input-border: rgba(255,255,255,0.1);
+    --stat-bg: #151515;
+    --footer-bg: rgba(0,0,0,0.2);
+    --footer-border: rgba(255,255,255,0.03);
+}
+
+[data-theme="light"] {
+    --bg-gradient: linear-gradient(-45deg, #f5f5f7, #e5e5ea, #e1daec, #f5f5f7);
+    --header-bg: linear-gradient(90deg, #ff4d4d, #917aff);
+    --text-main: #1d1d1f;
+    --text-sub: #555;
+    --input-bg: #ffffff;
+    --input-border: rgba(0,0,0,0.15);
+    --stat-bg: #ffffff;
+    --footer-bg: rgba(255,255,255,0.8);
+    --footer-border: rgba(0,0,0,0.05);
+}
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    color: white;
-    background: linear-gradient(-45deg, #0a0a0a, #111111, #181022, #0a0a0a);
+    color: var(--text-main);
+    background: var(--bg-gradient);
     background-size: 400% 400%;
     animation: bgMove 15s ease infinite;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    transition: background 0.3s, color 0.3s;
 }
 
 @keyframes bgMove {
@@ -27,13 +53,36 @@ body {
 header {
     padding: 35px 22px;
     text-align: center;
-    background: linear-gradient(90deg, #ff2d2d, #7a5cff);
+    background: var(--header-bg);
+    position: relative;
+    transition: background 0.3s;
 }
 
-h1 { margin: 0; font-size: 52px; }
+h1 { margin: 0; font-size: 52px; color: white; }
 h2 { margin: 8px 0 0; font-weight: normal; color: #ddd; font-size: 20px; }
 
-/* UTILITY BAR (Larger inputs) */
+/* THEME TOGGLE BUTTON */
+.theme-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.4);
+    color: white;
+    padding: 10px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+    width: auto;
+    margin-top: 0;
+    transition: background 0.2s;
+}
+.theme-toggle:hover {
+    background: rgba(255,255,255,0.35);
+}
+
+/* UTILITY BAR */
 .utility-bar {
     display: flex;
     justify-content: center;
@@ -56,10 +105,11 @@ h2 { margin: 8px 0 0; font-weight: normal; color: #ddd; font-size: 20px; }
     max-width: 500px;
     padding: 16px;
     border-radius: 12px;
-    border: none;
-    background: #1b1b1b;
-    color: white;
+    border: 1px solid var(--input-border);
+    background: var(--input-bg);
+    color: var(--text-main);
     font-size: 18px;
+    transition: background 0.3s, border 0.3s, color 0.3s;
 }
 
 .sort-container {
@@ -71,12 +121,13 @@ h2 { margin: 8px 0 0; font-weight: normal; color: #ddd; font-size: 20px; }
 .sort-container select {
     padding: 16px;
     border-radius: 12px;
-    border: 1px solid rgba(255,255,255,0.1);
-    background: #1b1b1b;
-    color: white;
+    border: 1px solid var(--input-border);
+    background: var(--input-bg);
+    color: var(--text-main);
     font-size: 18px;
     cursor: pointer;
     outline: none;
+    transition: background 0.3s, border 0.3s, color 0.3s;
 }
 
 /* STATS */
@@ -88,18 +139,21 @@ h2 { margin: 8px 0 0; font-weight: normal; color: #ddd; font-size: 20px; }
 }
 
 .stat {
-    background: #151515;
+    background: var(--stat-bg);
     padding: 15px 22px;
     border-radius: 12px;
     text-align: center;
     min-width: 120px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    transition: background 0.3s;
 }
 
 .stat span {
     display: block;
     font-size: 14px;
-    color: #aaa;
+    color: var(--text-sub);
     margin-bottom: 6px;
+    transition: color 0.3s;
 }
 
 .stat strong {
@@ -117,7 +171,7 @@ h2 { margin: 8px 0 0; font-weight: normal; color: #ddd; font-size: 20px; }
     width: calc(100% - 48px);
 }
 
-/* LIST (Expanded for longer screen coverage) */
+/* LIST & PANEL CONFIGURATION */
 .list {
     width: 62%;
     display: flex;
@@ -125,12 +179,13 @@ h2 { margin: 8px 0 0; font-weight: normal; color: #ddd; font-size: 20px; }
     gap: 14px;
 }
 
-/* CARD (Bigger elements and larger thumbnail sizing) */
+/* LOCKED DARK STYLING (Immune to theme inversion toggles) */
 .card {
     display: flex;
     gap: 18px;
     align-items: center;
-    background: #151515;
+    background: #151515 !important;
+    color: white !important;
     border-radius: 16px;
     padding: 16px;
     cursor: pointer;
@@ -140,7 +195,7 @@ h2 { margin: 8px 0 0; font-weight: normal; color: #ddd; font-size: 20px; }
 
 .card:hover {
     transform: scale(1.015);
-    background: #1d1d1d;
+    background: #1d1d1d !important;
     border-color: rgba(255,77,77,0.4);
 }
 
@@ -165,16 +220,17 @@ h2 { margin: 8px 0 0; font-weight: normal; color: #ddd; font-size: 20px; }
 
 .meta {
     font-size: 15px;
-    color: #aaa;
+    color: #aaa !important;
     margin-top: 8px;
 }
 
-/* PANEL (Wider detail component) */
+/* PANEL LOCKED DARK STYLING */
 .panel {
     width: 38%;
     position: sticky;
     top: 24px;
-    background: #121212;
+    background: #121212 !important;
+    color: white !important;
     border-radius: 16px;
     padding: 20px;
     border: 1px solid rgba(255,255,255,0.05);
@@ -195,12 +251,12 @@ h2 { margin: 8px 0 0; font-weight: normal; color: #ddd; font-size: 20px; }
 
 .desc {
     margin-top: 15px;
-    color: #ccc;
+    color: #ccc !important;
     line-height: 1.6;
     font-size: 16px;
 }
 
-button {
+.panel-action-btn {
     margin-top: 18px;
     width: 100%;
     padding: 14px;
@@ -218,21 +274,16 @@ footer {
     text-align: center;
     padding: 25px;
     font-size: 15px;
-    color: #777;
-    border-top: 1px solid rgba(255,255,255,0.03);
-    background: rgba(0,0,0,0.2);
+    color: var(--text-sub);
+    border-top: 1px solid var(--footer-border);
+    background: var(--footer-bg);
     margin-top: auto;
+    transition: background 0.3s, color 0.3s, border 0.3s;
 }
 
 @keyframes popIn {
-    from {
-        transform: translateY(8px);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
+    from { transform: translateY(8px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
 }
 
 .card {
@@ -240,9 +291,9 @@ footer {
 }
 
 .card.active {
-    border-color: rgba(122, 92, 255, 0.8);
+    border-color: rgba(122, 92, 255, 0.8) !important;
     box-shadow: 0 0 14px rgba(122, 92, 255, 0.35);
-    background: #1b1b1b;
+    background: #1b1b1b !important;
 }
 </style>
 </head>
@@ -252,11 +303,12 @@ footer {
 <header>
     <h1>Extreme Demon Index</h1>
     <h2>The Geometry Dash Difficulty List</h2>
+    <button class="theme-toggle" onclick="toggleTheme()">🌓 Switch Theme</button>
 </header>
 
 <div class="utility-bar">
     <div class="search-container">
-        <input id="search" placeholder="Search levels..." onkeyup="render()">
+        <input id="search" placeholder="Search levels or verifiers..." onkeyup="render()">
     </div>
     <div class="sort-container">
         <select id="sort" onchange="render()">
@@ -302,40 +354,52 @@ footer {
 
 <script>
 /* ========================================================
-   SITE CONFIG & TRACKING HISTORY
+   SITE CONFIG & TRACKING HISTORY WITH ACCURATE VERIFIERS
    ======================================================== */
 const siteReleaseDate = new Date("2026-06-08"); 
 
 const levels = [
-    { r:1, n:"Flamewall", c:"Narwall", s:983, videoId:"gwNYGFmo_WY", d:"Long endurance extreme with nonstop transitions and tight control.", daysAtTop1: 1 },
-    { r:2, n:"Amethyst", c:"iMist", s:980, videoId:"OqGuNBi3_SU", d:"Precision-heavy gameplay with strict timing windows.", daysAtTop1: 0 },
-    { r:3, n:"ORBIT", c:"MindCap", s:967, videoId:"9oHv_cK84WI", d:"Orb chains where one mistake collapses the run instantly.", daysAtTop1: 0 },
-    { r:4, n:"Thinking Space II", c:"CairoX", s:962, videoId:"F05aMR0F6YM", d:"Fast transitions between gameplay modes.", daysAtTop1: 0 },
-    { r:5, n:"Tidal Wave", c:"OniLink", s:959, videoId:"frjtBcNI6dI", d:"Extreme wave control over long punishing sections.", daysAtTop1: 0 },
-    { r:6, n:"Boobawamba", c:"Akunakun", s:950, videoId:"TAPij318cjE", d:"A memory-focused extreme where learning routes and hidden interactions is just as important as execution.", daysAtTop1: 0 },
-    { r:7, n:"Anathema", c:"nikroplays", s:946, videoId:"4iOtRLKKbvU", d:"A difficult extreme built around relentless transitions, difficult timings, and constant gameplay changes.", daysAtTop1: 0 },
-    { r:8, n:"Spectre", c:"xander", s:940, videoId:"T7FfTiH1G8k", d:"Precision-heavy gameplay with demanding control and difficult late-attempt consistency.", daysAtTop1: 0 },
-    { r:9, n:"Quanteuse Processing", c:"Renn241", s:940, videoId:"sRUO72zI2GQ", d:"Technical gameplay with awkward timings, unconventional patterns, and difficult transitions.", daysAtTop1: 0 },
-    { r:10, n:"Subsuming Vortex", c:"[TCD] Cursed", s:939, videoId:"3dKj12cQSII", d:"Fast-paced precision gameplay centered around difficult wave control and consistency.", daysAtTop1: 0 },
-    { r:11, n:"Penumbral", c:"cherryteam", s:937, videoId:"wcnA-6zp_94", d:"A modern extreme focused on raw skill, difficult cube and wave sections, and a huge amount of precise timings.", daysAtTop1: 0 },
-    { r:12, n:"Ashley Wave Trials", c:"oddmod", s:936, videoId:"aTxt76U3e2Q", d:"A wave-focused extreme that demands consistency and control through long, difficult sections.", daysAtTop1: 0 },
-    { r:13, n:"andromeda", c:"Insxne97", s:935, videoId:"fFtQxxepyDo", d:"Fast-paced gameplay with difficult transitions and constant pressure throughout the level.", daysAtTop1: 0 },
+    { r:1, n:"Flamewall", c:"Narwall", v:"Trick", s:983, videoId:"gwNYGFmo_WY", d:"Long endurance extreme with nonstop transitions and tight control.", daysAtTop1: 1 },
+    { r:2, n:"Amethyst", c:"iMist", v:"wPopoff", s:980, videoId:"OqGuNBi3_SU", d:"Precision-heavy gameplay with strict timing windows.", daysAtTop1: 0 },
+    { r:3, n:"ORBIT", c:"MindCap", v:"Danielll", s:967, videoId:"9oHv_cK84WI", d:"Orb chains where one mistake collapses the run instantly.", daysAtTop1: 0 },
+    { r:4, n:"Thinking Space II", c:"CairoX", v:"Danielll", s:962, videoId:"F05aMR0F6YM", d:"Fast transitions between gameplay modes.", daysAtTop1: 0 },
+    { r:5, n:"Tidal Wave", c:"OniLink", v:"Zoink", s:959, videoId:"frjtBcNI6dI", d:"Extreme wave control over long punishing sections.", daysAtTop1: 0 },
+    { r:6, n:"Boobawamba", c:"Akunakun", v:"Grom", s:950, videoId:"TAPij318cjE", d:"A memory-focused extreme where learning routes and hidden interactions is just as important as execution.", daysAtTop1: 0 },
+    { r:7, n:"Anathema", c:"nikroplays", v:"Trick", s:946, videoId:"4iOtRLKKbvU", d:"A difficult extreme built around relentless transitions, difficult timings, and constant gameplay changes.", daysAtTop1: 0 },
+    { r:8, n:"Spectre", c:"xander", v:"Zoink", s:940, videoId:"T7FfTiH1G8k", d:"Precision-heavy gameplay with demanding control and difficult late-attempt consistency.", daysAtTop1: 0 },
+    { r:9, n:"Quanteuse Processing", c:"Renn241", v:"wPopoff", s:940, videoId:"sRUO72zI2GQ", d:"Technical gameplay with awkward timings, unconventional patterns, and difficult transitions.", daysAtTop1: 0 },
+    { r:10, n:"Subsuming Vortex", c:"[TCD] Cursed", v:"Cursed", s:939, videoId:"3dKj12cQSII", d:"Fast-paced precision gameplay centered around difficult wave control and consistency.", daysAtTop1: 0 },
+    { r:11, n:"Penumbral", c:"cherryteam", v:"wPopoff", s:937, videoId:"wcnA-6zp_94", d:"A modern extreme focused on raw skill, difficult cube and wave sections, and a huge amount of precise timings.", daysAtTop1: 0 },
+    { r:12, n:"Ashley Wave Trials", c:"oddmod", v:"wPopoff", s:936, videoId:"aTxt76U3e2Q", d:"A wave-focused extreme that demands consistency and control through long, difficult sections.", daysAtTop1: 0 },
+    { r:13, n:"andromeda", c:"Insxne97", v:"Zoink", s:935, videoId:"fFtQxxepyDo", d:"Fast-paced gameplay with difficult transitions and constant pressure throughout the level.", daysAtTop1: 0 },
     { r:14, n:"Menace", c:"Arraegen", s:934, videoId:"yvfq83hhwgI", d:"A demanding extreme with difficult timings, fast gameplay, and punishing late sections.", daysAtTop1: 0 },
-    { r:15, n:"Silent Clubstep", c:"TheRealSailent", s:934, videoId:"GR4OMkS3SN8", d:"The legendary impossible-level remake, now beaten, known for its brutally precise gameplay.", daysAtTop1: 0 },
-    { r:16, n:"Kyouki", c:"｛出見塩｝", s:932, videoId:"O_abYBtVgGU", d:"A high-speed extreme that demands exceptional consistency, especially through its difficult wave and ship sections.", daysAtTop1: 0 },
-    { r:17, n:"Avernus", c:"PockeWindfish", s:932, videoId:"16Zh8jssanc", d:"Known for its infamous fixed-hitbox gameplay and brutally precise wave sections.", daysAtTop1: 0 },
-    { r:18, n:"Nullscapes", c:"Exen", s:931, videoId:"C-KDhWkXlvI", d:"A dark-themed extreme featuring tight timings, difficult transitions, and relentless pressure.", daysAtTop1: 0 },
-    { r:19, n:"Every End", c:"MindCap", s:929, videoId:"f-O_TnxIZBA", d:"A long endurance test requiring consistency across a wide variety of difficult gameplay styles.", daysAtTop1: 0 },
+    { r:15, n:"Silent Clubstep", c:"TheRealSailent", v:"Paqels", s:934, videoId:"GR4OMkS3SN8", d:"The legendary impossible-level remake, now beaten, known for its brutally precise gameplay.", daysAtTop1: 0 },
+    { r:16, n:"Kyouki", c:"｛出見塩｝", v:"Minami Mitsuya", s:932, videoId:"O_abYBtVgGU", d:"A high-speed extreme that demands exceptional consistency, especially through its difficult wave and ship sections.", daysAtTop1: 0 },
+    { r:17, n:"Avernus", c:"PockeWindfish", v:"Diamond", s:932, videoId:"16Zh8jssanc", d:"Known for its infamous fixed-hitbox gameplay and brutally precise wave sections.", daysAtTop1: 0 },
+    { r:18, n:"Nullscapes", c:"Exen", v:"Zoink", s:931, videoId:"C-KDhWkXlvI", d:"A dark-themed extreme featuring tight timings, difficult transitions, and relentless pressure.", daysAtTop1: 0 },
+    { r:19, n:"Every End", c:"MindCap", v:"Danielll", s:929, videoId:"f-O_TnxIZBA", d:"A long endurance test requiring consistency across a wide variety of difficult gameplay styles.", daysAtTop1: 0 },
     { r:20, n:"Abyss of Darkness", c:"Kiba", s:927, videoId:"zjJCqqV2410", d:"One of Geometry Dash's most notorious extremes, packed with difficult timings and unforgiving precision.", daysAtTop1: 0 },
-    { r:21, n:"Defeated Circles", c:"GXQ", s:925, videoId:"R8BMscOkTrA", d:"A modern Circles level built around difficult wave gameplay, tight corridors, and high precision.", daysAtTop1: 0 },
-    { r:22, n:"Tunnel of Despair", c:"Exen", s:922, videoId:"0GC5og7gVS0", d:"A claustrophobic extreme featuring narrow spaces, difficult transitions, and sustained precision.", daysAtTop1: 0 },
-    { r:23, n:"Acheron", c:"ryamu", s:922, videoId:"oh0FyZHZST8", d:"A former #1 extreme demon known for its brutal timings, demanding wave control, and punishing difficulty throughout.", daysAtTop1: 0 },
-    { r:24, n:"Subterminal Point", c:"SyQual", s:920, videoId:"Syh4W449IS4", d:"A technical extreme with difficult transitions and gameplay that heavily rewards consistency.", daysAtTop1: 0 },
-    { r:25, n:"Based After Based", c:"Akunakun", s:916, videoId:"_T1xofG2zqo", d:"A difficult modern extreme featuring unconventional gameplay and demanding execution.", daysAtTop1: 0 }
+    { r:21, n:"Defeated Circles", c:"GXQ", v:"Trick", s:925, videoId:"R8BMscOkTrA", d:"A modern Circles level built around difficult wave gameplay, tight corridors, and high precision.", daysAtTop1: 0 },
+    { r:22, n:"Tunnel of Despair", c:"Exen", v:"Trick", s:922, videoId:"0GC5og7gVS0", d:"A claustrophobic extreme featuring narrow spaces, difficult transitions, and sustained precision.", daysAtTop1: 0 },
+    { r:23, n:"Acheron", c:"ryamu", v:"Zoink", s:922, videoId:"oh0FyZHZST8", d:"A former #1 extreme demon known for its brutal timings, demanding wave control, and punishing difficulty throughout.", daysAtTop1: 0 },
+    { r:24, n:"Subterminal Point", c:"SyQual", v:"wPopoff", s:920, videoId:"Syh4W449IS4", d:"A technical extreme with difficult transitions and gameplay that heavily rewards consistency.", daysAtTop1: 0 },
+    { r:25, n:"Based After Based", c:"Akunakun", v:"Trick", s:916, videoId:"_T1xofG2zqo", d:"A difficult modern extreme featuring unconventional gameplay and demanding execution.", daysAtTop1: 0 }
 ];
 
 /* ========================================================
-   DYNAMIC TIME FORMATTER (Days -> Weeks -> Months -> Years)
+   LIGHT / DARK THEME TOGGLE LOGIC
+   ======================================================== */
+function toggleTheme() {
+    const currentTheme = document.body.getAttribute("data-theme");
+    if (currentTheme === "light") {
+        document.body.removeAttribute("data-theme");
+    } else {
+        document.body.setAttribute("data-theme", "light");
+    }
+}
+
+/* ========================================================
+   DYNAMIC TIME FORMATTER
    ======================================================== */
 function formatTop1Time(daysVal) {
     if (!daysVal || daysVal <= 0) return "";
@@ -379,7 +443,8 @@ function getFilteredLevels(){
     const q = document.getElementById("search")?.value?.toLowerCase() || "";
     return levels.filter(l =>
         l.n.toLowerCase().includes(q) ||
-        l.c.toLowerCase().includes(q)
+        l.c.toLowerCase().includes(q) ||
+        l.v.toLowerCase().includes(q)
     );
 }
 
@@ -388,7 +453,7 @@ function updateStats(filtered){
     if (!statsContainer) return;
 
     if (filtered.length === 0) {
-        statsContainer.innerHTML = `<div class="stat" style="width:100%">No levels match criteria</div>`;
+        statsContainer.innerHTML = `<div class="stat" style="width:100%; color: var(--text-main)">No levels match criteria</div>`;
         return;
     }
 
@@ -453,20 +518,24 @@ function render(){
             <img class="thumb" src="${getThumb(l)}">
             <div class="info">
                 <div class="name">#${l.r} ${l.n} ${historyTag}</div>
-                <div class="meta">${l.c} • Score ${l.s}</div>
+                <div class="meta">${l.c} • <span style="color:#7a5cff; font-weight:bold;">Verified by ${l.v}</span> • Score ${l.s}</div>
             </div>
         `;
 
         card.onclick = () => {
+            document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+            card.classList.add('active');
+
             let siteHistoryText = formattedTime 
                 ? `<p style="color:#ff2d2d; font-size:16px; font-weight:bold; margin: 8px 0;">Site Record: Held #1 spot for ${formattedTime}</p>` 
                 : '';
             panel.innerHTML = `
                 <h3>#${l.r} ${l.n}</h3>
+                <p style="margin: -10px 0 10px 0; font-size: 16px; color: #aaa;">Created by ${l.c} • Verified by <strong>${l.v}</strong></p>
                 ${siteHistoryText}
                 <div class="desc">${l.d}</div>
                 <img src="${getThumb(l)}">
-                <button onclick="window.open('${getVideo(l)}','_blank')">
+                <button class="panel-action-btn" onclick="window.open('${getVideo(l)}','_blank')">
                     ▶ Watch Video
                 </button>
             `;
