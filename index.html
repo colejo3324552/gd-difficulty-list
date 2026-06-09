@@ -12,8 +12,9 @@ body {
     color: white;
 }
 
+/* HEADER */
 header {
-    padding: 25px;
+    padding: 22px;
     text-align: center;
     background: linear-gradient(90deg, #ff2d2d, #7a5cff);
 }
@@ -21,22 +22,25 @@ header {
 h1 { margin: 0; font-size: 40px; }
 h2 { margin: 5px 0 0; font-weight: normal; color: #ddd; }
 
+/* LAYOUT */
 .container {
     display: flex;
-    gap: 20px;
-    padding: 20px;
+    gap: 18px;
+    padding: 18px;
 }
 
+/* LIST */
 .list {
-    width: 65%;
+    width: 60%;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
 }
 
+/* CARD */
 .card {
     display: flex;
-    gap: 15px;
+    gap: 12px;
     align-items: center;
     background: #151515;
     border-radius: 14px;
@@ -48,49 +52,64 @@ h2 { margin: 5px 0 0; font-weight: normal; color: #ddd; }
 
 .card:hover {
     transform: scale(1.01);
-    border-color: rgba(255,77,77,0.4);
     background: #1d1d1d;
+    border-color: rgba(255,77,77,0.4);
 }
 
 .thumb {
-    width: 130px;
-    height: 72px;
-    border-radius: 8px;
+    width: 140px;
+    height: 78px;
+    border-radius: 10px;
     object-fit: cover;
     background: #222;
 }
 
 .info { flex: 1; }
 
-.name { font-size: 18px; font-weight: bold; }
-.meta { font-size: 12px; color: #aaa; margin-top: 4px; }
+.name {
+    font-size: 18px;
+    font-weight: bold;
+}
 
+.meta {
+    font-size: 12px;
+    color: #aaa;
+    margin-top: 4px;
+}
+
+/* PANEL */
 .panel {
-    width: 35%;
+    width: 40%;
     position: sticky;
-    top: 20px;
+    top: 18px;
     background: #121212;
     border-radius: 14px;
-    padding: 16px;
+    padding: 14px;
     border: 1px solid rgba(255,255,255,0.05);
 }
 
-.panel img {
+.panel img, iframe {
     width: 100%;
     border-radius: 10px;
     margin-top: 10px;
 }
 
-.button {
-    display: block;
+.desc {
+    margin-top: 10px;
+    color: #ccc;
+    line-height: 1.4;
+}
+
+button {
     margin-top: 12px;
+    width: 100%;
     padding: 10px;
-    text-align: center;
-    background: linear-gradient(90deg, #ff2d2d, #7a5cff);
+    border: none;
     border-radius: 10px;
-    color: white;
-    text-decoration: none;
     font-weight: bold;
+    color: white;
+    cursor: pointer;
+    background: linear-gradient(90deg, #ff2d2d, #7a5cff);
 }
 </style>
 </head>
@@ -99,7 +118,7 @@ h2 { margin: 5px 0 0; font-weight: normal; color: #ddd; }
 
 <header>
 <h1>Extreme Demon Index</h1>
-<h2>Full 25-Level Modern Dashboard</h2>
+<h2>Modern Geometry Dash Difficulty Dashboard</h2>
 </header>
 
 <div class="container">
@@ -108,165 +127,174 @@ h2 { margin: 5px 0 0; font-weight: normal; color: #ddd; }
 
 <div class="panel" id="panel">
 <h3>Select a level</h3>
-<p>Click a level to view showcase.</p>
+<p>Click any level to view details.</p>
 </div>
 
 </div>
 
 <script>
 
+/* =========================
+   DATA (CLEAN + ISOLATED)
+   ========================= */
+
 const levels = [
 {
 r:1,n:"Flamewall",c:"Narwall",s:983,
-video:"https://www.youtube.com/results?search_query=Flamewall+geometry+dash+showcase",
-img:"https://img.youtube.com/vi_search/Flamewall/hqdefault.jpg",
+videoId:null,
+videoSearch:"Flamewall geometry dash showcase",
 d:"Long endurance extreme with nonstop transitions and tight control."
 },
 {
 r:2,n:"Amethyst",c:"iMist",s:980,
-video:"https://www.youtube.com/results?search_query=Amethyst+geometry+dash+showcase",
-img:"https://img.youtube.com/vi_search/Amethyst/hqdefault.jpg",
+videoId:null,
+videoSearch:"Amethyst geometry dash showcase",
 d:"Precision-heavy gameplay with strict timing windows."
 },
 {
 r:3,n:"ORBIT",c:"MindCap",s:967,
-video:"https://www.youtube.com/watch?v=70DK4hNHO4g",
-img:"https://i.ytimg.com/vi/70DK4hNHO4g/hqdefault.jpg",
+videoId:"70DK4hNHO4g",
 d:"Orb chains where one mistake collapses the run instantly."
 },
 {
 r:4,n:"Thinking Space II",c:"CairoX",s:962,
-video:"https://www.youtube.com/results?search_query=Thinking+Space+II+showcase",
-img:"https://img.youtube.com/vi_search/Thinking+Space+II/hqdefault.jpg",
-d:"Fast transitions between multiple gameplay modes."
+videoId:null,
+videoSearch:"Thinking Space II geometry dash showcase",
+d:"Fast transitions between gameplay modes."
 },
 {
 r:5,n:"Tidal Wave",c:"OniLink",s:959,
-video:"https://www.youtube.com/watch?v=hv6-C_2VWI0",
-img:"https://i.ytimg.com/vi/hv6-C_2VWI0/hqdefault.jpg",
-d:"Extreme wave control over long punishing stretches."
+videoId:"hv6-C_2VWI0",
+d:"Extreme wave control over long punishing sections."
 },
 {
 r:6,n:"Boobawamba",c:"Akunakun",s:950,
-video:"https://www.youtube.com/results?search_query=Boobawamba+geometry+dash",
-img:"https://img.youtube.com/vi_search/Boobawamba/hqdefault.jpg",
-d:"Memory-heavy gameplay requiring full sequence tracking."
+videoId:null,
+videoSearch:"Boobawamba geometry dash showcase",
+d:"Heavy memory-based gameplay requiring full sequence tracking."
 },
 {
 r:7,n:"Anathema",c:"nikroplays",s:946,
-video:"https://www.youtube.com/watch?v=Pau8CWTltDk",
-img:"https://i.ytimg.com/vi/Pau8CWTltDk/hqdefault.jpg",
+videoId:"Pau8CWTltDk",
 d:"Constant gameplay shifts with no stable rhythm."
 },
 {
 r:8,n:"Spectre",c:"xander",s:940,
-video:"https://www.youtube.com/results?search_query=Spectre+geometry+dash",
-img:"https://img.youtube.com/vi_search/Spectre/hqdefault.jpg",
+videoId:null,
+videoSearch:"Spectre geometry dash showcase",
 d:"Looks smooth but timing is extremely strict."
 },
 {
 r:9,n:"Quanteuse Processing",c:"Renn241",s:940,
-video:"https://www.youtube.com/watch?v=mk3TDemdkC0",
-img:"https://i.ytimg.com/vi/mk3TDemdkC0/hqdefault.jpg",
+videoId:null,
+videoSearch:"Quanteuse Processing geometry dash",
 d:"Offbeat rhythm structures that disrupt timing."
 },
 {
 r:10,n:"Subsuming Vortex",c:"Cursed",s:939,
-video:"https://www.youtube.com/results?search_query=Subsuming+Vortex",
-img:"https://img.youtube.com/vi_search/Subsuming+Vortex/hqdefault.jpg",
+videoId:null,
+videoSearch:"Subsuming Vortex geometry dash",
 d:"Fast wave corridors with extreme precision."
 },
+
 {
 r:11,n:"Penumbral",c:"cherryteam",s:937,
-video:"https://www.youtube.com/results?search_query=Penumbral+geometry+dash",
-img:"https://img.youtube.com/vi_search/Penumbral/hqdefault.jpg",
+videoId:null,videoSearch:"Penumbral geometry dash",
 d:"Dark visuals hiding precise gameplay flow."
 },
 {
 r:12,n:"Ashley Wave Trials",c:"oddmod",s:936,
-video:"https://www.youtube.com/results?search_query=Ashley+Wave+Trials",
-img:"https://img.youtube.com/vi_search/Ashley+Wave+Trials/hqdefault.jpg",
+videoId:null,videoSearch:"Ashley Wave Trials geometry dash",
 d:"Long wave endurance challenge focused on consistency."
 },
 {
 r:13,n:"andromeda",c:"Insxne97",s:935,
-video:"https://www.youtube.com/results?search_query=andromeda+geometry+dash",
-img:"https://img.youtube.com/vi_search/andromeda/hqdefault.jpg",
-d:"Constant speed and gameplay shifts requiring adaptation."
+videoId:null,videoSearch:"andromeda geometry dash",
+d:"Constant speed shifts requiring adaptation."
 },
 {
 r:14,n:"Menace",c:"Arraegen",s:934,
-video:"https://www.youtube.com/results?search_query=Menace+geometry+dash",
-img:"https://img.youtube.com/vi_search/Menace/hqdefault.jpg",
-d:"Fast bursts of tight inputs with little forgiveness."
+videoId:null,videoSearch:"Menace geometry dash",
+d:"Fast bursts of tight inputs."
 },
 {
 r:15,n:"Silent Clubstep",c:"TheRealSailent",s:934,
-video:"https://www.youtube.com/results?search_query=Silent+Clubstep",
-img:"https://img.youtube.com/vi_search/Silent+Clubstep/hqdefault.jpg",
+videoId:null,videoSearch:"Silent Clubstep geometry dash",
 d:"Extreme remake with brutal timing sections."
 },
 {
 r:16,n:"Kyouki",c:"｛出見塩｝",s:932,
-video:"https://www.youtube.com/results?search_query=Kyouki+geometry+dash",
-img:"https://img.youtube.com/vi_search/Kyouki/hqdefault.jpg",
-d:"Fast wave-heavy sections requiring long consistency."
+videoId:null,videoSearch:"Kyouki geometry dash",
+d:"Fast wave-heavy sections requiring consistency."
 },
 {
 r:17,n:"Avernus",c:"PockeWindfish",s:932,
-video:"https://www.youtube.com/results?search_query=Avernus+geometry+dash",
-img:"https://img.youtube.com/vi_search/Avernus/hqdefault.jpg",
-d:"Wave-focused gameplay with uneven spikes."
+videoId:null,videoSearch:"Avernus geometry dash",
+d:"Wave-focused gameplay with spikes."
 },
 {
 r:18,n:"Nullscapes",c:"Exen",s:931,
-video:"https://www.youtube.com/results?search_query=Nullscapes+geometry+dash",
-img:"https://img.youtube.com/vi_search/Nullscapes/hqdefault.jpg",
+videoId:null,videoSearch:"Nullscapes geometry dash",
 d:"Minimal visuals hiding awkward timing."
 },
 {
 r:19,n:"Every End",c:"MindCap",s:929,
-video:"https://www.youtube.com/results?search_query=Every+End+geometry+dash",
-img:"https://img.youtube.com/vi_search/Every+End/hqdefault.jpg",
-d:"Long endurance level where focus is the real challenge."
+videoId:null,videoSearch:"Every End geometry dash",
+d:"Long endurance focus challenge."
 },
 {
 r:20,n:"Abyss of Darkness",c:"Kiba",s:927,
-video:"https://www.youtube.com/results?search_query=Abyss+of+Darkness",
-img:"https://img.youtube.com/vi_search/Abyss+of+Darkness/hqdefault.jpg",
-d:"Dark wave control with sustained pressure."
+videoId:null,videoSearch:"Abyss of Darkness geometry dash",
+d:"Dark wave control under pressure."
 },
 {
 r:21,n:"Defeated Circles",c:"GXQ",s:925,
-video:"https://www.youtube.com/results?search_query=Defeated+Circles",
-img:"https://img.youtube.com/vi_search/Defeated+Circles/hqdefault.jpg",
-d:"Circular movement patterns that tighten over time."
+videoId:null,videoSearch:"Defeated Circles geometry dash",
+d:"Circular movement patterns tightening over time."
 },
 {
 r:22,n:"Tunnel of Despair",c:"Exen",s:922,
-video:"https://www.youtube.com/results?search_query=Tunnel+of+Despair",
-img:"https://img.youtube.com/vi_search/Tunnel+of+Despair/hqdefault.jpg",
-d:"Claustrophobic wave sections with no reaction space."
+videoId:null,videoSearch:"Tunnel of Despair geometry dash",
+d:"Claustrophobic wave sections."
 },
 {
 r:23,n:"Acheron",c:"ryamu",s:922,
-video:"https://www.youtube.com/results?search_query=Acheron+geometry+dash",
-img:"https://img.youtube.com/vi_search/Acheron/hqdefault.jpg",
-d:"Extreme wave precision with tight control."
+videoId:null,videoSearch:"Acheron geometry dash",
+d:"Extreme wave precision control."
 },
 {
 r:24,n:"Subterminal Point",c:"SyQual",s:920,
-video:"https://www.youtube.com/results?search_query=Subterminal+Point",
-img:"https://img.youtube.com/vi_search/Subterminal+Point/hqdefault.jpg",
-d:"Sudden spikes that punish inconsistency."
+videoId:null,videoSearch:"Subterminal Point geometry dash",
+d:"Sudden spikes in difficulty."
 },
 {
 r:25,n:"Based After Based",c:"Akunakun",s:916,
-video:"https://www.youtube.com/results?search_query=Based+After+Based",
-img:"https://img.youtube.com/vi_search/Based+After+Based/hqdefault.jpg",
-d:"Chaotic-looking level with strict execution."
+videoId:null,videoSearch:"Based After Based geometry dash",
+d:"Chaotic execution-heavy level."
 }
 ];
+
+/* =========================
+   HELPERS (NO MORE MISMATCH)
+   ========================= */
+
+function getThumb(l){
+    if(l.videoId){
+        return `https://i.ytimg.com/vi/${l.videoId}/hqdefault.jpg`;
+    }
+    return "https://via.placeholder.com/320x180?text=No+Thumbnail";
+}
+
+function getVideo(l){
+    if(l.videoId){
+        return `https://www.youtube.com/watch?v=${l.videoId}`;
+    }
+    return `https://www.youtube.com/results?search_query=${encodeURIComponent(l.videoSearch)}`;
+}
+
+/* =========================
+   RENDER
+   ========================= */
 
 const list = document.getElementById("list");
 const panel = document.getElementById("panel");
@@ -279,7 +307,7 @@ function render(){
         card.className = "card";
 
         card.innerHTML = `
-            <img class="thumb" src="${l.img}">
+            <img class="thumb" src="${getThumb(l)}">
             <div class="info">
                 <div class="name">#${l.r} ${l.n}</div>
                 <div class="meta">${l.c} • Score ${l.s}</div>
@@ -289,11 +317,18 @@ function render(){
         card.onclick = () => {
             panel.innerHTML = `
                 <h3>#${l.r} ${l.n}</h3>
-                <p>${l.d}</p>
-                <img src="${l.img}">
-                <a class="button" target="_blank" href="${l.video}">
+
+                <div class="desc">${l.d}</div>
+
+                ${
+                    l.videoId
+                    ? `<img src="${getThumb(l)}">`
+                    : `<iframe height="200" src="https://www.youtube.com/embed?listType=search&list=${encodeURIComponent(l.videoSearch)}" frameborder="0"></iframe>`
+                }
+
+                <button onclick="window.open('${getVideo(l)}','_blank')">
                     Watch Showcase
-                </a>
+                </button>
             `;
         };
 
