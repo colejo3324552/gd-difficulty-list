@@ -66,20 +66,21 @@ h2 { margin: 8px 0 0; font-weight: normal; color: #ddd; font-size: 20px; }
     position: absolute;
     top: 20px;
     right: 20px;
-    background: rgba(255,255,255,0.2);
-    border: 1px solid rgba(255,255,255,0.4);
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
     color: white;
-    padding: 10px 16px;
-    border-radius: 20px;
+    padding: 10px 18px;
+    border-radius: 8px;
     cursor: pointer;
     font-weight: bold;
     font-size: 14px;
     width: auto;
     margin-top: 0;
-    transition: background 0.2s;
+    transition: background 0.2s, border-color 0.2s;
 }
 .theme-toggle:hover {
-    background: rgba(255,255,255,0.35);
+    background: rgba(255,255,255,0.25);
+    border-color: rgba(255,255,255,0.5);
 }
 
 /* UTILITY BAR */
@@ -87,7 +88,7 @@ h2 { margin: 8px 0 0; font-weight: normal; color: #ddd; font-size: 20px; }
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 16px;
     padding: 25px 18px 10px 18px;
     max-width: 1400px;
     margin: 0 auto;
@@ -104,7 +105,7 @@ h2 { margin: 8px 0 0; font-weight: normal; color: #ddd; font-size: 20px; }
     width: 100%;
     max-width: 500px;
     padding: 16px;
-    border-radius: 12px;
+    border-radius: 8px;
     border: 1px solid var(--input-border);
     background: var(--input-bg);
     color: var(--text-main);
@@ -120,7 +121,7 @@ h2 { margin: 8px 0 0; font-weight: normal; color: #ddd; font-size: 20px; }
 
 .sort-container select {
     padding: 16px;
-    border-radius: 12px;
+    border-radius: 8px;
     border: 1px solid var(--input-border);
     background: var(--input-bg);
     color: var(--text-main);
@@ -131,23 +132,25 @@ h2 { margin: 8px 0 0; font-weight: normal; color: #ddd; font-size: 20px; }
 }
 
 .changelog-toggle {
-    background: rgba(255,255,255,0.1);
+    background: var(--input-bg);
     border: 1px solid var(--input-border);
     color: var(--text-main);
     padding: 16px 24px;
-    border-radius: 12px;
+    border-radius: 8px;
     cursor: pointer;
     font-size: 16px;
     font-weight: bold;
-    transition: 0.3s;
+    transition: background 0.2s, border-color 0.2s;
 }
 
 .changelog-toggle:hover {
-    background: rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(255,255,255,0.2);
 }
 
-[data-theme="light"] .changelog-toggle {
-    background: var(--input-bg);
+[data-theme="light"] .changelog-toggle:hover {
+    background: rgba(0,0,0,0.03);
+    border-color: rgba(0,0,0,0.2);
 }
 
 /* STATS */
@@ -280,7 +283,7 @@ h2 { margin: 8px 0 0; font-weight: normal; color: #ddd; font-size: 20px; }
     width: 100%;
     padding: 14px;
     border: none;
-    border-radius: 12px;
+    border-radius: 8px;
     font-weight: bold;
     font-size: 16px;
     color: white;
@@ -403,7 +406,7 @@ footer {
 <header>
     <h1>Extreme Demon Index</h1>
     <h2>The Geometry Dash Difficulty List</h2>
-    <button class="theme-toggle" onclick="toggleTheme()">🌓 Switch Theme</button>
+    <button class="theme-toggle" onclick="toggleTheme()">Switch Theme</button>
 </header>
 
 <div class="utility-bar">
@@ -418,7 +421,7 @@ footer {
             <option value="alphabetical">Name (A-Z)</option>
         </select>
     </div>
-    <button class="changelog-toggle" onclick="toggleChangelog()">📜 Updates</button>
+    <button class="changelog-toggle" onclick="toggleChangelog()">Updates</button>
 </div>
 
 <div class="stats" id="stats-container">
@@ -707,7 +710,7 @@ function render(){
             // Set the dynamic custom color variables on active click
             card.classList.add('active');
             card.style.setProperty('--active-color', l.color);
-            card.style.setProperty('--active-glow', `${l.color}4c`); // Adds ~30% alpha value for subtle outer glow
+            card.style.setProperty('--active-glow', `${l.color}4c`); 
 
             let siteHistoryText = formattedTime 
                 ? `<p style="color:#ff2d2d; font-size:16px; font-weight:bold; margin: 8px 0;">Site Record: Held #1 spot for ${formattedTime}</p>` 
@@ -718,8 +721,8 @@ function render(){
                 ${siteHistoryText}
                 <div class="desc">${l.d}</div>
                 <img src="${getThumb(l)}">
-                <button class="panel-action-btn" style="background: linear-gradient(90deg, ${l.color}, #151515);" onclick="window.open('${getVideo(l)}','_blank')">
-                    ▶ Watch Video
+                <button class="panel-action-btn" style="background: linear-gradient(90deg, ${l.color}, #151515); border-radius: 8px;" onclick="window.open('${getVideo(l)}','_blank')">
+                    Watch Video
                 </button>
             `;
         };
