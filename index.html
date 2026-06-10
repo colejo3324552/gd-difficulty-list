@@ -684,4 +684,52 @@ function render(){
         card.className = "card";
 
         const formattedTime = formatTop1Time(l.daysAtTop1);
-        const historyTag = (sortType === "site-top1" && formatted
+        const historyTag = (sortType === "site-top1" && formattedTime) 
+            ? `<span style="color: #ff2d2d; font-size:13px; font-weight:bold; background:rgba(255,45,45,0.15); padding:4px 9px; border-radius:6px; margin-left:4px; border: 1px solid rgba(255,45,45,0.2);">🏆 ${formattedTime} at #1</span>` 
+            : '';
+
+        card.innerHTML = `
+            <img class="thumb" src="${getThumb(l)}">
+            <div class="info">
+                <div class="name">#${l.r} ${l.n} ${historyTag}</div>
+                <div class="meta">${l.c} • <span style="color:#7a5cff; font-weight:bold;">Verified by ${l.v}</span> • Score ${l.s}</div>
+            </div>
+        `;
+
+        card.onclick = () => {
+            // Reset existing active cards and clear dynamic styles
+            document.querySelectorAll('.card').forEach(c => {
+                c.classList.remove('active');
+                c.style.removeProperty('--active-color');
+                c.style.removeProperty('--active-glow');
+            });
+            
+            // Set the dynamic custom color variables on active click
+            card.classList.add('active');
+            card.style.setProperty('--active-color', l.color);
+            card.style.setProperty('--active-glow', `${l.color}4c`); // Adds ~30% alpha value for subtle outer glow
+
+            let siteHistoryText = formattedTime 
+                ? `<p style="color:#ff2d2d; font-size:16px; font-weight:bold; margin: 8px 0;">Site Record: Held #1 spot for ${formattedTime}</p>` 
+                : '';
+            panel.innerHTML = `
+                <h3>#${l.r} ${l.n}</h3>
+                <p style="margin: -10px 0 10px 0; font-size: 16px; color: #aaa;">Created by ${l.c} • Verified by <strong>${l.v}</strong></p>
+                ${siteHistoryText}
+                <div class="desc">${l.d}</div>
+                <img src="${getThumb(l)}">
+                <button class="panel-action-btn" style="background: linear-gradient(90deg, ${l.color}, #151515);" onclick="window.open('${getVideo(l)}','_blank')">
+                    ▶ Watch Video
+                </button>
+            `;
+        };
+
+        list.appendChild(card);
+    });
+}
+
+render();
+</script>
+
+</body>
+</html>
