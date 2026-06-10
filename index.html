@@ -130,6 +130,26 @@ h2 { margin: 8px 0 0; font-weight: normal; color: #ddd; font-size: 20px; }
     transition: background 0.3s, border 0.3s, color 0.3s;
 }
 
+.changelog-toggle {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid var(--input-border);
+    color: var(--text-main);
+    padding: 16px 24px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.changelog-toggle:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+[data-theme="light"] .changelog-toggle {
+    background: var(--input-bg);
+}
+
 /* STATS */
 .stats {
     display: flex;
@@ -268,6 +288,83 @@ h2 { margin: 8px 0 0; font-weight: normal; color: #ddd; font-size: 20px; }
     background: linear-gradient(90deg, #ff2d2d, #7a5cff);
 }
 
+/* MODAL STYLES (CHANGELOG) */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    backdrop-filter: blur(5px);
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal.show {
+    display: flex;
+    opacity: 1;
+}
+
+.modal-content {
+    background: var(--input-bg);
+    color: var(--text-main);
+    border: 1px solid var(--input-border);
+    border-radius: 16px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    padding: 30px;
+    position: relative;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+}
+
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    font-size: 32px;
+    font-weight: bold;
+    color: var(--text-sub);
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close-btn:hover {
+    color: #ff2d2d;
+}
+
+.log-entry {
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--footer-border);
+}
+
+.log-entry:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.log-date {
+    font-size: 16px;
+    color: #7a5cff;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.log-list {
+    margin: 0;
+    padding-left: 20px;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
 /* FOOTER UI */
 footer {
     text-align: center;
@@ -321,6 +418,7 @@ footer {
             <option value="alphabetical">Name (A-Z)</option>
         </select>
     </div>
+    <button class="changelog-toggle" onclick="toggleChangelog()">📜 Updates</button>
 </div>
 
 <div class="stats" id="stats-container">
@@ -351,13 +449,45 @@ footer {
     </div>
 </div>
 
+<div id="changelog-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="toggleChangelog()">&times;</span>
+        <h2 style="margin-top: 0; margin-bottom: 25px;">Site Updates & History</h2>
+        <div id="changelog-list"></div>
+    </div>
+</div>
+
 <footer>
     Operating since June 8, 2026
 </footer>
 
 <script>
 /* ========================================================
-   SITE CONFIG & TRACKING HISTORY WITH ACCURATE VERIFIERS
+   CHANGELOG DATA
+   Add new updates to the top of this array!
+   ======================================================== */
+const changelogData = [
+    {
+        date: "June 10, 2026",
+        changes: [
+            "Updated Flamewall's Top 1 tracker to properly display 2 days.",
+            "Corrected Andromeda's verifier information to taiago.",
+            "Added the Site Updates & History modal to track major shifts in the list."
+        ]
+    },
+    {
+        date: "June 8, 2026",
+        changes: [
+            "Official site launch! Initiated tracking with the current Top 30 Extreme Demons.",
+            "Flamewall claims the #1 spot.",
+            "Spectre verified by PersonHuman42 added at #10.",
+            "Quanteuse Processing placed at #8."
+        ]
+    }
+];
+
+/* ========================================================
+   SITE CONFIG & TRACKING HISTORY
    ======================================================== */
 const siteReleaseDate = new Date("2026-06-08"); 
 
@@ -369,7 +499,7 @@ const levels = [
     { r:5, n:"Tidal Wave", c:"OniLink", v:"Zoink", s:959, color:"#00f0ff", videoId:"frjtBcNI6dI", d:"The legendary mega-demon known for its vibrant beach aesthetics and sunny design that contrast brutally with its near-impossible wave sections. Relentless frame-perfect inputs and punishing click rhythms solidified its multi-year legacy at the absolute pinnacle of difficulty.", daysAtTop1: 0 },
     { r:6, n:"Boobawamba", c:"Akunakun", v:"EastShark1", s:950, color:"#33ff33", videoId:"TAPij318cjE", d:"A memory-focused extreme where learning routes and hidden interactions is just as important as execution. Rated as an extreme memory demon after being verified with 175,282 attempts.", daysAtTop1: 0 },
     { r:7, n:"Anathema", c:"nikrodox", v:"Whizkid05", s:946, color:"#7a5cff", videoId:"Vew9SOXzLME", d:"A difficult extreme built around relentless transitions and difficult timings. Under development for six years, Whizkid05 successfully verified it and shook up the Top 10 landscape.", daysAtTop1: 0 },
-    { r:8, n:"Quanteuse Processing", c:"Renn241", v:"Zoink", s:943, color:"#ff69b4", videoId:"sRUO72zI2GQ", d:"An intense precision-heavy gauntlet with demanding mechanical control and unforgiving consistency. It features complex, claustrophobic ship paths, ultra-tight wave gaps, and a series of nerve-wracking dual transitions right at the conclusion.", daysAtTop1: 0 },
+    { r:8, n:"Quanteuse Processing", c:"xander", v:"PersonHuman42", s:943, color:"#ff69b4", videoId:"sRUO72zI2GQ", d:"An intense precision-heavy gauntlet with demanding mechanical control and unforgiving consistency. It features complex, claustrophobic ship paths, ultra-tight wave gaps, and a series of nerve-wracking dual transitions right at the conclusion.", daysAtTop1: 0 },
     { r:9, n:"Subsuming Vortex", c:"[TCD] Cursed", v:"Cursed", s:940, color:"#115c2e", videoId:"CLzkb9YMMEg", d:"Fast-paced solo project emphasizing world-class wave mechanics and raw muscle memory. The level provides no safe harbor, forcing players through incredibly narrow spike fields and sudden speed switches that test late-level nerves.", daysAtTop1: 0 },
     { r:10, n:"Spectre", c:"xander", v:"PersonHuman42", s:939, color:"#89cff0", videoId:"T7FfTiH1G8k", d:"Technical gameplay at its finest, defined by awkward click rhythms, unconventional visual patterns, and sudden transitions. It relies heavily on strict music synchronization paired with extreme straight-fly control and rapid gravity fluctuations.", daysAtTop1: 0 },
     { r:11, n:"Penumbral", c:"Cherry Team", v:"w3rty", s:937, color:"#000000", videoId:"wcnA-6zp_94", d:"A beautifully crafted modern extreme focused on pure mechanical skill. It spaces its difficulty across dense cube timings and sweeping wave patterns, punishing any minor hesitation with an instant reset.", daysAtTop1: 0 },
@@ -393,6 +523,42 @@ const levels = [
     { r:29, n:"The Lightning Rod", c:"lavatrex", v:"lavatrex", s:915, color:"#008080", videoId:"DCbXHYwW7r0", d:"A high-voltage, fast-paced extreme demon engineered around lightning-fast sync and overwhelming mechanical speed. It tests players with brutal click consistency, rapid gravity shifts, and tight wave corridors wrapped in an electrifying teal storm aesthetic.", daysAtTop1: 0 },
     { r:30, n:"Based After Based", c:"Akunakun", v:"DiamondSplash", s:912, color:"#ddff00", videoId:"_T1xofG2zqo", d:"An ironic yet brutally demanding extreme that parodies early game layout structures. Despite its simple aesthetic style, it hides extreme frame-perfect timings and highly erratic click setups that push traditional muscle memory to its breaking point.", daysAtTop1: 0 }
 ];
+
+/* ========================================================
+   MODAL LOGIC
+   ======================================================== */
+function toggleChangelog() {
+    const modal = document.getElementById("changelog-modal");
+    if (modal.classList.contains("show")) {
+        modal.classList.remove("show");
+        setTimeout(() => modal.style.display = "none", 300);
+    } else {
+        modal.style.display = "flex";
+        void modal.offsetWidth; // Trigger reflow for CSS transition
+        modal.classList.add("show");
+        renderChangelog();
+    }
+}
+
+function renderChangelog() {
+    const listContainer = document.getElementById("changelog-list");
+    listContainer.innerHTML = changelogData.map(log => `
+        <div class="log-entry">
+            <div class="log-date">${log.date}</div>
+            <ul class="log-list">
+                ${log.changes.map(c => `<li>${c}</li>`).join('')}
+            </ul>
+        </div>
+    `).join('');
+}
+
+// Close the modal if the user clicks outside the content box
+window.onclick = function(event) {
+    const modal = document.getElementById("changelog-modal");
+    if (event.target == modal) {
+        toggleChangelog();
+    }
+}
 
 /* ========================================================
    LIGHT / DARK THEME TOGGLE LOGIC
@@ -518,52 +684,4 @@ function render(){
         card.className = "card";
 
         const formattedTime = formatTop1Time(l.daysAtTop1);
-        const historyTag = (sortType === "site-top1" && formattedTime) 
-            ? `<span style="color: #ff2d2d; font-size:13px; font-weight:bold; background:rgba(255,45,45,0.15); padding:4px 9px; border-radius:6px; margin-left:4px; border: 1px solid rgba(255,45,45,0.2);">🏆 ${formattedTime} at #1</span>` 
-            : '';
-
-        card.innerHTML = `
-            <img class="thumb" src="${getThumb(l)}">
-            <div class="info">
-                <div class="name">#${l.r} ${l.n} ${historyTag}</div>
-                <div class="meta">${l.c} • <span style="color:#7a5cff; font-weight:bold;">Verified by ${l.v}</span> • Score ${l.s}</div>
-            </div>
-        `;
-
-        card.onclick = () => {
-            // Reset existing active cards and clear dynamic styles
-            document.querySelectorAll('.card').forEach(c => {
-                c.classList.remove('active');
-                c.style.removeProperty('--active-color');
-                c.style.removeProperty('--active-glow');
-            });
-            
-            // Set the dynamic custom color variables on active click
-            card.classList.add('active');
-            card.style.setProperty('--active-color', l.color);
-            card.style.setProperty('--active-glow', `${l.color}4c`); // Adds ~30% alpha value for subtle outer glow
-
-            let siteHistoryText = formattedTime 
-                ? `<p style="color:#ff2d2d; font-size:16px; font-weight:bold; margin: 8px 0;">Site Record: Held #1 spot for ${formattedTime}</p>` 
-                : '';
-            panel.innerHTML = `
-                <h3>#${l.r} ${l.n}</h3>
-                <p style="margin: -10px 0 10px 0; font-size: 16px; color: #aaa;">Created by ${l.c} • Verified by <strong>${l.v}</strong></p>
-                ${siteHistoryText}
-                <div class="desc">${l.d}</div>
-                <img src="${getThumb(l)}">
-                <button class="panel-action-btn" style="background: linear-gradient(90deg, ${l.color}, #151515);" onclick="window.open('${getVideo(l)}','_blank')">
-                    ▶ Watch Video
-                </button>
-            `;
-        };
-
-        list.appendChild(card);
-    });
-}
-
-render();
-</script>
-
-</body>
-</html> 
+        const historyTag = (sortType === "site-top1" && formatted
