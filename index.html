@@ -293,59 +293,6 @@ h2 { margin: 8px 0 0; font-weight: normal; color: #ddd; font-size: 20px; }
     background: linear-gradient(90deg, #ff2d2d, #7a5cff);
 }
 
-/* VICTORS SECTION */
-.victors-container {
-    margin-top: 20px;
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 12px;
-    padding: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.victors-container h4 {
-    margin: 0 0 12px 0;
-    color: white;
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.victor-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.victor-item:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
-}
-
-.victor-name {
-    color: #ccc;
-    font-size: 15px;
-    font-weight: bold;
-}
-
-.victor-link {
-    color: #7a5cff;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: bold;
-    background: rgba(122, 92, 255, 0.15);
-    padding: 4px 10px;
-    border-radius: 6px;
-    transition: background 0.2s, color 0.2s;
-}
-
-.victor-link:hover {
-    background: rgba(122, 92, 255, 0.3);
-    color: white;
-}
-
 /* MODAL STYLES (CHANGELOG) */
 .modal {
     display: none;
@@ -525,6 +472,13 @@ footer {
    ======================================================== */
 const changelogData = [
     {
+        date: "June 15, 2026",
+        changes: [
+            "Swapped rankings and scores for Thinking Space II and ORBIT. Thinking Space II takes #3 (Score 970), and ORBIT moves to #4 (Score 966).",
+            "Removed the registered victors module from all index panels."
+        ]
+    },
+    {
         date: "June 11, 2026",
         changes: [
             "Updated Flamewall's Top 1 tracker to 3 days.",
@@ -557,36 +511,36 @@ const changelogData = [
 const siteReleaseDate = new Date("2026-06-08"); 
 
 const levels = [
-    { r:1, n:"Flamewall", c:"Narwall", v:"Cuatrocientos", s:983, color:"#ff4500", videoId:"gwNYGFmo_WY", d:"Long endurance extreme with nonstop transitions and tight control. Originally set to be verified by OneAlphaHelix before 2.2 physics changes, Cuatrocientos took over to verify it after 221,703 attempts.", daysAtTop1: 3, victors: [{name: "Trick", video: "https://youtube.com/results?search_query=Trick+Flamewall"}] },
-    { r:2, n:"Amethyst", c:"Mist", v:"wPopoff", s:980, color:"#af40ff", videoId:"OqGuNBi3_SU", d:"Precision-heavy gameplay with strict timing windows. Formally passed over from Trick, wPopoff stepped in to verify this and temporarily captured the #1 spot on the Demonlist.", daysAtTop1: 0, victors: [{name: "Zoink", video: "https://youtube.com/results?search_query=Zoink+Amethyst"}] },
-    { r:3, n:"ORBIT", c:"MindCap", v:"Zoink", s:970, color:"#0011ff", videoId:"5NImQ8clMOs", d:"MindCap's heavily anticipated, unique all-orb Extreme Demon mega-collaboration. Officially verified by Zoink in around 30,000 attempts.", daysAtTop1: 0, victors: [{name: "wPopoff", video: "https://youtube.com/results?search_query=wPopoff+ORBIT"}, {name: "Cursed", video: "https://youtube.com/results?search_query=Cursed+ORBIT"}, {name: "Diamond", video: "https://youtube.com/results?search_query=Diamond+ORBIT"}] },
-    { r:4, n:"Thinking Space II", c:"DrCuber & CairoX", v:"Zoink", s:966, color:"#4e5180", videoId:"F05aMR0F6YM", d:"Fast transitions between gameplay modes with tight space flight. Buffed heavily by Zoink to successfully claim the absolute Top 1 status on the Demonlist.", daysAtTop1: 0, victors: [] },
-    { r:5, n:"Tidal Wave", c:"OniLink", v:"Zoink", s:959, color:"#00f0ff", videoId:"frjtBcNI6dI", d:"The legendary mega-demon known for its vibrant beach aesthetics and sunny design that contrast brutally with its near-impossible wave sections. Relentless frame-perfect inputs and punishing click rhythms solidified its multi-year legacy at the absolute pinnacle of difficulty.", daysAtTop1: 0, victors: [] },
-    { r:6, n:"Boobawamba", c:"Akunakun", v:"EastShark1", s:950, color:"#33ff33", videoId:"TAPij318cjE", d:"A memory-focused extreme where learning routes and hidden interactions is just as important as execution. Rated as an extreme memory demon after being verified with 175,282 attempts.", daysAtTop1: 0, victors: [] },
-    { r:7, n:"Anathema", c:"nikrodox", v:"Whizkid05", s:946, color:"#7a5cff", videoId:"Vew9SOXzLME", d:"A difficult extreme built around relentless transitions and difficult timings. Under development for six years, Whizkid05 successfully verified it and shook up the Top 10 landscape.", daysAtTop1: 0, victors: [] },
-    { r:8, n:"Quanteuse Processing", c:"xander", v:"PersonHuman42", s:943, color:"#ff69b4", videoId:"sRUO72zI2GQ", d:"An intense precision-heavy gauntlet with demanding mechanical control and unforgiving consistency. It features complex, claustrophobic ship paths, ultra-tight wave gaps, and a series of nerve-wracking dual transitions right at the conclusion.", daysAtTop1: 0, victors: [] },
-    { r:9, n:"Subsuming Vortex", c:"[TCD] Cursed", v:"Cursed", s:940, color:"#115c2e", videoId:"CLzkb9YMMEg", d:"Fast-paced solo project emphasizing world-class wave mechanics and raw muscle memory. The level provides no safe harbor, forcing players through incredibly narrow spike fields and sudden speed switches that test late-level nerves.", daysAtTop1: 0, victors: [] },
-    { r:10, n:"Spectre", c:"xander", v:"PersonHuman42", s:939, color:"#89cff0", videoId:"T7FfTiH1G8k", d:"Technical gameplay at its finest, defined by awkward click rhythms, unconventional visual patterns, and sudden transitions. It relies heavily on strict music synchronization paired with extreme straight-fly control and rapid gravity fluctuations.", daysAtTop1: 0, victors: [] },
-    { r:11, n:"Penumbral", c:"Cherry Team", v:"w3rty", s:937, color:"#000000", videoId:"wcnA-6zp_94", d:"A beautifully crafted modern extreme focused on pure mechanical skill. It spaces its difficulty across dense cube timings and sweeping wave patterns, punishing any minor hesitation with an instant reset.", daysAtTop1: 0, victors: [] },
-    { r:12, n:"Ashley Wave Trials", c:"OddMod", v:"Zoink", s:936, color:"#ff59b3", videoId:"aTxt76U3e2Q", d:"A playful pink-and-red-themed extreme originally deemed impossible. Verified by Zoink in late 2024 after 13,677 attempts, it finally received a rate and list placement in early 2026.", daysAtTop1: 0, victors: [] },
-    { r:13, n:"andromeda", c:"Insxne97", v:"taiago", s:935, color:"#3b3bff", videoId:"fFtQxxepyDo", d:"An explosive, high-pressure extreme featuring relentless speed modifications. It keeps players constantly off-balance with hidden micro-timings and a chaotic, visually overwhelming wave finale that demands complete composure.", daysAtTop1: 0, victors: [] },
-    { r:14, n:"Menace", c:"Arraegen", v:"Trick", s:934, color:"#ff9100", videoId:"yvfq83hhwgI", d:"A grim, dark-themed test of patience and technical skill. The level drastically escalates its difficulty after a deceptively calm intro, throwing players into narrow robot precision jumps and high-speed ship corridors.", daysAtTop1: 0, victors: [] },
-    { r:15, n:"Silent Clubstep", c:"TheRealSailent", v:"paqoe", s:934, color:"#617385", videoId:"GR4OMkS3SN8", d:"The legendary impossible-level remake, officially conquered by paqoe. Infamous for its historic frame-perfect mini-ball jumps, near-blind memory transitions, and iconic straight-fly sections that tortured the community for a decade.", daysAtTop1: 0, victors: [] },
-    { r:16, n:"Kyouki", c:"Demishio", v:"Demishio", s:932, color:"#8000ff", videoId:"O_abYBtVgGU", d:"An energetic, incredibly fast solo project that demands rapid-fire click speeds. It tests a player's raw consistency across specialized wave maneuvers and high-speed ship physics, backed by a driving, aggressive soundtrack.", daysAtTop1: 0, victors: [] },
-    { r:17, n:"Slaughterhouse", c:"Icedcave", v:"Doggie", s:932, color:"#800000", videoId:"mVg8LgrWaYQ", d:"An infamous, atmospheric, and wave-heavy extreme demon. Long considered one of the hardest levels in the game, it was officially conquered by Doggie.", daysAtTop1: 0, victors: [] },
-    { r:18, n:"KOCMOC", c:"Cherry Team", v:"Zoink", s:931, color:"#5c85ff", videoId:"2CxE-UWCIG4", d:"A beautiful, space-themed cosmic extreme demon remake of Slaughterhouse, emphasizing tight corridors, blazing fast wave gameplay, and brutal precision timings.", daysAtTop1: 0, victors: [] },
-    { r:19, n:"Avernus", c:"PockeWindfish", v:"Zoink", s:930, color:"#ff4500", videoId:"16Zh8jssanc", d:"A notoriously brutal hell-themed level defined by its highly controversial fixed-hitbox spikes. It forces players into near-impossible wave routes and tight gaps while utilizing heavy red visual hazards to cause intentional eye strain and fatigue.", daysAtTop1: 0, victors: [] },
-    { r:20, n:"Nullscapes", c:"Exen", v:"Zoink", s:929, color:"#ffffff", videoId:"C-KDhWkXlvI", d:"A minimalist, monochrome void masterpiece that builds incredible tension. It strips away modern decorations to focus entirely on brutal speed corridors and raw timing, ensuring players are completely blindsided by its tight wave inputs.", daysAtTop1: 0, victors: [] },
-    { r:21, n:"Every End", c:"MindCap", v:"Hqmy", s:927, color:"#0000ff", videoId:"f-O_TnxIZBA", d:"An exhausting endurance test that functions as a museum of elite modern gameplay. Stretching several minutes long, it drains players mentally across a multitude of vehicle modes before hitting them with an intense, nerve-heavy finale.", daysAtTop1: 0, victors: [] },
-    { r:22, n:"Abyss of Darkness", c:"Kiba", v:"Cursed", s:925, color:"#5c0606", videoId:"zjJCqqV2410", d:"One of the most legendary wall-type extremes in history. Relying on an oppressive, pitch-black aesthetic, its difficulty stems from ruthless straight-fly segments, tight structural block configurations, and punishing orb timings.", daysAtTop1: 0, victors: [] },
-    { r:23, n:"Defeated Circles", c:"GXQ", v:"Zoink", s:923, color:"#d19eff", videoId:"W9BAW2l1e9o", d:"An advanced evolution of the classic Nine Circles formula, boasting high-density neon flashing effects. It elevates the archetype with extreme wave segments, rapid gravity shifts, and complex slant-ceiling corridors.", daysAtTop1: 0, victors: [] },
-    { r:24, n:"CHIL", c:"McCoco", v:"McCoco", s:921, color:"#ffb6c1", videoId:"DROMiCc2ZRM", d:"A full-solo 2.2 Extreme Demon built on incredibly fast-paced, rhythmic tap sync and complex muscle memory structures. Heavily featuring precise click sync and unforgiving transitions, it stands out with a unique aesthetic flair and punishing consistency tests throughout its layout.", daysAtTop1: 0, victors: [] },
-    { r:25, n:"Zorin", c:"SnowEye", v:"구아이", s:920, color:"#4a5568", videoId:"ci4lNcsSaVk", d:"An aggressive and highly technical 2.2 Extreme Demon created by SnowEye. Verified by 구아이, this gauntlet demands extreme visual coordination, dynamic timing alignments, and masterful muscle-memory transitions.", daysAtTop1: 0, victors: [] },
-    { r:26, n:"Acheron", c:"ryamu", v:"Zoink", s:919, color:"#ff0000", videoId:"oh0FyZHZST8", d:"A former absolute king of the difficulty list, representing the pinnacle of old-school elite decoration paired with frame-perfect mechanics. Its grim industrial style perfectly echoes the punishing inputs required at every single jump.", daysAtTop1: 0, victors: [{name: "Doggie", video: "https://youtube.com/results?search_query=Doggie+Acheron"}] },
-    { r:27, n:"Tunnel of Despair", c:"Exen", v:"Zoink", s:918, color:"#525252", videoId:"0GC5og7gVS0", d:"A claustrophobic, dark labyrinth engineered around tight micro-adjustments. The map physically limits player movement options, demanding precise, feather-light taps to navigate tight tunnels in ship and wave modes.", daysAtTop1: 0, victors: [] },
-    { r:28, n:"Subterminal Point", c:"SyQual", v:"PoCle", s:916, color:"#7fffd4", videoId:"Syh4W449IS4", d:"A deeply technical level relying on irregular gameplay sync and custom layouts. It heavily rewards rhythmic consistency, forcing players to study exact click audio patterns to survive its complex mechanical structures.", daysAtTop1: 0, victors: [] },
-    { r:29, n:"The Lightning Rod", c:"lavatrex", v:"lavatrex", s:915, color:"#008080", videoId:"DCbXHYwW7r0", d:"A high-voltage, fast-paced extreme demon engineered around lightning-fast sync and overwhelming mechanical speed. It tests players with brutal click consistency, rapid gravity shifts, and tight wave corridors wrapped in an electrifying teal storm aesthetic.", daysAtTop1: 0, victors: [] },
-    { r:30, n:"Based After Based", c:"Akunakun", v:"DiamondSplash", s:912, color:"#ddff00", videoId:"_T1xofG2zqo", d:"An ironic yet brutally demanding extreme that parodies early game layout structures. Despite its simple aesthetic style, it hides extreme frame-perfect timings and highly erratic click setups that push traditional muscle memory to its breaking point.", daysAtTop1: 0, victors: [] }
+    { r:1, n:"Flamewall", c:"Narwall", v:"Cuatrocientos", s:983, color:"#ff4500", videoId:"gwNYGFmo_WY", d:"Long endurance extreme with nonstop transitions and tight control. Originally set to be verified by OneAlphaHelix before 2.2 physics changes, Cuatrocientos took over to verify it after 221,703 attempts.", daysAtTop1: 3 },
+    { r:2, n:"Amethyst", c:"Mist", v:"wPopoff", s:980, color:"#af40ff", videoId:"OqGuNBi3_SU", d:"Precision-heavy gameplay with strict timing windows. Formally passed over from Trick, wPopoff stepped in to verify this and temporarily captured the #1 spot on the Demonlist.", daysAtTop1: 0 },
+    { r:3, n:"Thinking Space II", c:"DrCuber & CairoX", v:"Zoink", s:970, color:"#4e5180", videoId:"F05aMR0F6YM", d:"Fast transitions between gameplay modes with tight space flight. Buffed heavily by Zoink to successfully claim the absolute Top 1 status on the Demonlist.", daysAtTop1: 0 },
+    { r:4, n:"ORBIT", c:"MindCap", v:"Zoink", s:966, color:"#0011ff", videoId:"5NImQ8clMOs", d:"MindCap's heavily anticipated, unique all-orb Extreme Demon mega-collaboration. Officially verified by Zoink in around 30,000 attempts.", daysAtTop1: 0 },
+    { r:5, n:"Tidal Wave", c:"OniLink", v:"Zoink", s:959, color:"#00f0ff", videoId:"frjtBcNI6dI", d:"The legendary mega-demon known for its vibrant beach aesthetics and sunny design that contrast brutally with its near-impossible wave sections. Relentless frame-perfect inputs and punishing click rhythms solidified its multi-year legacy at the absolute pinnacle of difficulty.", daysAtTop1: 0 },
+    { r:6, n:"Boobawamba", c:"Akunakun", v:"EastShark1", s:950, color:"#33ff33", videoId:"TAPij318cjE", d:"A memory-focused extreme where learning routes and hidden interactions is just as important as execution. Rated as an extreme memory demon after being verified with 175,282 attempts.", daysAtTop1: 0 },
+    { r:7, n:"Anathema", c:"nikrodox", v:"Whizkid05", s:946, color:"#7a5cff", videoId:"Vew9SOXzLME", d:"A difficult extreme built around relentless transitions and difficult timings. Under development for six years, Whizkid05 successfully verified it and shook up the Top 10 landscape.", daysAtTop1: 0 },
+    { r:8, n:"Quanteuse Processing", c:"xander", v:"PersonHuman42", s:943, color:"#ff69b4", videoId:"sRUO72zI2GQ", d:"An intense precision-heavy gauntlet with demanding mechanical control and unforgiving consistency. It features complex, claustrophobic ship paths, ultra-tight wave gaps, and a series of nerve-wracking dual transitions right at the conclusion.", daysAtTop1: 0 },
+    { r:9, n:"Subsuming Vortex", c:"[TCD] Cursed", v:"Cursed", s:940, color:"#115c2e", videoId:"CLzkb9YMMEg", d:"Fast-paced solo project emphasizing world-class wave mechanics and raw muscle memory. The level provides no safe harbor, forcing players through incredibly narrow spike fields and sudden speed switches that test late-level nerves.", daysAtTop1: 0 },
+    { r:10, n:"Spectre", c:"xander", v:"PersonHuman42", s:939, color:"#89cff0", videoId:"T7FfTiH1G8k", d:"Technical gameplay at its finest, defined by awkward click rhythms, unconventional visual patterns, and sudden transitions. It relies heavily on strict music synchronization paired with extreme straight-fly control and rapid gravity fluctuations.", daysAtTop1: 0 },
+    { r:11, n:"Penumbral", c:"Cherry Team", v:"w3rty", s:937, color:"#000000", videoId:"wcnA-6zp_94", d:"A beautifully crafted modern extreme focused on pure mechanical skill. It spaces its difficulty across dense cube timings and sweeping wave patterns, punishing any minor hesitation with an instant reset.", daysAtTop1: 0 },
+    { r:12, n:"Ashley Wave Trials", c:"OddMod", v:"Zoink", s:936, color:"#ff59b3", videoId:"aTxt76U3e2Q", d:"A playful pink-and-red-themed extreme originally deemed impossible. Verified by Zoink in late 2024 after 13,677 attempts, it finally received a rate and list placement in early 2026.", daysAtTop1: 0 },
+    { r:13, n:"andromeda", c:"Insxne97", v:"taiago", s:935, color:"#3b3bff", videoId:"fFtQxxepyDo", d:"An explosive, high-pressure extreme featuring relentless speed modifications. It keeps players constantly off-balance with hidden micro-timings and a chaotic, visually overwhelming wave finale that demands complete composure.", daysAtTop1: 0 },
+    { r:14, n:"Menace", c:"Arraegen", v:"Trick", s:934, color:"#ff9100", videoId:"yvfq83hhwgI", d:"A grim, dark-themed test of patience and technical skill. The level drastically escalates its difficulty after a deceptively calm intro, throwing players into narrow robot precision jumps and high-speed ship corridors.", daysAtTop1: 0 },
+    { r:15, n:"Silent Clubstep", c:"TheRealSailent", v:"paqoe", s:934, color:"#617385", videoId:"GR4OMkS3SN8", d:"The legendary impossible-level remake, officially conquered by paqoe. Infamous for its historic frame-perfect mini-ball jumps, near-blind memory transitions, and iconic straight-fly sections that tortured the community for a decade.", daysAtTop1: 0 },
+    { r:16, n:"Kyouki", c:"Demishio", v:"Demishio", s:932, color:"#8000ff", videoId:"O_abYBtVgGU", d:"An energetic, incredibly fast solo project that demands rapid-fire click speeds. It tests a player's raw consistency across specialized wave maneuvers and high-speed ship physics, backed by a driving, aggressive soundtrack.", daysAtTop1: 0 },
+    { r:17, n:"Slaughterhouse", c:"Icedcave", v:"Doggie", s:932, color:"#800000", videoId:"mVg8LgrWaYQ", d:"An infamous, atmospheric, and wave-heavy extreme demon. Long considered one of the hardest levels in the game, it was officially conquered by Doggie.", daysAtTop1: 0 },
+    { r:18, n:"KOCMOC", c:"Cherry Team", v:"Zoink", s:931, color:"#5c85ff", videoId:"2CxE-UWCIG4", d:"A beautiful, space-themed cosmic extreme demon remake of Slaughterhouse, emphasizing tight corridors, blazing fast wave gameplay, and brutal precision timings.", daysAtTop1: 0 },
+    { r:19, n:"Avernus", c:"PockeWindfish", v:"Zoink", s:930, color:"#ff4500", videoId:"16Zh8jssanc", d:"A notoriously brutal hell-themed level defined by its highly controversial fixed-hitbox spikes. It forces players into near-impossible wave routes and tight gaps while utilizing heavy red visual hazards to cause intentional eye strain and fatigue.", daysAtTop1: 0 },
+    { r:20, n:"Nullscapes", c:"Exen", v:"Zoink", s:929, color:"#ffffff", videoId:"C-KDhWkXlvI", d:"A minimalist, monochrome void masterpiece that builds incredible tension. It strips away modern decorations to focus entirely on brutal speed corridors and raw timing, ensuring players are completely blindsided by its tight wave inputs.", daysAtTop1: 0 },
+    { r:21, n:"Every End", c:"MindCap", v:"Hqmy", s:927, color:"#0000ff", videoId:"f-O_TnxIZBA", d:"An exhausting endurance test that functions as a museum of elite modern gameplay. Stretching several minutes long, it drains players mentally across a multitude of vehicle modes before hitting them with an intense, nerve-heavy finale.", daysAtTop1: 0 },
+    { r:22, n:"Abyss of Darkness", c:"Kiba", v:"Cursed", s:925, color:"#5c0606", videoId:"zjJCqqV2410", d:"One of the most legendary wall-type extremes in history. Relying on an oppressive, pitch-black aesthetic, its difficulty stems from ruthless straight-fly segments, tight structural block configurations, and punishing orb timings.", daysAtTop1: 0 },
+    { r:23, n:"Defeated Circles", c:"GXQ", v:"Zoink", s:923, color:"#d19eff", videoId:"W9BAW2l1e9o", d:"An advanced evolution of the classic Nine Circles formula, boasting high-density neon flashing effects. It elevates the archetype with extreme wave segments, rapid gravity shifts, and complex slant-ceiling corridors.", daysAtTop1: 0 },
+    { r:24, n:"CHIL", c:"McCoco", v:"McCoco", s:921, color:"#ffb6c1", videoId:"DROMiCc2ZRM", d:"A full-solo 2.2 Extreme Demon built on incredibly fast-paced, rhythmic tap sync and complex muscle memory structures. Heavily featuring precise click sync and unforgiving transitions, it stands out with a unique aesthetic flair and punishing consistency tests throughout its layout.", daysAtTop1: 0 },
+    { r:25, n:"Zorin", c:"SnowEye", v:"구아이", s:920, color:"#4a5568", videoId:"ci4lNcsSaVk", d:"An aggressive and highly technical 2.2 Extreme Demon created by SnowEye. Verified by 구아이, this gauntlet demands extreme visual coordination, dynamic timing alignments, and masterful muscle-memory transitions.", daysAtTop1: 0 },
+    { r:26, n:"Acheron", c:"ryamu", v:"Zoink", s:919, color:"#ff0000", videoId:"oh0FyZHZST8", d:"A former absolute king of the difficulty list, representing the pinnacle of old-school elite decoration paired with frame-perfect mechanics. Its grim industrial style perfectly echoes the punishing inputs required at every single jump.", daysAtTop1: 0 },
+    { r:27, n:"Tunnel of Despair", c:"Exen", v:"Zoink", s:918, color:"#525252", videoId:"0GC5og7gVS0", d:"A claustrophobic, dark labyrinth engineered around tight micro-adjustments. The map physically limits player movement options, demanding precise, feather-light taps to navigate tight tunnels in ship and wave modes.", daysAtTop1: 0 },
+    { r:28, n:"Subterminal Point", c:"SyQual", v:"PoCle", s:916, color:"#7fffd4", videoId:"Syh4W449IS4", d:"A deeply technical level relying on irregular gameplay sync and custom layouts. It heavily rewards rhythmic consistency, forcing players to study exact click audio patterns to survive its complex mechanical structures.", daysAtTop1: 0 },
+    { r:29, n:"The Lightning Rod", c:"lavatrex", v:"lavatrex", s:915, color:"#008080", videoId:"DCbXHYwW7r0", d:"A high-voltage, fast-paced extreme demon engineered around lightning-fast sync and overwhelming mechanical speed. It tests players with brutal click consistency, rapid gravity shifts, and tight wave corridors wrapped in an electrifying teal storm aesthetic.", daysAtTop1: 0 },
+    { r:30, n:"Based After Based", c:"Akunakun", v:"DiamondSplash", s:912, color:"#ddff00", videoId:"_T1xofG2zqo", d:"An ironic yet brutally demanding extreme that parodies early game layout structures. Despite its simple aesthetic style, it hides extreme frame-perfect timings and highly erratic click setups that push traditional muscle memory to its breaking point.", daysAtTop1: 0 }
 ];
 
 /* ========================================================
@@ -599,7 +553,7 @@ function toggleChangelog() {
         setTimeout(() => modal.style.display = "none", 300);
     } else {
         modal.style.display = "flex";
-        void modal.offsetWidth; // Trigger reflow for CSS transition
+        void modal.offsetWidth; 
         modal.classList.add("show");
         renderChangelog();
     }
@@ -617,7 +571,6 @@ function renderChangelog() {
     `).join('');
 }
 
-// Close the modal if the user clicks outside the content box
 window.onclick = function(event) {
     const modal = document.getElementById("changelog-modal");
     if (event.target == modal) {
@@ -762,14 +715,12 @@ function render(){
         `;
 
         card.onclick = () => {
-            // Reset existing active cards and clear dynamic styles
             document.querySelectorAll('.card').forEach(c => {
                 c.classList.remove('active');
                 c.style.removeProperty('--active-color');
                 c.style.removeProperty('--active-glow');
             });
             
-            // Set the dynamic custom color variables on active click
             card.classList.add('active');
             card.style.setProperty('--active-color', l.color);
             card.style.setProperty('--active-glow', `${l.color}4c`); 
@@ -778,40 +729,12 @@ function render(){
                 ? `<p style="color:#ff2d2d; font-size:16px; font-weight:bold; margin: 8px 0;">Site Record: Held #1 spot for ${formattedTime}</p>` 
                 : '';
 
-            // Generate Victors HTML dynamically
-            let victorsHTML = "";
-            const victorsList = l.victors || [];
-            if (victorsList.length > 0) {
-                const listItems = victorsList.map(v => `
-                    <div class="victor-item">
-                        <span class="victor-name">🏆 ${v.name}</span>
-                        <a href="${v.video}" target="_blank" class="victor-link">Watch Record</a>
-                    </div>
-                `).join("");
-                
-                victorsHTML = `
-                    <div class="victors-container">
-                        <h4>Registered Victors (${victorsList.length})</h4>
-                        ${listItems}
-                    </div>
-                `;
-            } else {
-                victorsHTML = `
-                    <div class="victors-container">
-                        <h4>Registered Victors (0)</h4>
-                        <p style="color: #888; font-size: 14px; margin: 0;">No registered victors yet.</p>
-                    </div>
-                `;
-            }
-
             panel.innerHTML = `
                 <h3>#${l.r} ${l.n}</h3>
                 <p style="margin: -10px 0 10px 0; font-size: 16px; color: #aaa;">Created by ${l.c} • Verified by <strong>${l.v}</strong></p>
                 ${siteHistoryText}
                 <div class="desc">${l.d}</div>
                 <img src="${getThumb(l)}">
-                
-                ${victorsHTML}
 
                 <button class="panel-action-btn" style="background: linear-gradient(90deg, ${l.color}, #151515); border-radius: 8px;" onclick="window.open('${getVideo(l)}','_blank')">
                     Watch Verification Video
