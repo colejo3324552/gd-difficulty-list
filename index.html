@@ -40,15 +40,9 @@
             transition: background 0.3s, color 0.3s;
         }
         @keyframes bgMove {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
         /* HEADER */
         header {
@@ -147,32 +141,6 @@
         .changelog-toggle:hover {
             background: rgba(255,255,255,0.05);
             border-color: rgba(255,255,255,0.2);
-        }
-        /* STATS */
-        .stats {
-            display: flex;
-            justify-content: center;
-            gap: 16px;
-            padding: 20px 18px;
-        }
-        .stat {
-            background: var(--stat-bg);
-            padding: 15px 22px;
-            border-radius: 12px;
-            text-align: center;
-            min-width: 120px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            transition: background 0.3s;
-        }
-        .stat span {
-            display: block;
-            font-size: 14px;
-            color: var(--text-sub);
-            margin-bottom: 6px;
-            transition: color 0.3s;
-        }
-        .stat strong {
-            font-size: 24px;
         }
         /* LAYOUT */
         .container {
@@ -357,7 +325,6 @@
         </div>
         <button class="changelog-toggle" onclick="toggleChangelog()">Updates</button>
     </div>
-    <div class="stats" id="stats-container"></div>
     <div class="container">
         <div class="list" id="list"></div>
         <div class="panel" id="panel">
@@ -788,27 +755,6 @@
                 daysAtTop1: 0
             }
         ];
-        function updateGlobalStats() {
-            const container = document.getElementById("stats-container");
-            const totalLevels = levels.length;
-            const sortedByTop1 = [...levels].sort((a, b) => b.daysAtTop1 - a.daysAtTop1);
-            const primaryHolder = sortedByTop1[0];
-            const secondaryHolder = sortedByTop1[1];
-            container.innerHTML = `
-                <div class="stat">
-                    <span>Total Listed Demons</span>
-                    <strong>${totalLevels}</strong>
-                </div>
-                <div class="stat">
-                    <span>Record: Most Days at Top 1</span>
-                    <strong>#2 ${primaryHolder.n} (${primaryHolder.daysAtTop1}d)</strong>
-                </div>
-                <div class="stat">
-                    <span>Record: 2nd Most Days at Top 1</span>
-                    <strong>#1 ${secondaryHolder.n} (${secondaryHolder.daysAtTop1}d)</strong>
-                </div>
-            `;
-        }
         function toggleChangelog() {
             const modal = document.getElementById("changelog-modal");
             if (modal.classList.contains("show")) {
@@ -866,11 +812,16 @@
                     document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
                     card.classList.add('active');
                     card.style.setProperty('--active-color', l.color);
-                    panel.innerHTML = `<h3>#${l.r} ${l.n}</h3><p style="color:#aaa;">Created by ${l.c} • Verified by <strong>${l.v}</strong></p><p style="font-size:14px; color:#ff4d4d; font-weight:bold; margin-top:-5px;">Days at Top 1: ${l.daysAtTop1} days</p><div class="desc">${l.d}</div><img src="${getThumb(l)}"><button class="panel-action-btn" onclick="window.open('${getVideo(l)}','_blank')">Watch Verification Video</button>`;
+                    
+                    // Dynamic string for Top 1 days (hides if 0)
+                    const top1Line = l.daysAtTop1 > 0 
+                        ? `<p style="font-size:14px; color:#ff4d4d; font-weight:bold; margin-top:-5px;">Days at Top 1: ${l.daysAtTop1} days</p>` 
+                        : '';
+
+                    panel.innerHTML = `<h3>#${l.r} ${l.n}</h3><p style="color:#aaa;">Created by ${l.c} • Verified by <strong>${l.v}</strong></p>${top1Line}<div class="desc">${l.d}</div><img src="${getThumb(l)}"><button class="panel-action-btn" onclick="window.open('${getVideo(l)}','_blank')">Watch Video</button>`;
                 };
                 list.appendChild(card);
             });
-            updateGlobalStats();
         }
         render();
     </script>
