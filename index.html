@@ -345,6 +345,7 @@
             {
                 date: "June 21, 2026",
                 changes: [
+                    "Updated Green Bullet (#5) creator parameters to Cherry Team.",
                     "Added Society at #1 (Score 990), verified by wPopoff. Tracker initialized at 1 day.",
                     "Updated Flamewall's final historic Top 1 tracker duration to 14 days (2 weeks).",
                     "Added Unnerfed Sakupen Circles at #8 (Score 955), verified by ad3us."
@@ -439,7 +440,7 @@
             {
                 r: 5,
                 n: "Green Bullet",
-                c: "Unknown",
+                c: "Cherry Team",
                 v: "nickname",
                 s: 968,
                 color: "#00ff00",
@@ -650,7 +651,7 @@
                 c: "MindCap",
                 v: "Hqmy",
                 s: 927,
-                color: "#0000ff",
+                color: "#00000ff",
                 videoId: "f-O_TnxIZBA",
                 d: "An exhausting endurance challenge tracking long play sequences, demanding consistent focus over extended track times.",
                 daysAtTop1: 0
@@ -771,8 +772,8 @@
             const listContainer = document.getElementById("changelog-list");
             listContainer.innerHTML = changelogData.map(log => `
                 <div class="log-entry">
-                    <div class="log-date">${log.date}</div>
-                    <ul class="log-list">
+                    <div class="log-date" style="font-weight: bold; color: var(--header-bg); margin-bottom: 8px;">${log.date}</div>
+                    <ul class="log-list" style="margin: 0; padding-left: 20px;">
                         ${log.changes.map(c => `<li>${c}</li>`).join('')}
                     </ul>
                 </div>
