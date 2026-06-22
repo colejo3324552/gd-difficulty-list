@@ -2,350 +2,240 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Extreme Demon Index</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demon Index Tracker</title>
     <style>
-        /* THEME SYSTEM VARIABLES */
         :root {
-            --bg-gradient: linear-gradient(-45deg, #0a0a0a, #111111, #181022, #0a0a0a);
-            --header-bg: linear-gradient(90deg, #ff2d2d, #7a5cff);
-            --text-main: white;
-            --text-sub: #aaa;
-            --input-bg: #1b1b1b;
-            --input-border: rgba(255,255,255,0.1);
-            --stat-bg: #151515;
-            --footer-bg: rgba(0,0,0,0.2);
-            --footer-border: rgba(255,255,255,0.03);
+            --bg-color: #121214;
+            --surface-color: #1a1a1e;
+            --text-color: #e2e8f0;
+            --accent-color: #3b82f6;
+            --border-color: #2d2d34;
+            --header-bg: #1e1e24;
         }
+
         [data-theme="light"] {
-            --bg-gradient: linear-gradient(-45deg, #f5f5f7, #e5e5ea, #e1daec, #f5f5f7);
-            --header-bg: linear-gradient(90deg, #ff4d4d, #917aff);
-            --text-main: #1d1d1f;
-            --text-sub: #555;
-            --input-bg: #ffffff;
-            --input-border: rgba(0,0,0,0.15);
-            --stat-bg: #ffffff;
-            --footer-bg: rgba(255,255,255,0.8);
-            --footer-border: rgba(0,0,0,0.05);
+            --bg-color: #f8fafc;
+            --surface-color: #ffffff;
+            --text-color: #0f172a;
+            --accent-color: #2563eb;
+            --border-color: #e2e8f0;
+            --header-bg: #f1f5f9;
         }
+
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
-            color: var(--text-main);
-            background: var(--bg-gradient);
-            background-size: 400% 400%;
-            animation: bgMove 15s ease infinite;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            transition: background 0.3s, color 0.3s;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
         }
-        @keyframes bgMove {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        /* HEADER */
+
         header {
-            padding: 35px 22px;
-            text-align: center;
-            background: var(--header-bg);
-            position: relative;
-            transition: background 0.3s;
-        }
-        h1 {
-            margin: 0;
-            font-size: 52px;
-            color: white;
-        }
-        h2 {
-            margin: 8px 0 0;
-            font-weight: normal;
-            color: #ddd;
-            font-size: 20px;
-        }
-        /* THEME TOGGLE BUTTON */
-        .theme-toggle {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(255,255,255,0.15);
-            border: 1px solid rgba(255,255,255,0.3);
-            color: white;
-            padding: 10px 18px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 14px;
-            width: auto;
-            margin-top: 0;
-            transition: background 0.2s, border-color 0.2s;
-        }
-        .theme-toggle:hover {
-            background: rgba(255,255,255,0.25);
-            border-color: rgba(255,255,255,0.5);
-        }
-        /* UTILITY BAR */
-        .utility-bar {
+            background-color: var(--header-bg);
+            padding: 1rem 2rem;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            gap: 16px;
-            padding: 25px 18px 10px 18px;
-            max-width: 1400px;
-            margin: 0 auto;
-            width: calc(100% - 36px);
+            border-bottom: 1px solid var(--border-color);
         }
-        .search-container {
-            flex: 2;
+
+        .controls {
             display: flex;
-            justify-content: flex-end;
-        }
-        .search-container input {
-            width: 100%;
-            max-width: 500px;
-            padding: 16px;
-            border-radius: 8px;
-            border: 1px solid var(--input-border);
-            background: var(--input-bg);
-            color: var(--text-main);
-            font-size: 18px;
-            transition: background 0.3s, border 0.3s, color 0.3s;
-        }
-        .sort-container {
-            flex: 1;
-            display: flex;
-            justify-content: flex-start;
-        }
-        .sort-container select {
-            padding: 16px;
-            border-radius: 8px;
-            border: 1px solid var(--input-border);
-            background: var(--input-bg);
-            color: var(--text-main);
-            font-size: 18px;
-            cursor: pointer;
-            outline: none;
-            transition: background 0.3s, border 0.3s, color 0.3s;
-        }
-        .changelog-toggle {
-            background: var(--input-bg);
-            border: 1px solid var(--input-border);
-            color: var(--text-main);
-            padding: 16px 24px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            transition: background 0.2s, border-color 0.2s;
-        }
-        .changelog-toggle:hover {
-            background: rgba(255,255,255,0.05);
-            border-color: rgba(255,255,255,0.2);
-        }
-        /* LAYOUT */
-        .container {
-            display: flex;
-            gap: 24px;
-            padding: 24px;
-            max-width: 1400px;
-            margin: 0 auto;
-            flex: 1;
-            width: calc(100% - 48px);
-        }
-        .list {
-            width: 62%;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
-        /* CARDS */
-        .card {
-            display: flex;
-            gap: 18px;
-            align-items: center;
-            background: #151515 !important;
-            color: white !important;
-            border-radius: 16px;
-            padding: 16px;
-            cursor: pointer;
-            transition: 0.2s;
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-        .card:hover {
-            transform: scale(1.015);
-            background: #1d1d1d !important;
-        }
-        .thumb {
-            width: 210px;
-            height: 118px;
-            border-radius: 12px;
-            object-fit: cover;
-            background: #222;
-        }
-        .info {
-            flex: 1;
-        }
-        .name {
-            font-size: 24px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
             gap: 10px;
         }
-        .meta {
-            font-size: 15px;
-            color: #aaa !important;
-            margin-top: 8px;
-        }
-        /* PANEL */
-        .panel {
-            width: 38%;
-            position: sticky;
-            top: 24px;
-            background: #121212 !important;
-            color: white !important;
-            border-radius: 16px;
-            padding: 20px;
-            border: 1px solid rgba(255,255,255,0.05);
-            height: fit-content;
-            max-height: calc(100vh - 48px);
-            overflow-y: auto;
-        }
-        .panel h3 {
-            font-size: 28px;
-            margin-top: 5px;
-            margin-bottom: 15px;
-        }
-        .panel img, iframe {
-            width: 100%;
-            border-radius: 12px;
-            margin-top: 15px;
-        }
-        .desc {
-            margin-top: 15px;
-            color: #ccc !important;
-            line-height: 1.6;
-            font-size: 16px;
-        }
-        .panel-action-btn {
-            margin-top: 18px;
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 16px;
-            color: white;
+
+        input, select, button {
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background-color: var(--surface-color);
+            color: var(--text-color);
+            font-size: 14px;
             cursor: pointer;
-            background: linear-gradient(90deg, #ff2d2d, #7a5cff);
         }
-        /* MODAL */
+
+        input[type="text"] {
+            cursor: text;
+            width: 200px;
+        }
+
+        .main-container {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            height: calc(100vh - 70px);
+        }
+
+        .list-section {
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .card {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 12px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+        }
+
+        .card.active {
+            border-color: var(--active-color, var(--accent-color));
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.2);
+        }
+
+        .thumb {
+            width: 120px;
+            height: 68px;
+            object-fit: cover;
+            border-radius: 4px;
+            background-color: #000;
+        }
+
+        .info {
+            flex-grow: 1;
+        }
+
+        .name {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+
+        .meta {
+            font-size: 13px;
+            opacity: 0.7;
+        }
+
+        .panel-section {
+            border-left: 1px solid var(--border-color);
+            background-color: var(--surface-color);
+            padding: 24px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .panel-section img {
+            width: 100%;
+            border-radius: 8px;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+        }
+
+        .desc {
+            font-size: 15px;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .panel-action-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 12px;
+            font-weight: bold;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        /* Modal styling */
         .modal {
             display: none;
             position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.7);
-            backdrop-filter: blur(5px);
-            align-items: center;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.6);
             justify-content: center;
+            align-items: center;
+            z-index: 1000;
             opacity: 0;
             transition: opacity 0.3s ease;
         }
         .modal.show {
-            display: flex;
             opacity: 1;
         }
         .modal-content {
-            background: var(--input-bg);
-            color: var(--text-main);
-            border: 1px solid var(--input-border);
-            border-radius: 16px;
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            padding: 24px;
+            border-radius: 8px;
+            max-width: 500px;
             width: 90%;
-            max-width: 600px;
-            max-height: 80vh;
+            max-height: 70vh;
             overflow-y: auto;
-            padding: 30px;
             position: relative;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
         }
         .close-btn {
             position: absolute;
-            top: 20px;
-            right: 25px;
-            font-size: 32px;
-            font-weight: bold;
-            color: var(--text-sub);
-            cursor: pointer;
-            transition: color 0.2s;
+            top: 15px; right: 15px;
+            background: none; border: none;
+            font-size: 20px; color: var(--text-color);
         }
         .log-entry {
-            margin-bottom: 25px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid var(--footer-border);
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
         }
-        .card.active {
-            border-color: var(--active-color, #7a5cff) !important;
-            box-shadow: 0 0 16px var(--active-glow, rgba(122, 92, 255, 0.35));
-            background: #1b1b1b !important;
+        .log-entry:last-child {
+            border: none; margin-bottom: 0; padding-bottom: 0;
         }
-        footer {
-            padding: 24px;
-            text-align: center;
-            background: var(--footer-bg);
-            border-top: 1px solid var(--footer-border);
-            color: var(--text-sub);
+        .log-list li {
+            margin-bottom: 6px;
             font-size: 14px;
-            margin-top: auto;
-            transition: background 0.3s, border-color 0.3s, color 0.3s;
         }
     </style>
 </head>
 <body>
+
     <header>
-        <h1>Extreme Demon Index</h1>
-        <h2>The Geometry Dash Difficulty List</h2>
-        <button class="theme-toggle" onclick="toggleTheme()">Switch Theme</button>
-    </header>
-    <div class="utility-bar">
-        <div class="search-container">
-            <input id="search" placeholder="Search levels or verifiers..." onkeyup="render()">
-        </div>
-        <div class="sort-container">
+        <h1 style="font-size: 24px; margin: 0;">Demon Index Tracker</h1>
+        <div class="controls">
+            <input type="text" id="search" placeholder="Search levels, creators..." oninput="render()">
             <select id="sort" onchange="render()">
-                <option value="default">Sort: List Order (#1 - #33)</option>
-                <option value="low-score">Lowest Score</option>
-                <option value="site-top1">Most Time at Top 1 (On This Site)</option>
-                <option value="alphabetical">Name (A-Z)</option>
+                <option value="placement">Sort by Rank</option>
+                <option value="low-score">Sort by Score (Low to High)</option>
+                <option value="alphabetical">Alphabetical</option>
+                <option value="site-top1">Days at Top 1</option>
             </select>
+            <button onclick="toggleChangelog()">Changelog</button>
+            <button onclick="toggleTheme()">🌓 Theme</button>
         </div>
-        <button class="changelog-toggle" onclick="toggleChangelog()">Updates</button>
-    </div>
-    <div class="container">
-        <div class="list" id="list"></div>
-        <div class="panel" id="panel">
-            <h3>Select a level</h3>
-            <p style="font-size: 16px; color:#aaa;">Click any level to view details.</p>
+    </header>
+
+    <div class="main-container">
+        <div class="list-section" id="list"></div>
+        <div class="panel-section" id="panel">
+            <p style="text-align: center; opacity: 0.5; margin-top: 50px;">Select a demon to preview details</p>
         </div>
     </div>
-    <div id="changelog-modal" class="modal">
+
+    <div id="changelog-modal" class="modal" onclick="if(event.target===this) toggleChangelog()">
         <div class="modal-content">
-            <span class="close-btn" onclick="toggleChangelog()">&times;</span>
-            <h2 style="margin-top: 0; margin-bottom: 25px;">Site Updates & History</h2>
+            <button class="close-btn" onclick="toggleChangelog()">&times;</button>
+            <h2 style="margin-top: 0; margin-bottom: 20px;">Site Updates & History</h2>
             <div id="changelog-list"></div>
         </div>
     </div>
-    <footer>Operating since June 8, 2026 • Registered Demon List & Archival Processing Engine</footer>
+
     <script>
         const changelogData = [
             {
                 date: "June 22, 2026",
                 changes: [
                     "Promoted Avernus to #20, Acheron to #21, and Tunnel of Despair to #27.",
+                    "Promoted Defeated Circles to #23, pushing down Kyouki and subsequent entries.",
                     "Recalculated placements and proportional list index parameters."
                 ]
             },
@@ -647,28 +537,39 @@
             },
             {
                 r: 23,
+                n: "Defeated Circles",
+                c: "GXQ",
+                v: "Zoink",
+                s: 928,
+                color: "#d19eff",
+                videoId: "W9BAW2l1e9o",
+                d: "An advanced iteration of the Nine Circles design formula, combining tricky flashing wave segments with modern timings.",
+                daysAtTop1: 0
+            },
+            {
+                r: 24,
                 n: "Kyouki",
                 c: "Demishio",
                 v: "Demishio",
-                s: 928,
+                s: 927,
                 color: "#8000ff",
                 videoId: "O_abYBtVgGU",
                 d: "An incredibly fast solo journey emphasizing immediate reaction times and masterful control over complex inputs.",
                 daysAtTop1: 0
             },
             {
-                r: 24,
+                r: 25,
                 n: "Slaughterhouse",
                 c: "Icedcave",
                 v: "Doggie",
-                s: 927,
+                s: 926,
                 color: "#800000",
                 videoId: "mVg8LgrWaYQ",
                 d: "An atmospheric titan that relies on hyper tight gaps and intense acoustic rhythms to build pressure.",
                 daysAtTop1: 0
             },
             {
-                r: 25,
+                r: 26,
                 n: "KOCMOC",
                 c: "Cherry Team",
                 v: "Zoink",
@@ -679,7 +580,7 @@
                 daysAtTop1: 0
             },
             {
-                r: 26,
+                r: 27,
                 n: "Abyss of Darkness",
                 c: "Kiba",
                 v: "Cursed",
@@ -690,7 +591,7 @@
                 daysAtTop1: 0
             },
             {
-                r: 27,
+                r: 28,
                 n: "Tunnel of Despair",
                 c: "Exen",
                 v: "Zoink",
@@ -698,17 +599,6 @@
                 color: "#525252",
                 videoId: "0GC5og7gVS0",
                 d: "A claustrophobic experience inside dark pathways that tests short duration muscle memory and quick ship handling.",
-                daysAtTop1: 0
-            },
-            {
-                r: 28,
-                n: "Defeated Circles",
-                c: "GXQ",
-                v: "Zoink",
-                s: 920,
-                color: "#d19eff",
-                videoId: "W9BAW2l1e9o",
-                d: "An advanced iteration of the Nine Circles design formula, combining tricky flashing wave segments with modern timings.",
                 daysAtTop1: 0
             },
             {
@@ -825,7 +715,6 @@
                     card.classList.add('active');
                     card.style.setProperty('--active-color', l.color);
                     
-                    // Dynamic string for Top 1 days (hides if 0)
                     const top1Line = l.daysAtTop1 > 0 
                         ? `<p style="font-size:14px; color:#ff4d4d; font-weight:bold; margin-top:-5px;">Days at Top 1: ${l.daysAtTop1} days</p>` 
                         : '';
