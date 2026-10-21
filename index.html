@@ -156,35 +156,6 @@
             opacity: 0.9;
         }
 
-        .history-box {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 12px;
-            font-size: 13px;
-        }
-
-        [data-theme="light"] .history-box {
-            background: rgba(0, 0, 0, 0.02);
-        }
-
-        .history-title {
-            font-weight: bold;
-            margin-bottom: 6px;
-            opacity: 0.8;
-            text-transform: uppercase;
-            font-size: 11px;
-            letter-spacing: 0.5px;
-        }
-
-        .history-list {
-            margin: 0;
-            padding-left: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
         .panel-action-btn {
             background-color: var(--accent-color);
             color: white;
@@ -199,51 +170,6 @@
             border-radius: 6px;
             box-sizing: border-box;
         }
-
-        /* Modal styling */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(0,0,0,0.6);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        .modal.show {
-            opacity: 1;
-        }
-        .modal-content {
-            background-color: var(--surface-color);
-            border: 1px solid var(--border-color);
-            padding: 24px;
-            border-radius: 8px;
-            max-width: 500px;
-            width: 90%;
-            max-height: 70vh;
-            overflow-y: auto;
-            position: relative;
-        }
-        .close-btn {
-            position: absolute;
-            top: 15px; right: 15px;
-            background: none; border: none;
-            font-size: 20px; color: var(--text-color);
-        }
-        .log-entry {
-            margin-bottom: 20px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 15px;
-        }
-        .log-entry:last-child {
-            border: none; margin-bottom: 0; padding-bottom: 0;
-        }
-        .log-list li {
-            margin-bottom: 6px;
-            font-size: 14px;
-        }
     </style>
 </head>
 <body>
@@ -256,9 +182,7 @@
                 <option value="placement">Sort by Rank</option>
                 <option value="low-score">Sort by Score (Low to High)</option>
                 <option value="alphabetical">Alphabetical</option>
-                <option value="site-top1">Days at Top 1</option>
             </select>
-            <button onclick="toggleChangelog()">Changelog</button>
             <button onclick="toggleTheme()">🌓 Theme</button>
         </div>
     </header>
@@ -270,543 +194,326 @@
         </div>
     </div>
 
-    <div id="changelog-modal" class="modal" onclick="if(event.target===this) toggleChangelog()">
-        <div class="modal-content">
-            <button class="close-btn" onclick="toggleChangelog()">&times;</button>
-            <h2 style="margin-top: 0; margin-bottom: 20px;">Site Updates & History</h2>
-            <div id="changelog-list"></div>
-        </div>
-    </div>
-
     <script>
-        const changelogData = [
+        const rawLevels = [
             {
-                date: "October 21, 2026",
-                changes: [
-                    "Moved Slaughterhouse down to #36 (Score 913.5), directly below Deimos.",
-                    "Pushed down The Lightning Rod to #37.",
-                    "Moved Based After Based up to #34 (Score 916), above Subterminal Point.",
-                    "Added Maniacal Chains at #38 (Score 910), created by Exen and verified by Zoink."
-                ]
+                n: "GRIEF",
+                c: "Icedcave",
+                v: "Doggie",
+                s: 1000,
+                videoId: "gB8slBPlOjc",
+                d: "A colossal, brutal continuation of Slaughterhouse gameplay design, pushing unmatched mechanical precision and extreme speed."
             },
             {
-                date: "July 24, 2026",
-                changes: [
-                    "Added The Bloop at #13 (Score 940), created by murkkat and verified by Zoink.",
-                    "Pushed down Subsuming Vortex and all lower-ranked levels accordingly."
-                ]
-            },
-            {
-                date: "July 23, 2026",
-                changes: [
-                    "Added KILLSTEALER at #16 (Score 936), created by Rynoxiouss and verified by kloone.",
-                    "Pushed down Silent Clubstep and all lower-ranked levels accordingly.",
-                    "Updated Tracker Module parameters for Society, now updated to 32 days total at Top 1 (1 month and 2 days).",
-                    "Added Lesopowal at #18 (Score 935), created by Cherry Team and verified by bacon8880.",
-                    "Pushed down Spectre and all lower-ranked levels accordingly."
-                ]
-            },
-            {
-                date: "July 14, 2026",
-                changes: [
-                    "Updated Tracker Module parameters for Society, now updated to 23 days total at Top 1."
-                ]
-            },
-            {
-                date: "June 26, 2026",
-                changes: [
-                    "Added Deimos at #32 (Score 915), verified by Doggie.",
-                    "Moved Menace up to #20.",
-                    "Pushed down Avernus, Acheron, and subsequent tracks accordingly."
-                ]
-            },
-            {
-                date: "June 22, 2026",
-                changes: [
-                    "Added Sakupen Circles (Diamond) at #35 (Score 910), verified by Diamond.",
-                    "Corrected directional terms in placement logs to ensure moving to a lower-numbered index is labeled as 'Moved up' rather than 'Pushed down'.",
-                    "Integrated a dedicated dynamic Rank Placement History block into the details view panel for all list tracks.",
-                    "Rearranged preview panel content hierarchy to place rank headers directly above level title lines.",
-                    "Updated Society's Top 1 tracker duration parameter to 2 days.",
-                    "Updated Quanteuse Processing parameters: creator set to Renn241 and verifier set to Zoink.",
-                    "Promoted Avernus to #20, Acheron to #21, and Tunnel of Despair to #27.",
-                    "Promoted Defeated Circles to #23, pushing down Kyouki and subsequent entries."
-                ]
-            },
-            {
-                date: "June 21, 2026",
-                changes: [
-                    "Rearranged Placements: Silent Clubstep (#16), Nullscapes (#18), and Every End (#19).",
-                    "Pushed Spectre back to #17.",
-                    "Corrected Menace (#20) verifier parameters to Whizkid05.",
-                    "Updated Green Bullet (#7) creator parameters to Cherry Team.",
-                    "Added Society at #1 (Score 990), verified by wPopoff. Tracker initialized at 1 day.",
-                    "Updated Flamewall's final historic Top 1 tracker duration to 14 days (2 weeks).",
-                    "Added Sakupen Circles (ad3us) at #8 (Score 955), verified by ad3us."
-                ]
-            },
-            {
-                date: "June 17, 2026",
-                changes: [
-                    "Added Green Bullet at #4 (Score 968), verified by nickname."
-                ]
-            },
-            {
-                date: "June 16, 2026",
-                changes: [
-                    "Updated Flamewall's Top 1 duration to 8 days."
-                ]
-            },
-            {
-                date: "June 15, 2026",
-                changes: [
-                    "Swapped rankings and scores for Thinking Space II and ORBIT.",
-                    "Removed the registered victors module."
-                ]
-            },
-            {
-                date: "June 11, 2026",
-                changes: [
-                    "Updated Flamewall's Top 1 tracker to 3 days.",
-                    "Corrected Doggie's records."
-                ]
-            },
-            {
-                date: "June 10, 2026",
-                changes: [
-                    "Swapped placements for Acheron and Zorin.",
-                    "Corrected Andromeda's verifier.",
-                    "Added the Site Updates & History modal."
-                ]
-            },
-            {
-                date: "June 8, 2026",
-                changes: [
-                    "Official site launch!"
-                ]
-            }
-        ];
-
-        const levels = [
-            {
-                r: 1,
                 n: "Society",
                 c: "Neomarbilan",
                 v: "wPopoff",
                 s: 990,
                 videoId: "omG1VuyA92w",
-                d: "A highly intricate layout contrasted against sharp styling markers, demanding pinpoint input fluidity through brutal transitions.",
-                daysAtTop1: 32,
-                history: ["June 21, 2026: Placed at #1"]
+                d: "A highly intricate layout contrasted against sharp styling markers, demanding pinpoint input fluidity through brutal transitions."
             },
             {
-                r: 2,
                 n: "Flamewall",
                 c: "Narwall",
                 v: "Cuatrocientos",
                 s: 983,
                 videoId: "gwNYGFmo_WY",
-                d: "Flamewall is a highly demanding extreme demon known for intense layout sequences and long stamina requirements, creating a true barrier for players looking to conquer top positions on the demon index.",
-                daysAtTop1: 14,
-                history: ["June 21, 2026: Pushed down to #2", "June 8, 2026: Placed at #1"]
+                d: "Flamewall is a highly demanding extreme demon known for intense layout sequences and long stamina requirements, creating a true barrier for players looking to conquer top positions on the demon index."
             },
             {
-                r: 3,
                 n: "Thinking Space II",
                 c: "DrCuber & CairoX",
                 v: "Zoink",
                 s: 980,
                 videoId: "F05aMR0F6YM",
-                d: "The official continuation of a notorious test of patience, upgraded with dense visual design and modern click syncing.",
-                daysAtTop1: 0,
-                history: ["June 21, 2026: Pushed down to #3", "June 15, 2026: Moved up to #2", "June 8, 2026: Placed at #3"]
+                d: "The official continuation of a notorious test of patience, upgraded with dense visual design and modern click syncing."
             },
             {
-                r: 4,
                 n: "Amethyst",
                 c: "Mist",
                 v: "wPopoff",
                 s: 970,
                 videoId: "OqGuNBi3_SU",
-                d: "A top tier challenge filled with fast transitions and precise wave timings, testing high level reflex patterns and deep mechanical knowledge.",
-                daysAtTop1: 0,
-                history: ["June 21, 2026: Pushed down to #4", "June 17, 2026: Moved up to #3", "June 8, 2026: Placed at #2"]
+                d: "A top tier challenge filled with fast transitions and precise wave timings, testing high level reflex patterns and deep mechanical knowledge."
             },
             {
-                r: 5,
                 n: "Tidal Wave",
                 c: "OniLink",
                 v: "Zoink",
                 s: 968,
                 videoId: "frjtBcNI6dI",
-                d: "A historic level with unforgettable wave sections and beach styling, maintaining its legendary reputation as a true gatekeeper.",
-                daysAtTop1: 0,
-                history: ["June 21, 2026: Pushed down to #6", "June 17, 2026: Pushed down to #5", "June 8, 2026: Placed at #4"]
+                d: "A historic level with unforgettable wave sections and beach styling, maintaining its legendary reputation as a true gatekeeper."
             },
             {
-                r: 6,
                 n: "Green Bullet",
                 c: "Cherry Team",
                 v: "nickname",
                 s: 966,
                 videoId: "zfTqKYeqhTo",
-                d: "Added level featuring tight control and memory.",
-                daysAtTop1: 0,
-                history: ["June 21, 2026: Pushed down to #5", "June 17, 2026: Placed at #4"]
+                d: "Added level featuring tight control and memory."
             },
             {
-                r: 7,
                 n: "ORBIT",
                 c: "MindCap",
                 v: "Zoink",
                 s: 959,
                 videoId: "5NImQ8clMOs",
-                d: "An extreme mega-collaboration focused entirely on highly optimized orb sequences and deceptive ship alignments.",
-                daysAtTop1: 0,
-                history: ["June 21, 2026: Pushed down to #7", "June 17, 2026: Pushed down to #6", "June 15, 2026: Pushed down to #5", "June 8, 2026: Placed at #5"]
+                d: "An extreme mega-collaboration focused entirely on highly optimized orb sequences and deceptive ship alignments."
             },
             {
-                r: 8,
                 n: "Sakupen Circles",
                 c: "Nick24",
                 v: "ad3us",
                 s: 955,
                 videoId: "DXdbTRjRylE",
-                d: "Legendary, incredibly tight unnerfed wave hell gauntlet section.",
-                daysAtTop1: 0,
-                history: ["June 21, 2026: Placed at #8"]
+                d: "Legendary, incredibly tight unnerfed wave hell gauntlet section."
             },
             {
-                r: 9,
                 n: "Boobawamba",
                 c: "Akunakun",
                 v: "EastShark1",
                 s: 950,
                 videoId: "TAPij318cjE",
-                d: "An erratic mix of structural layouts and heavy memory challenges that require hours of pattern recognition.",
-                daysAtTop1: 0,
-                history: ["June 21, 2026: Pushed down to #9", "June 17, 2026: Pushed down to #8", "June 8, 2026: Placed at #6"]
+                d: "An erratic mix of structural layouts and heavy memory challenges that require hours of pattern recognition."
             },
             {
-                r: 10,
                 n: "Quanteuse Processing",
                 c: "Renn241",
                 v: "Zoink",
                 s: 946,
                 videoId: "sRUO72zI2GQ",
-                d: "A beautifully dangerous gauntlet emphasizing perfect timing execution across structural obstacles.",
-                daysAtTop1: 0,
-                history: ["June 21, 2026: Pushed down to #10", "June 17, 2026: Pushed down to #9", "June 8, 2026: Placed at #7"]
+                d: "A beautifully dangerous gauntlet emphasizing perfect timing execution across structural obstacles."
             },
             {
-                r: 11,
                 n: "Anathema",
                 c: "nikrodox",
                 v: "Whizkid05",
                 s: 943,
                 videoId: "Vew9SOXzLME",
-                d: "Dark aesthetics meet unforgiving tight spaces, calling for impeccable input timings and absolute focus.",
-                daysAtTop1: 0,
-                history: ["June 21, 2026: Pushed down to #11", "June 17, 2026: Pushed down to #10", "June 8, 2026: Placed at #8"]
+                d: "Dark aesthetics meet unforgiving tight spaces, calling for impeccable input timings and absolute focus."
             },
             {
-                r: 12,
                 n: "Penumbral",
                 c: "Cherry Team",
                 v: "w3rty",
                 s: 941,
                 videoId: "wcnA-6zp_94",
-                d: "A sleek project blending shadow design with cutting edge modern triggers to confuse and test advanced competitors.",
-                daysAtTop1: 0,
-                history: ["June 21, 2026: Pushed down to #12", "June 17, 2026: Pushed down to #11", "June 8, 2026: Placed at #9"]
+                d: "A sleek project blending shadow design with cutting edge modern triggers to confuse and test advanced competitors."
             },
             {
-                r: 13,
                 n: "The Bloop",
                 c: "murkkat",
                 v: "Zoink",
                 s: 940,
                 videoId: "Pg3eJNp292U",
-                d: "An aquatic-themed titan pushing supreme wave control and high-paced click timings throughout its underwater environment.",
-                daysAtTop1: 0,
-                history: ["July 24, 2026: Placed at #13"]
+                d: "An aquatic-themed titan pushing supreme wave control and high-paced click timings throughout its underwater environment."
             },
             {
-                r: 14,
                 n: "Subsuming Vortex",
                 c: "[TCD] Cursed", 
                 v: "Cursed",
                 s: 940,
                 videoId: "CLzkb9YMMEg",
-                d: "A fast-paced solo project with deep thematic elements, testing specialized high speed mechanics.",
-                daysAtTop1: 0,
-                history: ["July 24, 2026: Pushed down to #14", "June 21, 2026: Pushed down to #13", "June 17, 2026: Pushed down to #12", "June 8, 2026: Placed at #10"]
+                d: "A fast-paced solo project with deep thematic elements, testing specialized high speed mechanics."
             },
             {
-                r: 15,
                 n: "Ashley Wave Trials",
                 c: "OddMod",
                 v: "Zoink",
                 s: 938,
                 videoId: "aTxt76U3e2Q",
-                d: "A vibrant pink-and-red challenge that presents dense wave tunnels and high frequency navigation challenges.",
-                daysAtTop1: 0,
-                history: ["July 24, 2026: Pushed down to #15", "June 21, 2026: Pushed down to #14", "June 17, 2026: Pushed down to #13", "June 8, 2026: Placed at #11"]
+                d: "A vibrant pink-and-red challenge that presents dense wave tunnels and high frequency navigation challenges."
             },
             {
-                r: 16,
                 n: "Andromeda",
                 c: "Insxne97",
                 v: "taiago",
                 s: 937,
                 videoId: "fFtQxxepyDo",
-                d: "High pressure inputs meet cosmic themes, challenging extreme demon slayers to maintain nerves through multi-stage speed alterations.",
-                daysAtTop1: 0,
-                history: ["July 24, 2026: Pushed down to #16", "June 21, 2026: Pushed down to #15", "June 17, 2026: Pushed down to #14", "June 8, 2026: Placed at #12"]
+                d: "High pressure inputs meet cosmic themes, challenging extreme demon slayers to maintain nerves through multi-stage speed alterations."
             },
             {
-                r: 17,
                 n: "KILLSTEALER",
                 c: "Rynoxiouss",
                 v: "kloone",
                 s: 936,
                 videoId: "uhH4oqWrsfo",
-                d: "A fast-paced and intensely chaotic extreme demon pushing high CPS and brutal wave-ship control sequences.",
-                daysAtTop1: 0,
-                history: ["July 24, 2026: Pushed down to #17", "July 23, 2026: Placed at #16"]
+                d: "A fast-paced and intensely chaotic extreme demon pushing high CPS and brutal wave-ship control sequences."
             },
             {
-                r: 18,
                 n: "Silent Clubstep",
                 c: "TheRealSailent",
                 v: "paqoe",
                 s: 935,
                 videoId: "GR4OMkS3SN8",
-                d: "The legendary historic level officially made possible, keeping its old school structure intact for modern testing.",
-                daysAtTop1: 0,
-                history: ["July 24, 2026: Pushed down to #18", "July 23, 2026: Pushed down to #17", "June 21, 2026: Moved up to #16", "June 17, 2026: Pushed down to #15", "June 8, 2026: Placed at #13"]
+                d: "The legendary historic level officially made possible, keeping its old school structure intact for modern testing."
             },
             {
-                r: 19,
                 n: "Lesopowal",
                 c: "Cherry Team",
                 v: "bacon8880",
                 s: 934,
                 videoId: "EwDAZUgVTS8",
-                d: "An intensely demanding entry featuring tight click patterns and rapid control switches, setting a high benchmark on the list.",
-                daysAtTop1: 0,
-                history: ["July 24, 2026: Pushed down to #19", "July 23, 2026: Pushed down to #18", "July 23, 2026: Placed at #17"]
+                d: "An intensely demanding entry featuring tight click patterns and rapid control switches, setting a high benchmark on the list."
             },
             {
-                r: 20,
                 n: "Spectre",
                 c: "xander",
                 v: "PersonHuman42",
                 s: 933,
                 videoId: "T7FfTiH1G8k",
-                d: "Technical gameplay with awkward rhythms, keeping players on edge with non-standard layout metrics.",
-                daysAtTop1: 0,
-                history: ["July 24, 2026: Pushed down to #20", "July 23, 2026: Pushed down to #19", "July 23, 2026: Pushed down to #18", "June 21, 2026: Pushed down to #17", "June 17, 2026: Moved up to #16", "June 8, 2026: Placed at #14"]
+                d: "Technical gameplay with awkward rhythms, keeping players on edge with non-standard layout metrics."
             },
             {
-                r: 21,
                 n: "Nullscapes",
                 c: "Exen",
                 v: "Zoink",
                 s: 932,
                 videoId: "C-KDhWkXlvI",
-                d: "A minimalist monochrome journey through structural voids, isolating the player to emphasize structural difficulty.",
-                daysAtTop1: 0,
-                history: ["July 24, 2026: Pushed down to #21", "July 23, 2026: Pushed down to #20", "July 23, 2026: Pushed down to #19", "June 21, 2026: Moved up to #18", "June 17, 2026: Pushed down to #17", "June 8, 2026: Placed at #15"]
+                d: "A minimalist monochrome journey through structural voids, isolating the player to emphasize structural difficulty."
             },
             {
-                r: 22,
                 n: "Every End",
                 c: "MindCap",
                 v: "Hqmy",
                 s: 931,
                 videoId: "f-O_TnxIZBA",
-                d: "An exhausting endurance challenge tracking long play sequences, demanding consistent focus over extended track times.",
-                daysAtTop1: 0,
-                history: ["July 24, 2026: Pushed down to #22", "July 23, 2026: Pushed down to #21", "July 23, 2026: Pushed down to #20", "June 21, 2026: Moved up to #19", "June 17, 2026: Pushed down to #18", "June 8, 2026: Placed at #16"]
+                d: "An exhausting endurance challenge tracking long play sequences, demanding consistent focus over extended track times."
             },
             {
-                r: 23,
                 n: "Menace",
                 c: "Arraegen",
                 v: "Whizkid05",
                 s: 928,
                 videoId: "yvfq83hhwgI",
-                d: "A relentless dark test built to drain the stamina of the community's top players through narrow passageways.",
-                daysAtTop1: 0,
-                history: ["July 24, 2026: Pushed down to #23", "July 23, 2026: Pushed down to #22", "July 23, 2026: Pushed down to #21", "June 26, 2026: Moved up to #20", "June 22, 2026: Pushed down to #22", "June 21, 2026: Moved up to #21", "June 17, 2026: Pushed down to #19", "June 8, 2026: Placed at #17"]
+                d: "A relentless dark test built to drain the stamina of the community's top players through narrow passageways."
             },
             {
-                r: 24,
                 n: "Avernus",
                 c: "PockeWindfish",
                 v: "Zoink",
                 s: 930,
                 videoId: "16Zh8jssanc",
-                d: "Hell themed trials heavily incorporating precise hitbox interactions that force absolute precision from the modern meta.",
-                daysAtTop1: 0,
-                history: ["July 24, 2026: Pushed down to #24", "July 23, 2026: Pushed down to #23", "July 23, 2026: Pushed down to #22", "June 26, 2026: Pushed down to #21", "June 22, 2026: Moved up to #20", "June 21, 2026: Pushed down to #22", "June 17, 2026: Moved up to #20", "June 8, 2026: Placed at #18"]
+                d: "Hell themed trials heavily incorporating precise hitbox interactions that force absolute precision from the modern meta."
             },
             {
-                r: 25,
                 n: "Acheron",
                 c: "ryamu",
                 v: "Zoink",
                 s: 929,
                 videoId: "oh0FyZHZST8",
-                d: "The former absolute king of difficulty, demanding absolute perfection through tight spaces and intense portal shifts.",
-                daysAtTop1: 0,
-                history: ["July 24, 2026: Pushed down to #25", "July 23, 2026: Pushed down to #24", "July 23, 2026: Pushed down to #23", "June 26, 2026: Pushed down to #22", "June 22, 2026: Moved up to #21", "June 21, 2026: Pushed down to #23", "June 17, 2026: Pushed down to #21", "June 10, 2026: Pushed down to #20", "June 8, 2026: Placed at #19"]
+                d: "The former absolute king of difficulty, demanding absolute perfection through tight spaces and intense portal shifts."
             },
             {
-                r: 26,
                 n: "Defeated Circles",
                 c: "GXQ",
                 v: "Zoink",
                 s: 927,
                 videoId: "W9BAW2l1e9o",
-                d: "An advanced iteration of the Nine Circles design formula, combining tricky flashing wave segments with modern timings.",
-                daysAtTop1: 0,
-                history: ["July 24, 2026: Pushed down to #26", "July 23, 2026: Pushed down to #25", "July 23, 2026: Pushed down to #24", "June 22, 2026: Moved up to #23", "June 21, 2026: Pushed down to #25", "June 17, 2026: Pushed down to #23", "June 8, 2026: Placed at #21"]
+                d: "An advanced iteration of the Nine Circles design formula, combining tricky flashing wave segments with modern timings."
             },
             {
-                r: 27,
                 n: "Kyouki",
                 c: "Demishio",
                 v: "Demishio",
                 s: 926,
                 videoId: "OjbkiJW63OU",
-                d: "An incredibly fast solo journey emphasizing immediate reaction times and masterful control over complex inputs.",
-                daysAtTop1: 0,
-                history: ["July 24, 2026: Pushed down to #27", "July 23, 2026: Pushed down to #26", "July 23, 2026: Pushed down to #25", "June 22, 2026: Pushed down to #24", "June 21, 2026: Pushed down to #24", "June 17, 2026: Perched down to #22", "June 8, 2026: Placed at #20"]
+                d: "An incredibly fast solo journey emphasizing immediate reaction times and masterful control over complex inputs."
             },
             {
-                r: 28,
                 n: "KOCMOC",
                 c: "Cherry Team",
                 v: "Zoink",
                 s: 924,
                 videoId: "2CxE-UWCIG4",
-                d: "A stunning cosmic redrawing of slaughterhouse gameplay style, elevating the intensity with beautiful celestial visuals.",
-                daysAtTop1: 0,
-                history: ["July 24, 2026: Pushed down to #28", "July 23, 2026: Pushed down to #27", "June 22, 2026: Pushed down to #26", "June 21, 2026: Pushed down to #27", "June 17, 2026: Pushed down to #25", "June 8, 2026: Placed at #23"]
+                d: "A stunning cosmic redrawing of slaughterhouse gameplay style, elevating the intensity with beautiful celestial visuals."
             },
             {
-                r: 29,
                 n: "Abyss of Darkness",
                 c: "Kiba",
                 v: "Cursed",
                 s: 922,
                 videoId: "zjJCqqV2410",
-                d: "A legendary wall type challenge emphasizing sharp spikes and high danger margins at every intersection.",
-                daysAtTop1: 0,
-                history: ["July 24, 2026: Pushed down to #29", "July 23, 2026: Pushed down to #28", "June 22, 2026: Pushed down to #27", "June 21, 2026: Pushed down to #29", "June 17, 2026: Pushed down to #27", "June 8, 2026: Placed at #25"]
+                d: "A legendary wall type challenge emphasizing sharp spikes and high danger margins at every intersection."
             },
             {
-                r: 30,
                 n: "Tunnel of Despair",
                 c: "Exen",
                 v: "Zoink",
                 s: 920,
                 videoId: "0GC5og7gVS0",
-                d: "A claustrophobic experience inside dark pathways that tests short duration muscle memory and quick ship handling.",
-                daysAtTop1: 0,
-                history: ["July 24, 2026: Pushed down to #30", "July 23, 2026: Pushed down to #29", "June 22, 2026: Moved up to #28", "June 21, 2026: Pushed down to #30", "June 17, 2026: Pushed down to #28", "June 8, 2026: Placed at #26"]
+                d: "A claustrophobic experience inside dark pathways that tests short duration muscle memory and quick ship handling."
             },
             {
-                r: 31,
                 n: "CHIL",
                 c: "McCoco",
                 v: "McCoco",
                 s: 918,
                 videoId: "DROMiCc2ZRM",
-                d: "A full length 2.2 solo production showcasing creative mechanics enabled by the update's newest technical parameters.",
-                daysAtTop1: 0,
-                history: ["July 24, 2026: Pushed down to #31", "July 23, 2026: Pushed down to #30", "June 22, 2026: Pushed down to #29", "June 21, 2026: Moved up to #28", "June 17, 2026: Pushed down to #26", "June 8, 2026: Placed at #24"]
+                d: "A full length 2.2 solo production showcasing creative mechanics enabled by the update's newest technical parameters."
             },
             {
-                r: 32,
                 n: "Zorin",
                 c: "SnowEye",
                 v: "구아이",
                 s: 917,
                 videoId: "ci4lNcsSaVk",
-                d: "Technical 2.2 layout mapping that utilizes sudden camera shifts and alternative mechanics to test adaptability.",
-                daysAtTop1: 0,
-                history: ["July 24, 2026: Pushed down to #32", "July 23, 2026: Pushed down to #31", "June 22, 2026: Pushed down to #30", "June 21, 2026: Pushed down to #31", "June 17, 2026: Pushed down to #29", "June 10, 2026: Moved up to #21", "June 8, 2026: Placed at #27"]
+                d: "Technical 2.2 layout mapping that utilizes sudden camera shifts and alternative mechanics to test adaptability."
             },
             {
-                r: 33,
                 n: "Based After Based",
                 c: "Akunakun",
                 v: "DiamondSplash",
                 s: 916,
                 videoId: "_T1xofG2zqo",
-                d: "An ironic title hiding relentless timing sequences and demanding click sync mastery.",
-                daysAtTop1: 0,
-                history: ["October 21, 2026: Moved up to #33", "July 24, 2026: Pushed down to #37", "July 23, 2026: Pushed down to #36"]
+                d: "An ironic title hiding relentless timing sequences and demanding click sync mastery."
             },
             {
-                r: 34,
                 n: "Subterminal Point",
                 c: "SyQual",
                 v: "PoCle",
                 s: 915,
                 videoId: "Syh4W449IS4",
-                d: "A highly technical presentation featuring non-standard synchronization and irregular click groupings to trick veterans.",
-                daysAtTop1: 0,
-                history: ["October 21, 2026: Pushed down to #34", "July 24, 2026: Pushed down to #34", "July 23, 2026: Pushed down to #33", "June 22, 2026: Pushed down to #31", "June 21, 2026: Pushed down to #32", "June 17, 2026: Pushed down to #30", "June 8, 2026: Placed at #28"]
+                d: "A highly technical presentation featuring non-standard synchronization and irregular click groupings to trick veterans."
             },
             {
-                r: 35,
                 n: "Deimos",
                 c: "ItsHybrid",
                 v: "Doggie",
                 s: 914,
                 videoId: "b2yHaIk5zio",
-                d: "A stunning and precise test of nerve, bringing together dark atmospheric framing and tight modern timing metrics.",
-                daysAtTop1: 0,
-                history: ["October 21, 2026: Pushed down to #35", "July 24, 2026: Pushed down to #35", "July 23, 2026: Pushed down to #34", "June 26, 2026: Placed at #32"]
+                d: "A stunning and precise test of nerve, bringing together dark atmospheric framing and tight modern timing metrics."
             },
             {
-                r: 36,
                 n: "Slaughterhouse",
                 c: "Icedcave",
                 v: "Doggie",
                 s: 913.5,
                 videoId: "mVg8LgrWaYQ",
-                d: "An atmospheric titan that relies on hyper tight gaps and intense acoustic rhythms to build pressure.",
-                daysAtTop1: 0,
-                history: ["October 21, 2026: Pushed down to #36", "July 24, 2026: Pushed down to #28", "July 23, 2026: Pushed down to #27", "June 22, 2026: Pushed down to #25", "June 21, 2026: Pushed down to #26", "June 17, 2026: Pushed down to #24", "June 8, 2026: Placed at #22"]
+                d: "An atmospheric titan that relies on hyper tight gaps and intense acoustic rhythms to build pressure."
             },
             {
-                r: 37,
                 n: "The Lightning Rod",
                 c: "lavatrex",
                 v: "lavatrex",
                 s: 913,
                 videoId: "DCbXHYwW7r0",
-                d: "An electric high speed experience that channels fast paced ship tracking alongside challenging multi-mode inputs.",
-                daysAtTop1: 0,
-                history: ["October 21, 2026: Pushed down to #37", "July 24, 2026: Pushed down to #36", "July 23, 2026: Pushed down to #35", "June 26, 2026: Pushed down to #33", "June 22, 2026: Pushed down to #32", "June 21, 2026: Pushed down to #33", "June 17, 2026: Pushed down to #31", "June 8, 2026: Placed at #29"]
+                d: "An electric high speed experience that channels fast paced ship tracking alongside challenging multi-mode inputs."
             },
             {
-                r: 38,
                 n: "Maniacal Chains",
                 c: "Exen",
                 v: "Zoink",
                 s: 910,
                 videoId: "TzeMJeIu6bY",
-                d: "An intense, chain-themed extreme demon built with unforgiving precision pathways and high-speed tight timings.",
-                daysAtTop1: 0,
-                history: ["October 21, 2026: Placed at #38"]
+                d: "An intense, chain-themed extreme demon built with unforgiving precision pathways and high-speed tight timings."
             }
         ];
+
+        const levels = rawLevels.map((lvl, index) => ({
+            ...lvl,
+            r: index + 1
+        }));
 
         let selectedId = null;
 
@@ -825,8 +532,6 @@
                 filtered.sort((a, b) => a.s - b.s);
             } else if (sortVal === 'alphabetical') {
                 filtered.sort((a, b) => a.n.localeCompare(b.n));
-            } else if (sortVal === 'site-top1') {
-                filtered.sort((a, b) => b.daysAtTop1 - a.daysAtTop1);
             } else {
                 filtered.sort((a, b) => a.r - b.r);
             }
@@ -860,13 +565,6 @@
             const thumbUrl = lvl.videoId ? `https://img.youtube.com/vi/${lvl.videoId}/hqdefault.jpg` : 'https://via.placeholder.com/400x225?text=No+Preview';
             const ytLink = lvl.videoId ? `https://www.youtube.com/watch?v=${lvl.videoId}` : '#';
 
-            let historyItemsHtml = '';
-            if (lvl.history && lvl.history.length > 0) {
-                historyItemsHtml = lvl.history.map(item => `<li>${item}</li>`).join('');
-            } else {
-                historyItemsHtml = '<li>No historic placement adjustments recorded.</li>';
-            }
-
             panel.innerHTML = `
                 <div>
                     <span style="font-size: 14px; font-weight: bold; color: var(--accent-color);">RANK #${lvl.r}</span>
@@ -877,16 +575,8 @@
                 <img src="${thumbUrl}" alt="${lvl.n}">
                 <div style="display: flex; gap: 15px; font-size: 14px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px;">
                     <div><b>Score:</b> ${lvl.s}</div>
-                    <div><b>Days at Top 1:</b> ${lvl.daysAtTop1}</div>
                 </div>
                 <div class="desc">${lvl.d}</div>
-                
-                <div class="history-box">
-                    <div class="history-title">Rank Placement History</div>
-                    <ul class="history-list">
-                        ${historyItemsHtml}
-                    </ul>
-                </div>
 
                 ${lvl.videoId ? `<a href="${ytLink}" target="_blank" class="panel-action-btn">Watch Verification Video</a>` : ''}
             `;
@@ -898,26 +588,6 @@
                 document.documentElement.removeAttribute('data-theme');
             } else {
                 document.documentElement.setAttribute('data-theme', 'light');
-            }
-        }
-
-        function toggleChangelog() {
-            const modal = document.getElementById('changelog-modal');
-            if (modal.classList.contains('show')) {
-                modal.classList.remove('show');
-                setTimeout(() => modal.style.display = 'none', 300);
-            } else {
-                const list = document.getElementById('changelog-list');
-                list.innerHTML = changelogData.map(entry => `
-                    <div class="log-entry">
-                        <div style="font-weight: bold; margin-bottom: 8px; color: var(--accent-color);">${entry.date}</div>
-                        <ul class="log-list" style="margin: 0; padding-left: 20px;">
-                            ${entry.changes.map(c => `<li>${c}</li>`).join('')}
-                        </ul>
-                    </div>
-                `).join('');
-                modal.style.display = 'flex';
-                setTimeout(() => modal.classList.add('show'), 10);
             }
         }
 
